@@ -329,7 +329,6 @@ void Background_DrawStarfield(void) {
                 gDPSetPrimColor(gMasterDisp++, 0, 0, r, g, b, a);
 
                 // Draw the star using the predefined display list
-                gSPDisplayList(gMasterDisp++, starDL);
                 Matrix_Pop(&gGfxMatrix);
 
                 if (skipInterpolation) {
