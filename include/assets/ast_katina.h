@@ -161,6 +161,8 @@ static const ALIGN_ASSET(2) char D_KA_600ABD0[] = "__OTR__ast_katina/D_KA_600ABD
 
 static const ALIGN_ASSET(2) char aKaFLBaseDL[] = "__OTR__ast_katina/aKaFLBaseDL";
 
+static const ALIGN_ASSET(2) char aKaSkyboxDL[] = "__OTR__ast_skybox/aKaSkyboxDL";
+
 static const ALIGN_ASSET(2) char ast_katina_seg6_vtx_BBF0[] = "__OTR__ast_katina/ast_katina_seg6_vtx_BBF0";
 
 static const ALIGN_ASSET(2) char ast_katina_seg6_vtx_BCF0[] = "__OTR__ast_katina/ast_katina_seg6_vtx_BCF0";

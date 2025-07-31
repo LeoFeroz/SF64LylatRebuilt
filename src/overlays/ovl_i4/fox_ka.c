@@ -329,6 +329,7 @@ void Katina_StartCutsceneUpdate(void) {
 
     for (i = 0; i < 3; i++, actor++) {
         if (actor->obj.status == OBJ_FREE) {
+            gProjectFar = 3000000.0f;
             Actor_Initialize(actor);
             actor->obj.status = OBJ_INIT;
             actor->obj.id = OBJ_ACTOR_CUTSCENE;
@@ -596,15 +597,29 @@ void Katina_KaFrontlineBase_Update(KaFrontlineBase* this) {
 void Katina_KaFrontlineBase_Draw(KaFrontlineBase* this) {
     gSPFogPosition(gMasterDisp++, gFogNear, 1002);
     Matrix_Translate(gGfxMatrix, 0.0f, 20.0f, 0.0f, MTXF_APPLY);
+    Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 1.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
 
     if (this->state == KA_BOSS_BASE_IDLE) {
         gSPDisplayList(gMasterDisp++, aKaFLBaseDL);
     } else {
         RCP_SetupDL(&gMasterDisp, SETUPDL_57);
-        gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
         gSPDisplayList(gMasterDisp++, aKaFLBaseDestroyedDL);
     }
+
+    if (this->state == KA_BOSS_BASE_IDLE) {
+        Matrix_Scale(gGfxMatrix, 20.0f, 20.0f, 20.0f, MTXF_APPLY);
+        Matrix_SetGfxMtx(&gMasterDisp);
+        gSPDisplayList(gMasterDisp++, aKaSkyboxDL);
+    } else {
+        RCP_SetupDL(&gMasterDisp, SETUPDL_57);
+        Matrix_Scale(gGfxMatrix, 20.0f, 20.0f, 20.0f, MTXF_APPLY);
+        Matrix_SetGfxMtx(&gMasterDisp);
+        gSPDisplayList(gMasterDisp++, aKaSkyboxDL);
+    }
+
+
+
 }
 
 void Katina_KaSaucerer_Init(KaSaucerer* this) {
@@ -1822,9 +1837,15 @@ void Katina_LevelComplete(Player* player) {
     player->arwing.bottomRightFlapYrot = 0.0f;
     player->arwing.upperRightFlapYrot = 0.0f;
 
+
+
+
     player->aerobaticPitch = 0.0f;
 
     D_ctx_80177A48[0] = 1.0f;
+
+
+
 
     switch (player->csState) {
         case 0:
@@ -2117,6 +2138,7 @@ void Katina_SFTeamFlyTowardsCamera(ActorCutscene* this) {
     Vec3f src;
     Vec3f dest;
 
+
     switch (this->state) {
         case 1:
             Math_SmoothStepToF(&this->obj.pos.x, this->vwork[0].x, 0.02f, 2.0f, 0.0001f);
@@ -2273,7 +2295,7 @@ void Katina_UpdateEvents(ActorAllRange* this) {
 
     switch (this->state) {
         case 0:
-            gProjectFar = 30000.0f;
+            gProjectFar = 3000000.0f;
             D_i4_801A0540 = 0;
             gKaKilledAlly = gKaAllyKillCount = 0;
             this->state = 2;

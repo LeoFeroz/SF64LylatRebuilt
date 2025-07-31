@@ -2294,7 +2294,6 @@ void ActorAllRange_DrawShield(ActorAllRange* this) {
         } else {
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 48, 255, 255, alpha);
         }
-        gSPDisplayList(gMasterDisp++, D_1031630);
         Matrix_Pop(&gGfxMatrix);
     }
 }

@@ -1305,8 +1305,8 @@ void Boss_Draw(Boss* this, s32 arg1) {
     Object_SetSfxSourceToView(this->sfxSource, &D_edisplay_801615D0);
 
     if ((this->obj.id == OBJ_BOSS_KA_SAUCERER) || (this->obj.id == OBJ_BOSS_KA_FLBASE)) {
-        var_fa1 = 6000.0f;
-        var_fv0 = 6000.0f;
+        var_fa1 = 20000.0f;
+        var_fv0 = 20000.0f;
         var_ft5 = 0.9f;
         var_fv1 = -20000.0f;
 
