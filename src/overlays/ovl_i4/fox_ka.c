@@ -2131,6 +2131,16 @@ void Katina_LevelComplete(Player* player) {
     player->yBob = -SIN_DEG(player->bobPhase) * 0.3f;
     player->rockPhase += 8.0f;
     player->rockAngle = SIN_DEG(player->rockPhase);
+
+    if (Katina_LevelComplete) {
+        Matrix_Push(&gGfxMatrix);
+        Matrix_Translate(gGfxMatrix, 0.0f, -30000.0f, 0.0f, MTXF_APPLY);
+        Matrix_RotateY(gGfxMatrix, (gPlayer[0].camRoll + (gGameFrameCount * 0.1f)) * M_DTOR, MTXF_APPLY);
+        Matrix_Scale(gGfxMatrix, 25.0f, 25.0f, 25.0f, MTXF_APPLY);
+        Matrix_SetGfxMtx(&gMasterDisp);
+        gSPDisplayList(gMasterDisp++, aKaSkyboxDL);
+        Matrix_Pop(&gGfxMatrix);
+    }
 }
 
 // Makes your teammates fly towards the camera after defeating the KaSaucerer.
