@@ -2099,9 +2099,18 @@ void Meteo_LevelStart(Player* player) {
     Vec3f sp58;
     Vec3f sp4C;
 
+    gProjectFar = 3000000.0f;
     gFillScreenAlphaStep = 4;
 
     PRINTF("Demo_Time %d\n", gCsFrameCount);
+
+    Matrix_Push(&gGfxMatrix);
+    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 0.0f, MTXF_APPLY);
+    Matrix_RotateY(gGfxMatrix, (gPlayer[0].camRoll + (gGameFrameCount * 0.1f)) * M_DTOR, MTXF_APPLY);
+    Matrix_Scale(gGfxMatrix, 25.0f, 25.0f, 25.0f, MTXF_APPLY);
+    Matrix_SetGfxMtx(&gMasterDisp);
+    gSPDisplayList(gMasterDisp++, aMeSkyboxDL);
+    Matrix_Pop(&gGfxMatrix);
 
     switch (player->csState) {
         case 0:
@@ -2423,6 +2432,7 @@ void Meteo_LevelComplete(Player* player) {
     Vec3f dest;
     s32 pad[5];
 
+    gProjectFar = 3000000.0f;
     gBosses[1].obj.status = OBJ_FREE;
 
     Math_SmoothStepToF(&player->zRotBarrelRoll, 0.0f, 0.1f, 15.0f, 0.0f);
@@ -2435,6 +2445,16 @@ void Meteo_LevelComplete(Player* player) {
     Math_SmoothStepToF(&player->boostSpeed, 0.0f, 0.1f, 3.0f, 0.0f);
 
     UpdateVisPerFrameFromRecording(gMeCrusherCutsceneRecord, ARRAY_COUNT(gMeCrusherCutsceneRecord));
+
+    if (Meteo_LevelComplete) { // Meteo Skybox Call
+        Matrix_Push(&gGfxMatrix);
+        Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 0.0f, MTXF_APPLY);
+        Matrix_RotateY(gGfxMatrix, (gPlayer[0].camRoll - (gGameFrameCount * 0.2f)) * M_DTOR, MTXF_APPLY);
+        Matrix_Scale(gGfxMatrix, 25.0f, 25.0f, 25.0f, MTXF_APPLY);
+        Matrix_SetGfxMtx(&gMasterDisp);
+        gSPDisplayList(gMasterDisp++, aMeSkyboxDL);
+        Matrix_Pop(&gGfxMatrix);
+    }
 
     switch (player->csState) {
         case 0:

@@ -517,5 +517,6 @@ ObjectInfo gObjectInfo[] = {
   /* OBJ_EFFECT_398  */  {(void*) Effect_Effect398_Draw, 1, (ObjectFunc) Effect_Effect398_Update,             NULL,   100.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_EFFECT_399  */  {(void*) Effect_Effect399_Draw, 1, (ObjectFunc) Effect_Effect399_Update,             NULL,   100.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_SCENERY_KA_SKYBOX  */  {(void*)     aKaSkyboxDL, 0, (ObjectFunc)          NULL,        gNoHitbox,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
+  /* OBJ_SCENERY_ME_SKYBOX  */  {(void*)     aMeSkyboxDL, 0, (ObjectFunc)          NULL,        gNoHitbox,     0.0f,  0, 0, 40, 0,   0.0f,  0 },
 };
     // clang-format on
