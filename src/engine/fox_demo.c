@@ -352,7 +352,6 @@ void func_demo_80049630(ActorCutscene* this) {
             this->iwork[11] = 2;
             this->fwork[0] += 2.0f;
             if (this->timer_0BC == 0) {
-                Object_Kill(&this->obj, this->sfxSource);
             }
             break;
     }
