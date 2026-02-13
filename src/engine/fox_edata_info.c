@@ -516,5 +516,15 @@ ObjectInfo gObjectInfo[] = {
   /* OBJ_EFFECT_397  */  {(void*) Bolse_Effect397_Draw, 1, (ObjectFunc) Bolse_Effect397_Update,             NULL,  2000.0f,  0, 1, 20, 0,   0.0f,  0 },
   /* OBJ_EFFECT_398  */  {(void*) Effect_Effect398_Draw, 1, (ObjectFunc) Effect_Effect398_Update,             NULL,   100.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_EFFECT_399  */  {(void*) Effect_Effect399_Draw, 1, (ObjectFunc) Effect_Effect399_Update,             NULL,   100.0f,  0, 0, 40, 0,   0.0f,  0 },
+  /* Null0           */  {(void*) NULL, 1, (ObjectFunc) NULL,             NULL,   0.0f,  0, 0, 0, 0,   0.0f,  0 },
+  /* Null0           */  {(void*) NULL, 1, (ObjectFunc) NULL,             NULL,   0.0f,  0, 0, 0, 0,   0.0f,  0 },
+  /* Null0           */  {(void*) NULL, 1, (ObjectFunc) NULL,             NULL,   0.0f,  0, 0, 0, 0,   0.0f,  0 },
+  /* Null0           */  {(void*) NULL, 1, (ObjectFunc) NULL,             NULL,   0.0f,  0, 0, 0, 0,   0.0f,  0 },
+  /* Null0           */  {(void*) NULL, 1, (ObjectFunc) NULL,             NULL,   0.0f,  0, 0, 0, 0,   0.0f,  0 },
+  /* Null0           */  {(void*) NULL, 1, (ObjectFunc) NULL,             NULL,   0.0f,  0, 0, 0, 0,   0.0f,  0 },
+  /* Null0           */  {(void*) NULL, 1, (ObjectFunc) NULL,             NULL,   0.0f,  0, 0, 0, 0,   0.0f,  0 },
+  /* OBJ_BOSS_FO_SKY */  {(void*) FoSky_Draw, 1, (ObjectFunc) FoSky_Update,        gNoHitbox,     0.0f,  0, 0, 40, 1,   0.0f, 10 },
+  /* OBJ_BOSS_FO_GROUND */  {(void*) FoGround_Draw, 1, (ObjectFunc) FoGround_Update,        gNoHitbox,     0.0f,  0, 0, 40, 1,   0.0f, 10 },
+  /* OBJ_ACTOR_CUTSCENE2 */  {(void*) ActorCutscene2_Draw, 1, (ObjectFunc) ActorCutscene2_Update,       gNoHitbox, 30000000000000000.0f,  0, 0, 40, 1,   0.0f, 10 }, //ActorCutscene2On Rails Skybox ONLY
 };
 // clang-format on

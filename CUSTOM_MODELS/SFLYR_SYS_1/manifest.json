@@ -1,0 +1,32 @@
+{
+  "ast_skybox/mebg0_D": {
+    "hash": "4bd6d950a8db5c0aa889bef5ec4faa25e041bac207636aadd44dba1f21b90827",
+    "textureType": 2,
+    "textureWidth": 64,
+    "textureHeight": 32
+  },
+  "ast_stage/ocean0_D": {
+    "hash": "f1825289d7516ae01003bb7332068496d02a86457ed8bf78fec0c884e2284a2d",
+    "textureType": 2,
+    "textureWidth": 64,
+    "textureHeight": 64
+  },
+  "ast_skybox/skyspace0_D": {
+    "hash": "6d2d122b5ba1e0935fd711b52b4e244e18e6159edbf4a701844442aec4032128",
+    "textureType": 2,
+    "textureWidth": 64,
+    "textureHeight": 64
+  },
+  "textures/font/sGfxPrintFontData": {
+    "hash": "9b41f5434459d2280182090d9639daecfd973c35f05568558b8e6d96c23fb496",
+    "textureType": 3,
+    "textureWidth": 64,
+    "textureHeight": 256
+  },
+  "ast_skybox/foskyt0_D": {
+    "hash": "3fdc75b10b8ce962979ab31c88823365b7a48d581c009863126b845a2eba0a01",
+    "textureType": 2,
+    "textureWidth": 64,
+    "textureHeight": 64
+  }
+}

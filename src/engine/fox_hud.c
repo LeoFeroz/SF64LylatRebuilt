@@ -1,4 +1,4 @@
-#include "sf64math.h"
+﻿#include "sf64math.h"
 #include "fox_hud.h"
 #include "prevent_bss_reordering.h"
 #include "port/interpolation/FrameInterpolation.h"
@@ -6276,4 +6276,73 @@ void Venom1_LevelStart2(Player* player) {
     Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, D_ctx_80177A48[0], 50000.0f, 0.0f);
     Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, D_ctx_80177A48[0], 50000.0f, 0.0f);
     Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 50000.0f, 0.0f);
+}
+
+void FoSky_Draw(Boss* this) {  //Fortuna 3D Skybox
+    Matrix_Push(&gGfxMatrix);
+    Matrix_Scale(gGfxMatrix, 10.0f, 10.0f, 10.0f, MTXF_APPLY);
+    Matrix_SetGfxMtx(&gMasterDisp);
+    gSPDisplayList(gMasterDisp++, aFoSkyboxDL);
+    Matrix_Pop(&gGfxMatrix);
+    gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
+    gDPSetTextureFilter(gMasterDisp++, G_TF_POINT);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 0, (s32) this->fwork[1], (s32) this->fwork[2], 255);
+}
+
+void FoSky_Update(FoSky* this) {
+    switch (this->state) {
+        gProjectFar = 30000000.0f;
+        case 0:
+            if ((this->fwork[1] == 255.0f) && (this->fwork[2] == 212.0f)) {
+                this->state = 1;
+
+            } else {
+                Math_SmoothStepToF(&this->fwork[1], 255.0f, 0.3f, 6.0f, 6.0f);
+                Math_SmoothStepToF(&this->fwork[2], 212.0f, 0.3f, 4.98f, 4.98f);
+            }
+            break;
+
+        case 1:
+            if ((this->fwork[1] == 28.0f) && (this->fwork[2] == 23.0f)) {
+                this->state = 0;
+            } else {
+                Math_SmoothStepToF(&this->fwork[1], 28.0f, 0.3f, 6.0f, 6.0f);
+                Math_SmoothStepToF(&this->fwork[2], 23.0f, 0.3f, 4.98f, 4.98f);
+            }
+            break;
+    }
+}
+
+void FoGround_Draw(Boss* this) {   //Fortuna Ground Replace
+    RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
+    Matrix_Push(&gGfxMatrix);
+    Matrix_Scale(gGfxMatrix, 100.0f, 100.0f, 100.0f, MTXF_APPLY);
+    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 0.0f, MTXF_APPLY);
+    Matrix_SetGfxMtx(&gMasterDisp);
+    gSPDisplayList(gMasterDisp++, aFoGroundDL);
+    Matrix_Pop(&gGfxMatrix);
+}
+
+void FoGround_Update(FoGround* this) {
+    switch (this->state) {
+        gProjectFar = 30000000.0f;
+        case 0:
+            if ((this->fwork[1] == 255.0f) && (this->fwork[2] == 212.0f)) {
+                this->state = 1;
+
+            } else {
+                Math_SmoothStepToF(&this->fwork[1], 255.0f, 0.3f, 6.0f, 6.0f);
+                Math_SmoothStepToF(&this->fwork[2], 212.0f, 0.3f, 4.98f, 4.98f);
+            }
+            break;
+
+        case 1:
+            if ((this->fwork[1] == 28.0f) && (this->fwork[2] == 23.0f)) {
+                this->state = 0;
+            } else {
+                Math_SmoothStepToF(&this->fwork[1], 28.0f, 0.3f, 6.0f, 6.0f);
+                Math_SmoothStepToF(&this->fwork[2], 23.0f, 0.3f, 4.98f, 4.98f);
+            }
+            break;
+    }
 }

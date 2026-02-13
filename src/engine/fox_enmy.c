@@ -526,6 +526,38 @@ void Object_Load(ObjectInit* objInit, f32 xMax, f32 xMin, f32 yMax, f32 yMin) {
                 }
             }
         }
+        if ((objInit->id >= OBJ_BOSS2_START) && (objInit->id < OBJ_BOSS2_MAX)) {
+            for (i = 0; i < ARRAY_COUNT(gBosses); i++) {
+                if (gBosses[i].obj.status == OBJ_FREE) {
+                    Boss_Load(&gBosses[i], objInit);
+                    break;
+                }
+            }
+        }
+        if ((objInit->id >= OBJ_ACTOR2_START) && (objInit->id < OBJ_ACTOR2_MAX)) {
+            if ((objInit->id == OBJ_ACTOR_AQ_JELLYFISH) || (objInit->id == OBJ_ACTOR_ZO_SEARCHLIGHT)) {
+                for (i = ARRAY_COUNT(gActors) - 1; i >= 0; i--) {
+                    if (gActors[i].obj.status == OBJ_FREE) {
+                        Actor_Load(&gActors[i], objInit);
+                        break;
+                    }
+                }
+            } else if (objInit->id == OBJ_ACTOR_TEAM_BOSS) {
+                for (i = 0; i < 3; i++) {
+                    if (gActors[i].obj.status == OBJ_FREE) {
+                        Actor_Load(&gActors[i], objInit);
+                        break;
+                    }
+                }
+            } else {
+                for (i = 4; i < ARRAY_COUNT(gActors); i++) {
+                    if (gActors[i].obj.status == OBJ_FREE) {
+                        Actor_Load(&gActors[i], objInit);
+                        break;
+                    }
+                }
+            }
+        }
     }
 }
 

@@ -565,7 +565,6 @@ void Background_DrawBackdrop(void) {
                                 }
                                 break;
                             case LEVEL_FORTUNA:
-                                gSPDisplayList(gMasterDisp++, D_FO_600D9F0);
                                 break;
                             case LEVEL_KATINA:
                                 gSPDisplayList(gMasterDisp++, D_KA_600F1D0);
@@ -957,12 +956,12 @@ void Background_DrawBackdrop(void) {
                                 Matrix_SetGfxMtx(&gMasterDisp);
                                 gSPDisplayList(gMasterDisp++, D_ME_600DDF0);
                             } else if (gPathProgress > 185668.0f) {
-                                Matrix_Translate(gGfxMatrix, bgXpos - 120.0f, -(bgYpos - 120.0f) - 130.0f, -290.0f,
+                                Matrix_Translate(gGfxMatrix, bgXpos - 120.0f, -(bgYpos - 120.0f) - 0.0f, 0.0f,
                                                  MTXF_APPLY);
                                 Matrix_Scale(gGfxMatrix, 0.4f, 0.4f, 1.0f, MTXF_APPLY);
                                 Matrix_SetGfxMtx(&gMasterDisp);
                                 gSPDisplayList(gMasterDisp++, D_ME_600DDF0);
-                            }
+                            }                        
                             break;
 
                         case LEVEL_SECTOR_X:
@@ -1929,6 +1928,7 @@ void Background_DrawGround(void) {
             break;
 
         case LEVEL_FORTUNA:
+                RCP_SetupDL_20(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
         case LEVEL_KATINA:
         case LEVEL_BOLSE:
         case LEVEL_VENOM_2:

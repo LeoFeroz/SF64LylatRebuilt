@@ -109,6 +109,17 @@ void Fortuna_UpdateEvents(ActorEvent* this) {
     ActorAllRange* wolf = &gActors[AI360_WOLF];
     ActorAllRange* greatFox = &gActors[19];
     s32 pad2[3];
+    gProjectFar = 30000000.0f;
+    gFogRed = 73;
+    gFogGreen = 112;
+    gFogBlue = 144;
+    gLight1R = 173;
+    gLight1G = 212;
+    gLight1B = 244;
+    gAmbientR = 20;
+    gAmbientG = 20;
+    gAmbientB = 20;
+    gFogFar = 1000;
 
     PRINTF("Enm->work[0]=%d\n", this->iwork[0]);
     PRINTF("tim %d\n", gAllRangeEventTimer);
@@ -408,7 +419,6 @@ void Fortuna_UpdateEvents(ActorEvent* this) {
                 }
             }
             gSceneSetup = 1;
-            gProjectFar = 30000.0f;
             break;
 
         default:
@@ -602,6 +612,7 @@ void Fortuna_FoRadar_Draw(FoRadar* this) {
 // Explosion seen from space if the mission fails.
 void Fortuna_CsExplosion(void) {
     ActorCutscene* actor = &gActors[50];
+    gProjectFar = 30000000.0f;
 
     Actor_Initialize(actor);
     actor->obj.status = OBJ_INIT;
@@ -630,6 +641,7 @@ void Fortuna_LevelComplete_CsSpawnTeam(ActorCutscene* this, s32 actorIdx) {
     this->vel.z = gPlayer[0].baseSpeed;
 
     Object_SetInfo(&this->info, this->obj.id);
+    gProjectFar = 30000000.0f;
 
     if (actorIdx < 3) {
         this->iwork[11] = 1;
@@ -656,6 +668,7 @@ void Fortuna_LevelComplete(Player* player) {
     ActorCutscene* peppy = &gActors[2];
     ActorCutscene* falco = &gActors[3];
     s32 pad[3];
+    gProjectFar = 30000000.0f;
 
     if ((player->csState < 10) && (player->csState >= 0)) {
         Math_SmoothStepToF(&player->zRotBarrelRoll, 0.0f, 0.1f, 15.0f, 0.0f);
@@ -1458,7 +1471,10 @@ void Fortuna_LoadLevelObjects(void) {
     Actor* actor;
     Sprite* sprite;
     Scenery360* scenery360;
-    FoBase* base = &gBosses[0];
+    FoBase* base = &gBosses[0];       // Why does the game use the base as the boss entity?
+    FoSky* sky = &gBosses[1];         // Skybox
+    FoGround* ground = &gBosses[2];   // Ground
+    gProjectFar = 30000000.0f;
 
     gLevelObjects = SEGMENTED_TO_VIRTUAL(gLevelObjectInits[gCurrentLevel]);
 
@@ -1518,4 +1534,20 @@ void Fortuna_LoadLevelObjects(void) {
     base->obj.pos.z = 0.0f;
     base->obj.id = OBJ_BOSS_FO_BASE;
     Object_SetInfo(&base->info, base->obj.id);
+
+    Boss_Initialize(sky);
+    sky->obj.status = OBJ_INIT;
+    sky->obj.pos.x = 0.0f;
+    sky->obj.pos.y = 0.0f;
+    sky->obj.pos.z = 0.0f;
+    sky->obj.id = OBJ_BOSS_FO_SKY;
+    Object_SetInfo(&sky->info, sky->obj.id);
+
+    Boss_Initialize(ground);
+    ground->obj.status = OBJ_INIT;
+    ground->obj.pos.x = 0.0f;
+    ground->obj.pos.y = 0.0f;
+    ground->obj.pos.z = 0.0f;
+    ground->obj.id = OBJ_BOSS_FO_GROUND;
+    Object_SetInfo(&ground->info, ground->obj.id);
 }

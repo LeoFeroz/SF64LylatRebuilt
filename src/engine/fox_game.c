@@ -75,7 +75,7 @@ void Game_Initialize(void) {
     gBlurAlpha = 255;
     gFovY = 45.0f;
     gProjectNear = 10.0f;
-    gProjectFar = 12800.0f;
+    gProjectFar = 30000000.0f;
     gNextVsViewScale = gVsViewScale = 0.0f;
     gSceneId = SCENE_LOGO;
     gSceneSetup = 0;

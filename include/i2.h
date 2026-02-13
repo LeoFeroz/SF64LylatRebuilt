@@ -36,6 +36,7 @@ void Meteo_MeMeteorShower3_Draw(Actor*);
 void Meteo_Effect370_Draw(Effect*);
 void Meteo_Effect369_Draw(Effect*);
 void Meteo_Effect371_Draw(Effect*);
+void Meteo_Skybox_Init(void);
 void SectorX_SxSlippy_Update(Actor*);
 void SectorX_SxSlippy_Draw(Actor*);
 void SectorX_SxSpyborgLeftArm_Update(Boss*);

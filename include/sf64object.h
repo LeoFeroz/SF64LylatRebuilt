@@ -723,6 +723,9 @@ typedef enum ObjectId {
     /* 404 */ OBJ_UNK_404,
     /* 405 */ OBJ_UNK_405,
     /* 406 */ OBJ_ID_MAX,
+    /* 407 */ OBJ_BOSS_FO_SKY,
+    /* 408 */ OBJ_BOSS_FO_GROUND,
+    /* 409 */ OBJ_ACTOR_CUTSCENE2,
 } ObjectId;
 
 #define OBJ_SCENERY_START OBJ_SCENERY_CO_STONE_ARCH
@@ -732,13 +735,19 @@ typedef enum ObjectId {
 #define OBJ_ITEM_START OBJ_ITEM_LASERS
 #define OBJ_EFFECT_START OBJ_EFFECT_FIRE_SMOKE_1
 #define OBJ_ENV_START OBJ_ENV_SMALL_ROCKS_ENABLE
+#define OBJ_BOSS2_START OBJ_BOSS_FO_SKY
+#define OBJ_ACTOR2_START OBJ_ACTOR_CUTSCENE2
 
 #define OBJ_SCENERY_MAX OBJ_SPRITE_START
 #define OBJ_SPRITE_MAX OBJ_ACTOR_START
 #define OBJ_ACTOR_MAX OBJ_BOSS_START
 #define OBJ_BOSS_MAX OBJ_ITEM_START
 #define OBJ_ITEM_MAX OBJ_EFFECT_START
-#define OBJ_EFFECT_MAX OBJ_ENV_START
+#define OBJ_EFFECT_MAX OBJ_BOSS2_START
+#define OBJ_ENV_MAX OBJ_BOSS2_START
+#define OBJ_BOSS2_MAX OBJ_BOSS_FO_GROUND
+#define OBJ_ACTOR2_MAX OBJ_ACTOR_CUTSCENE2
+
 
 #define ACTOR_EVENT_ID 1000
 
@@ -817,7 +826,8 @@ typedef enum ActorCutsceneModels {
     /*   45 */ ACTOR_CS_AQ_BUMP_2,
     /*   46 */ ACTOR_CS_AQ_CORAL_REEF_2,
     /*   47 */ ACTOR_CS_AQ_ROCK,
-    /* 1000 */ ACTOR_CS_JAMES_ARWING = 1000 // James McCloud Arwing seen for the last time in the ending CS.
+    /* 1000 */ ACTOR_CS_JAMES_ARWING = 1000, // James McCloud Arwing seen for the last time in the ending CS.
+    /* 1001 */ ACTOR_CS_ME_SKYBOX = 1001
 } ActorCutsceneModels;
 
 Actor* Game_SpawnActor(ObjectId);
@@ -1376,5 +1386,16 @@ typedef Effect Effect396;
 typedef Effect Effect397;
 typedef Effect Effect398;
 typedef Effect Effect399;
+typedef Effect Effect399;
+typedef Boss Null0;
+typedef Boss Null1;
+typedef Boss Null2;
+typedef Boss Null3;
+typedef Boss Null4;
+typedef Boss Null5;
+typedef Boss Null6;
+typedef Boss FoSky;
+typedef Boss FoGround;
+typedef Actor ActorCutscene2;
 
 #endif

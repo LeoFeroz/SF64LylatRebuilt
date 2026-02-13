@@ -607,7 +607,7 @@ void Play_InitEnvironment(void) {
     gEnvLightyRot = gLight2yRotTarget = D_ctx_80178524 = gLight1yRot = gLight1yRotTarget = sEnvironment->lightDir.y;
     gEnvLightzRot = gLight2zRotTarget = D_ctx_80178528 = gLight1zRot = gLight1zRotTarget = sEnvironment->lightDir.z;
 
-    gProjectFar = 12800.0f;
+    gProjectFar = 30000000.0f;
     gLight2colorStep = 40;
     D_ctx_80178544 = 40;
     gFovY = 45.0f;
@@ -2656,6 +2656,7 @@ void Play_InitLevel(void) {
             gGreatFoxIntact = true;
             break;
 
+        case LEVEL_FORTUNA:
         case LEVEL_METEO:
         case LEVEL_SECTOR_X:
             if (gLevelPhase == 1) {
@@ -2952,6 +2953,16 @@ void Play_Init(void) {
         gPlayerGlareAlphas[i] = D_ctx_801783C0[i] = 0;
         gControllerRumbleTimers[i] = 0;
         gPlayerScores[i] = 0;
+    }
+
+    if (gLevelMode == LEVELMODE_ON_RAILS) {
+
+        switch (gCurrentLevel) {
+            case LEVEL_METEO:
+                gProjectFar = 30000000.0f;
+                Meteo_Skybox_Init();
+                break;
+        }
     }
 
     if (gLevelMode == LEVELMODE_ALL_RANGE) {

@@ -328,6 +328,7 @@ Vec3f D_demo_800C9FA0[] = {
 void func_demo_80049630(ActorCutscene* this) {
     Vec3f src;
     Vec3f dest;
+    gProjectFar = 30000000.0f;
 
     switch (this->state) {
         case 0:
@@ -352,6 +353,7 @@ void func_demo_80049630(ActorCutscene* this) {
             this->iwork[11] = 2;
             this->fwork[0] += 2.0f;
             if (this->timer_0BC == 0) {
+                Object_Kill(&this->obj, this->sfxSource);
             }
             break;
     }
@@ -3062,4 +3064,62 @@ void Cutscene_DrawGreatFox(void) {
     }
     // @port Pop the transform id.
     FrameInterpolation_RecordCloseChild();
+}
+
+void ActorCutscene2_Update(ActorCutscene2* this) {
+    gProjectFar = 3000000000.0f;
+
+    switch (gPlayer[0].state) {
+         case PLAYERSTATE_ENTER_WARP_ZONE:
+            func_demo_8004F798(this);
+            break;
+    }
+}
+
+void ActorCutscene2_Draw(ActorCutscene2* this) {   // Skybox For On Raills Levels
+    static f32 D_800CA210 = 0.0f;
+    static f32 D_800CA214 = 0.0f;
+    static f32 D_800CA218 = 0.0f;
+    f32 sp2DC;
+    f32 sp2D8;
+    f32 sp2D4;
+    s32 sp2D0;
+    s32 pad2C4[3];
+    Vec3f sp2B8;
+    Vec3f sp2AC;
+    Vec3f sp144[30];
+    s32 pad[3];
+    s32 animFrameData;
+    f32 camX;
+    f32 camY;
+    f32 camZ;
+    f32 y;
+    f32 x;
+    static float lastFollowZ = 0.0f;
+    float useZ;
+
+    switch (this->animFrame) {
+        case ACTOR_CS_ME_SKYBOX:
+
+            if (gPathProgress > 0.0f) {  //Skybox Follow Player
+                useZ = gPlayer->pos.z;
+            } else if (Meteo_LevelStart || Meteo_LevelComplete) {
+                    useZ = lastFollowZ; // Skybox Stop Follow Player
+            }
+
+            Matrix_Push(&gGfxMatrix);
+
+            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, useZ, MTXF_APPLY);
+            Matrix_Scale(gGfxMatrix, 200.0f, 200.0f, 200.0f, MTXF_APPLY);
+
+            Matrix_RotateX(gCalcMatrix, 0.0f, MTXF_APPLY);
+            Matrix_RotateY(gCalcMatrix, 0.0f, MTXF_APPLY);
+            Matrix_RotateZ(gCalcMatrix, 0.0f, MTXF_APPLY);
+
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, aMeSkyboxDL);
+
+            Matrix_Pop(&gGfxMatrix);
+            break;
+    }
 }

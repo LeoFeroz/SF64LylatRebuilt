@@ -183,3 +183,8 @@ static const ALIGN_ASSET(2) char aFoMountain3Hitbox[] = "__OTR__ast_fortuna/aFoM
 
 static const ALIGN_ASSET(2) char aFoBaseHitbox[] = "__OTR__ast_fortuna/aFoBaseHitbox";
 
+static const ALIGN_ASSET(2) char aFoSkyboxDL[] = "__OTR__ast_skybox/aFoSkyboxDL";
+
+static const ALIGN_ASSET(2) char aALLskyboxremoveDL[] = "__OTR__ast_skybox/aALLskyboxremoveDL";
+
+static const ALIGN_ASSET(2) char aFoGroundDL[] = "__OTR__ast_stage/aFoGroundDL";

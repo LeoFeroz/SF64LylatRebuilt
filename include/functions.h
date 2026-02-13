@@ -85,6 +85,8 @@ void Cutscene_PlayerDown(Player*);
 void ActorCutscene_Update(Actor*);
 void ActorCutscene_Draw(Actor*);
 void Cutscene_DrawGreatFox(void);
+void ActorCutscene2_Update(Actor*);
+void ActorCutscene2_Draw(Actor*);
 
 // fox_display
 void Display_ArwingWings(ArwingInfo*);
@@ -413,6 +415,10 @@ bool ActorTeamBoss_SetTarget(Actor*);
 void FoBase_Update(Boss*);
 bool ActorTeamBoss_ObstacleCheck(Actor*);
 bool ActorTeamBoss_SomerSault(Actor*);
+void FoSky_Draw(Boss*);
+void FoSky_Update(Boss*);
+void FoGround_Draw(Boss*);
+void FoGround_Update(Boss*);
 
 void ActorTeamBoss_Init(Actor*);
 void ActorTeamBoss_Update(Actor* this);

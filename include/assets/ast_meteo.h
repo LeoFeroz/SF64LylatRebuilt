@@ -496,3 +496,4 @@ static const ALIGN_ASSET(2) char D_ME_60305DC[] = "__OTR__ast_meteo/D_ME_60305DC
 
 static const ALIGN_ASSET(2) char D_ME_603184C[] = "__OTR__ast_meteo/D_ME_603184C";
 
+static const ALIGN_ASSET(2) char aMeSkyboxDL[] = "__OTR__ast_skybox/aMeSkyboxDL";

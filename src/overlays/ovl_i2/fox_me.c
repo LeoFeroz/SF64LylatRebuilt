@@ -1907,6 +1907,7 @@ void Meteo_MeCrusher_Draw(MeCrusher* this) {
 }
 
 void Meteo_LevelStart_SetupTeam(ActorCutscene* this, s32 teamIdx) {
+    gProjectFar = 3000000000.0f;
     Actor_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_ACTOR_CUTSCENE;
@@ -1970,6 +1971,7 @@ void Meteo_8018CA10(MeMeteor2* this, ActorCutscene* actorCs, f32 x, f32 y, f32 z
 }
 
 void Meteo_8018CAD8(void) {
+    gProjectFar = 3000000000.0f;
     ActorCutscene* actorCs = &gActors[50];
 
     Actor_Initialize(actorCs);
@@ -2737,4 +2739,19 @@ void Meteo_8018ED9C(ActorCutscene* this) {
     this->obj.rot.x = -this->rot_0F4.x;
     this->obj.rot.y = +this->rot_0F4.y + 180.0f;
     this->obj.rot.z = -this->rot_0F4.z;
+}
+
+void Meteo_Skybox_Init(void) {
+    ActorCutscene2* MeSky = &gBosses[2]; 
+
+    Actor_Initialize(MeSky);
+    MeSky->obj.status = OBJ_INIT;
+    MeSky->obj.id = OBJ_ACTOR_CUTSCENE2;
+
+    MeSky->obj.pos.x = 0.0f;
+    MeSky->obj.pos.y = 0.0f;
+    MeSky->obj.pos.z = 0.0f;
+
+    MeSky->animFrame = ACTOR_CS_ME_SKYBOX;
+    Object_SetInfo(&MeSky->info, MeSky->obj.id);
 }
