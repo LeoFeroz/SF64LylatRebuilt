@@ -45,5 +45,6 @@ void SectorX_SxSpyborgLeftArm_Draw(Boss*);
 void SectorX_SxSpyborgRightArm_Draw(Boss*);
 void SectorX_SxSpyborg_Update(Boss*);
 void SectorX_SxSpyborg_Draw(Boss*);
+void SectorX_Skybox_Init(void);
 
 #endif

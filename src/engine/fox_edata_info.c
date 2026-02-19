@@ -525,6 +525,6 @@ ObjectInfo gObjectInfo[] = {
   /* Null0           */  {(void*) NULL, 1, (ObjectFunc) NULL,             NULL,   0.0f,  0, 0, 0, 0,   0.0f,  0 },
   /* OBJ_BOSS_FO_SKY */  {(void*) FoSky_Draw, 1, (ObjectFunc) FoSky_Update,        gNoHitbox,     0.0f,  0, 0, 40, 1,   0.0f, 10 },
   /* OBJ_BOSS_FO_GROUND */  {(void*) FoGround_Draw, 1, (ObjectFunc) FoGround_Update,        gNoHitbox,     0.0f,  0, 0, 40, 1,   0.0f, 10 },
-  /* OBJ_ACTOR_CUTSCENE2 */  {(void*) ActorCutscene2_Draw, 1, (ObjectFunc) ActorCutscene2_Update,       gNoHitbox, 30000000000000000.0f,  0, 0, 40, 1,   0.0f, 10 }, //ActorCutscene2On Rails Skybox ONLY
+  /* OBJ_ACTOR_CUTSCENE2 */  {(void*) ActorCutscene2_Draw, 1, (ObjectFunc) ActorCutscene2_Update,       gNoHitbox, 9999999999999999.0f,  0, 1, 0, 1,   0.0f, 10 }, //ActorCutscene2On Rails Skybox ONLY
 };
 // clang-format on

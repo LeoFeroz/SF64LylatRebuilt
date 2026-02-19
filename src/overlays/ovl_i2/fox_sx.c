@@ -1669,6 +1669,7 @@ void SectorX_LevelComplete_SetupTeam(ActorCutscene* this, s32 teamIdx) {
     Vec3f srcB;
     Vec3f destB;
     Player* player = &gPlayer[0];
+    gProjectFar = 30000000.0f;
 
     Matrix_RotateY(gCalcMatrix, player->rot.y * M_DTOR, MTXF_NEW);
 
@@ -1717,6 +1718,7 @@ void SectorX_LevelComplete(Player* player) {
     Vec3f sp54;
     Vec3f sp48;
     s32 pad[5];
+    gProjectFar = 30000000.0f;
 
     Math_SmoothStepToF(&player->zRotBarrelRoll, 0.0f, 0.1f, 15.0f, 0.0f);
     Math_SmoothStepToF(&player->zRotBank, 0.0f, 0.1f, 15.0f, 0.0f);
@@ -1731,6 +1733,7 @@ void SectorX_LevelComplete(Player* player) {
     gStarfieldScrollY += 0.2f;
     gStarfieldScrollX -= 0.2f;
 
+
     switch (player->csState) {
         case 0:
             Audio_StopSfxByBankAndSource(1, player->sfxSource);
@@ -1744,7 +1747,6 @@ void SectorX_LevelComplete(Player* player) {
             D_ctx_80177A48[4] = 100.0f;
             D_ctx_80177A48[5] = 0.0f;
             player->arwing.drawFace = true;
-            Play_ClearObjectData();
 
         case 1:
             if (gCsFrameCount > 990) {
@@ -1798,7 +1800,6 @@ void SectorX_LevelComplete(Player* player) {
                     player->state = PLAYERSTATE_NEXT;
                     gFadeoutType = 4;
                     player->csTimer = 0;
-                    Play_ClearObjectData();
                     gLeveLClearStatus[LEVEL_SECTOR_X] = Play_CheckMedalStatus(150) + 1;
                 }
             }
@@ -1984,4 +1985,19 @@ void SectorX_LevelComplete(Player* player) {
     player->yBob = -SIN_DEG(player->bobPhase) * 0.3f;
     player->rockPhase += 8.0f;
     player->rockAngle = SIN_DEG(player->rockPhase);
+}
+
+void SectorX_Skybox_Init(void) {
+    ActorCutscene2* SxSky = &gBosses[2];
+
+    Actor_Initialize(SxSky);
+    SxSky->obj.status = OBJ_INIT;
+    SxSky->obj.id = OBJ_ACTOR_CUTSCENE2;
+
+    SxSky->obj.pos.x = 0.0f;
+    SxSky->obj.pos.y = 0.0f;
+    SxSky->obj.pos.z = gPlayer->pos.z;
+
+    SxSky->animFrame = ACTOR_CS_SX_SKYBOX;
+    Object_SetInfo(&SxSky->info, SxSky->obj.id);
 }

@@ -1959,6 +1959,7 @@ void func_demo_8004E4D4(ActorCutscene* this) {
     Vec3f sp3C;
     Player* sp38 = &gPlayer[0];
     f32 sp34;
+    gProjectFar = 30000000.0f;
 
     this->fwork[7] += 3.0f;
     this->rot_0F4.z = SIN_DEG(this->fwork[7]) * 1.5f;
@@ -3118,6 +3119,29 @@ void ActorCutscene2_Draw(ActorCutscene2* this) {   // Skybox For On Raills Level
 
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, aMeSkyboxDL);
+
+            Matrix_Pop(&gGfxMatrix);
+            break;
+
+        case ACTOR_CS_SX_SKYBOX:
+
+            if (gPathProgress > 0.0f) { // Skybox Follow Player
+                useZ = gPlayer->pos.z;
+            } else if (SectorX_LevelStart || SectorX_LevelComplete) {
+                useZ = lastFollowZ; // Skybox Stop Follow Player
+            }
+
+            Matrix_Push(&gGfxMatrix);
+
+            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, useZ, MTXF_APPLY);
+            Matrix_Scale(gGfxMatrix, 200.0f, 200.0f, 200.0f, MTXF_APPLY);
+
+            Matrix_RotateX(gCalcMatrix, 0.0f, MTXF_APPLY);
+            Matrix_RotateY(gCalcMatrix, 0.0f, MTXF_APPLY);
+            Matrix_RotateZ(gCalcMatrix, 0.0f, MTXF_APPLY);
+
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, aSxSkyboxDL);
 
             Matrix_Pop(&gGfxMatrix);
             break;

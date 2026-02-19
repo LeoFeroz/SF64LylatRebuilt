@@ -2659,6 +2659,21 @@ void Play_InitLevel(void) {
         case LEVEL_FORTUNA:
         case LEVEL_METEO:
         case LEVEL_SECTOR_X:
+            
+            if (gLevelPhase == 0) {
+                gFogRed = 0;
+                gFogGreen = 0;
+                gFogBlue = 0;
+                gLight1R = 90;
+                gLight1G = 100;
+                gLight1B = 90;
+                gAmbientR = 5;
+                gAmbientG = 10;
+                gAmbientB = 5;
+                gFogNear = 996;
+                gFogFar = 1000;
+            }
+
             if (gLevelPhase == 1) {
                 gFogRed = 178;
                 gFogGreen = 190;
@@ -2961,6 +2976,10 @@ void Play_Init(void) {
             case LEVEL_METEO:
                 gProjectFar = 30000000.0f;
                 Meteo_Skybox_Init();
+                break;
+            case LEVEL_SECTOR_X:
+                gProjectFar = 9999999999999999.0f;
+                SectorX_Skybox_Init();
                 break;
         }
     }

@@ -827,7 +827,8 @@ typedef enum ActorCutsceneModels {
     /*   46 */ ACTOR_CS_AQ_CORAL_REEF_2,
     /*   47 */ ACTOR_CS_AQ_ROCK,
     /* 1000 */ ACTOR_CS_JAMES_ARWING = 1000, // James McCloud Arwing seen for the last time in the ending CS.
-    /* 1001 */ ACTOR_CS_ME_SKYBOX = 1001
+    /* 1001 */ ACTOR_CS_ME_SKYBOX = 1001,
+    /* 1002 */ ACTOR_CS_SX_SKYBOX = 1002
 } ActorCutsceneModels;
 
 Actor* Game_SpawnActor(ObjectId);

@@ -5,8 +5,8 @@
     "textureWidth": 64,
     "textureHeight": 32
   },
-  "ast_stage/ocean0_D": {
-    "hash": "f1825289d7516ae01003bb7332068496d02a86457ed8bf78fec0c884e2284a2d",
+  "ast_skybox/sxbg0_1": {
+    "hash": "9d9fb3d71344a5ef8a0e486d49104d4f8486b85e863040a17570eb84f58fd049",
     "textureType": 2,
     "textureWidth": 64,
     "textureHeight": 64
@@ -17,16 +17,28 @@
     "textureWidth": 64,
     "textureHeight": 64
   },
-  "textures/font/sGfxPrintFontData": {
-    "hash": "9b41f5434459d2280182090d9639daecfd973c35f05568558b8e6d96c23fb496",
-    "textureType": 3,
+  "ast_stage/ocean0_D": {
+    "hash": "f1825289d7516ae01003bb7332068496d02a86457ed8bf78fec0c884e2284a2d",
+    "textureType": 2,
     "textureWidth": 64,
-    "textureHeight": 256
+    "textureHeight": 64
   },
   "ast_skybox/foskyt0_D": {
     "hash": "3fdc75b10b8ce962979ab31c88823365b7a48d581c009863126b845a2eba0a01",
     "textureType": 2,
     "textureWidth": 64,
     "textureHeight": 64
+  },
+  "ast_skybox/sxbg0_D": {
+    "hash": "f78c0ecab659d475abea79f66c2a1b043d45db361f4f66b785347f96ddd12065",
+    "textureType": 2,
+    "textureWidth": 64,
+    "textureHeight": 64
+  },
+  "textures/font/sGfxPrintFontData": {
+    "hash": "9b41f5434459d2280182090d9639daecfd973c35f05568558b8e6d96c23fb496",
+    "textureType": 3,
+    "textureWidth": 64,
+    "textureHeight": 256
   }
 }
