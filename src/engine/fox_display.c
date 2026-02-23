@@ -1,5 +1,6 @@
 #include "global.h"
 #include "mods/hit64.c"
+#include "camera_interp_skip.c"
 #include "assets/ast_arwing.h"
 #include "assets/ast_allies.h"
 #include "assets/ast_landmaster.h"
