@@ -1,9 +1,15 @@
 {
-  "ast_skybox/mebg0_D": {
-    "hash": "4bd6d950a8db5c0aa889bef5ec4faa25e041bac207636aadd44dba1f21b90827",
+  "ast_stage/t_r1": {
+    "hash": "0a08169583bce298f33ac3f5556417f95af951f2336cec51723ed298852fcef4",
     "textureType": 2,
     "textureWidth": 64,
-    "textureHeight": 32
+    "textureHeight": 64
+  },
+  "ast_stage/ti_s0_D": {
+    "hash": "065edf496eac5502df156ef5ab7e65d58a03044d0b3fa3a2eabb781f636a365f",
+    "textureType": 2,
+    "textureWidth": 64,
+    "textureHeight": 64
   },
   "ast_skybox/sxbg0_1": {
     "hash": "9d9fb3d71344a5ef8a0e486d49104d4f8486b85e863040a17570eb84f58fd049",
@@ -11,8 +17,26 @@
     "textureWidth": 64,
     "textureHeight": 64
   },
-  "ast_skybox/skyspace0_D": {
-    "hash": "6d2d122b5ba1e0935fd711b52b4e244e18e6159edbf4a701844442aec4032128",
+  "ast_stage/ti_s6_D": {
+    "hash": "e2686a08f806186084524318dff96f44386980deba4d2d1ce5697116e9f03010",
+    "textureType": 2,
+    "textureWidth": 64,
+    "textureHeight": 64
+  },
+  "ast_stage/ti_s8_D": {
+    "hash": "80229211281269d1e5cd555aa75ea23e953d11feabe085e509f2dfb8f2022766",
+    "textureType": 2,
+    "textureWidth": 64,
+    "textureHeight": 64
+  },
+  "ast_stage/ti_s7_D": {
+    "hash": "f2b3781f5cf5a93b79a1db50973037ec029793d0cb9477bd296b32e202d5f68f",
+    "textureType": 2,
+    "textureWidth": 64,
+    "textureHeight": 64
+  },
+  "ast_stage/ti_s1_D": {
+    "hash": "17b31974c7730bb4829983f275a7dfa39d74d9b90db9e8caf772475b9748b9f7",
     "textureType": 2,
     "textureWidth": 64,
     "textureHeight": 64
@@ -23,8 +47,74 @@
     "textureWidth": 64,
     "textureHeight": 64
   },
+  "ast_stage/ti_s4_D": {
+    "hash": "655ac87b26a5face1c8e792ad1fac02a61d1ac99642853b35415f3abe9366cfa",
+    "textureType": 2,
+    "textureWidth": 64,
+    "textureHeight": 64
+  },
+  "textures/font/sGfxPrintFontData": {
+    "hash": "9b41f5434459d2280182090d9639daecfd973c35f05568558b8e6d96c23fb496",
+    "textureType": 3,
+    "textureWidth": 64,
+    "textureHeight": 256
+  },
+  "ast_stage/ti_s9_D": {
+    "hash": "6bcc5d2bf92c933833a260e578de7bc36edf2b86bdc715d1b007162995de45b3",
+    "textureType": 2,
+    "textureWidth": 64,
+    "textureHeight": 64
+  },
   "ast_skybox/foskyt0_D": {
     "hash": "3fdc75b10b8ce962979ab31c88823365b7a48d581c009863126b845a2eba0a01",
+    "textureType": 2,
+    "textureWidth": 64,
+    "textureHeight": 64
+  },
+  "ast_stage/ti_grass_D": {
+    "hash": "4e3915c92c14ac88410baa5664ec55cb594f0bd83f7053f5525a3542a0971a81",
+    "textureType": 2,
+    "textureWidth": 64,
+    "textureHeight": 64
+  },
+  "ast_skybox/mebg0_D": {
+    "hash": "4bd6d950a8db5c0aa889bef5ec4faa25e041bac207636aadd44dba1f21b90827",
+    "textureType": 2,
+    "textureWidth": 64,
+    "textureHeight": 32
+  },
+  "ast_skybox/skyspace0_D": {
+    "hash": "6d2d122b5ba1e0935fd711b52b4e244e18e6159edbf4a701844442aec4032128",
+    "textureType": 2,
+    "textureWidth": 64,
+    "textureHeight": 64
+  },
+  "ast_stage/t_r0": {
+    "hash": "895b0e35b5d7c19498b1e920498ed55aea4cdaeaa6dc131351148f8ac8112dd3",
+    "textureType": 2,
+    "textureWidth": 64,
+    "textureHeight": 64
+  },
+  "ast_stage/t_r2": {
+    "hash": "a165ec37d4678832ca8426bf91aa3b9a100ab5221e9256bdbc3a0be702d5c3aa",
+    "textureType": 2,
+    "textureWidth": 64,
+    "textureHeight": 64
+  },
+  "ast_skybox/ti_skybox_D": {
+    "hash": "5242479983d1c17f4cebada4ce7c8e4031cf74e1937650c9624e5ad81ce9dbc8",
+    "textureType": 2,
+    "textureWidth": 64,
+    "textureHeight": 64
+  },
+  "ast_stage/ti_s3_D": {
+    "hash": "56e8c310e96cdb66f7509df3a76f217e3bf0cfd852acd5c77844bc0aa6304afe",
+    "textureType": 2,
+    "textureWidth": 64,
+    "textureHeight": 64
+  },
+  "ast_stage/ti_s5_D": {
+    "hash": "354d687a10b90a3a34c8a66bded8907fbb0aca0f9f80832dc65b7d6f3867b35f",
     "textureType": 2,
     "textureWidth": 64,
     "textureHeight": 64
@@ -35,10 +125,10 @@
     "textureWidth": 64,
     "textureHeight": 64
   },
-  "textures/font/sGfxPrintFontData": {
-    "hash": "9b41f5434459d2280182090d9639daecfd973c35f05568558b8e6d96c23fb496",
-    "textureType": 3,
+  "ast_stage/ti_s2_D": {
+    "hash": "51143946bd966769fad5e8cbe1ed2d7b851db23e1ce6c70e958d78f290f7d018",
+    "textureType": 2,
     "textureWidth": 64,
-    "textureHeight": 256
+    "textureHeight": 64
   }
 }

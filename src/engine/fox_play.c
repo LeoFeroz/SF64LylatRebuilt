@@ -2981,6 +2981,11 @@ void Play_Init(void) {
                 gProjectFar = 9999999999999999.0f;
                 SectorX_Skybox_Init();
                 break;
+            case LEVEL_TITANIA:
+                gProjectFar = 9999999999999999.0f;
+                Titania_Skybox_Init();
+                Titania_Ground_Init();
+                break;
         }
     }
 

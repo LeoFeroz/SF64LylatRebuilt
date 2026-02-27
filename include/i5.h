@@ -18,6 +18,8 @@ extern s16 D_MA_801BE2F0[9];
 
 void Titania_LevelStart(Player*);
 void Titania_LevelComplete(Player*);
+void Titania_Skybox_Init(void);
+void Titania_Ground_Init(void);
 void Macbeth_LevelStart(Player*);
 void Macbeth_LevelComplete2(Player*);
 void Macbeth_801B28BC(Actor*);

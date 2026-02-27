@@ -842,7 +842,6 @@ void Background_DrawBackdrop(void) {
                         }
 
                         if (gCurrentLevel == LEVEL_TITANIA) {
-                            gSPDisplayList(gMasterDisp++, D_TI_6000A80);
                         } else if (gCurrentLevel == LEVEL_MACBETH) {
                             gSPDisplayList(gMasterDisp++, D_MA_6019220);
                         } else if (gCurrentLevel == LEVEL_ZONESS) {

@@ -352,4 +352,3 @@ static const ALIGN_ASSET(2) char D_TI1_700EA60[] = "__OTR__ast_7_ti_1/D_TI1_700E
 static const ALIGN_ASSET(2) char ast_7_ti_1_seg7_vtx_EB50[] = "__OTR__ast_7_ti_1/ast_7_ti_1_seg7_vtx_EB50";
 
 static const ALIGN_ASSET(2) char ast_7_ti_1_seg7_vtx_ED50[] = "__OTR__ast_7_ti_1/ast_7_ti_1_seg7_vtx_ED50";
-

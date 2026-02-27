@@ -294,7 +294,6 @@ void Titania_LevelComplete(Player* player) {
         case 0:
             gCsFrameCount = gBossActive = gLoadLevelObjects = 0;
 
-            Play_ClearObjectData();
 
             player->csState = 1;
 
@@ -526,9 +525,39 @@ void Titania_LevelComplete(Player* player) {
         if (gFillScreenAlpha == 255) {
             player->state = PLAYERSTATE_NEXT;
             gFadeoutType = 4;
-            Play_ClearObjectData();
+
             Audio_FadeOutAll(10);
             gLeveLClearStatus[LEVEL_TITANIA] = Play_CheckMedalStatus(150) + 1;
         }
     }
+}
+
+void Titania_Skybox_Init(void) {
+    ActorCutscene2* TiSky = &gBosses[2];
+
+    Actor_Initialize(TiSky);
+    TiSky->obj.status = OBJ_INIT;
+    TiSky->obj.id = OBJ_ACTOR_CUTSCENE2;
+
+    TiSky->obj.pos.x = 0.0f;
+    TiSky->obj.pos.y = 0.0f;
+    TiSky->obj.pos.z = 0.0f;
+
+    TiSky->animFrame = ACTOR_CS_TI_SKYBOX;
+    Object_SetInfo(&TiSky->info, TiSky->obj.id);
+}
+
+void Titania_Ground_Init(void) {
+    ActorCutscene2* TiGround0 = &gBosses[3];
+
+    Actor_Initialize(TiGround0);
+    TiGround0->obj.status = OBJ_INIT;
+    TiGround0->obj.id = OBJ_ACTOR_CUTSCENE2;
+
+    TiGround0->obj.pos.x = 0.0f;
+    TiGround0->obj.pos.y = 0.0f;
+    TiGround0->obj.pos.z = -3000.0f;
+
+    TiGround0->animFrame = ACTOR_CS_TI_GROUND;
+    Object_SetInfo(&TiGround0->info, TiGround0->obj.id);
 }

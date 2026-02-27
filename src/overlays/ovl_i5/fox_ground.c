@@ -380,7 +380,6 @@ void Ground_801B58AC(Gfx** dList, f32 arg1) {
         Matrix_Translate(gGfxMatrix, D_i5_801C62D8.x, D_i5_801C62D8.y, D_i5_801C62D8.z + D_i5_801C5C10, MTXF_NEW);
         Matrix_ToMtx(gGfxMtx);
         gSPMatrix((*dList)++, gGfxMtx++, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
-        gSPDisplayList((*dList)++, D_i5_801BA950);
         gSPPopMatrix((*dList)++, G_MTX_MODELVIEW);
         Ground_801B4AA8(NULL, &spC4);
         FrameInterpolation_RecordCloseChild();
@@ -576,7 +575,6 @@ void Ground_801B68A8(Gfx** dlist, s32 arg1, s32 arg2) {
     var = 1;
     j = (arg1 + 25) % 27;
     for (i = 26; i >= var; i--) {
-        gSPDisplayList((*dlist)++, &D_i5_801C2528[j]);
         j = (j + 26) % 27;
     }
     FrameInterpolation_RecordCloseChild();

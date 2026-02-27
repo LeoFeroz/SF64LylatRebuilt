@@ -1,4 +1,4 @@
-/*
+﻿/*
  * File: fox_demo.c
  * System: Game Engine
  * Description: Starfox Cutscene Handler
@@ -21,6 +21,7 @@
 #include "port/hooks/Events.h"
 #include "fox_co.h"
 #include "fox_record.h"
+#include "assets/ast_ti_replace.h"
 
 int gWarpzoneCsFrameCount = 0;
 
@@ -1959,7 +1960,7 @@ void func_demo_8004E4D4(ActorCutscene* this) {
     Vec3f sp3C;
     Player* sp38 = &gPlayer[0];
     f32 sp34;
-    gProjectFar = 30000000.0f;
+    gProjectFar = 9999999999999999.0f;
 
     this->fwork[7] += 3.0f;
     this->rot_0F4.z = SIN_DEG(this->fwork[7]) * 1.5f;
@@ -3068,16 +3069,10 @@ void Cutscene_DrawGreatFox(void) {
 }
 
 void ActorCutscene2_Update(ActorCutscene2* this) {
-    gProjectFar = 3000000000.0f;
-
-    switch (gPlayer[0].state) {
-         case PLAYERSTATE_ENTER_WARP_ZONE:
-            func_demo_8004F798(this);
-            break;
-    }
+    gProjectFar = 9999999999999999.0f;
 }
 
-void ActorCutscene2_Draw(ActorCutscene2* this) {   // Skybox For On Raills Levels
+void ActorCutscene2_Draw(ActorCutscene2* this) { // Skybox For On Raills Levels
     static f32 D_800CA210 = 0.0f;
     static f32 D_800CA214 = 0.0f;
     static f32 D_800CA218 = 0.0f;
@@ -3102,10 +3097,10 @@ void ActorCutscene2_Draw(ActorCutscene2* this) {   // Skybox For On Raills Level
     switch (this->animFrame) {
         case ACTOR_CS_ME_SKYBOX:
 
-            if (gPathProgress > 0.0f) {  //Skybox Follow Player
+            if (gPathProgress > 0.0f) { // Skybox Follow Player
                 useZ = gPlayer->pos.z;
             } else if (Meteo_LevelStart || Meteo_LevelComplete) {
-                    useZ = lastFollowZ; // Skybox Stop Follow Player
+                useZ = lastFollowZ; // Skybox Stop Follow Player
             }
 
             Matrix_Push(&gGfxMatrix);
@@ -3143,6 +3138,153 @@ void ActorCutscene2_Draw(ActorCutscene2* this) {   // Skybox For On Raills Level
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, aSxSkyboxDL);
 
+            Matrix_Pop(&gGfxMatrix);
+            break;
+
+        case ACTOR_CS_TI_SKYBOX:
+
+            if (gPathProgress > 0.0f) { // Skybox Follow Player
+                useZ = gPlayer->pos.z;
+            } else if (Titania_LevelStart || Titania_LevelComplete) {
+                useZ = lastFollowZ; // Skybox Stop Follow Player
+            }
+
+            Matrix_Push(&gGfxMatrix);
+
+            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, useZ, MTXF_APPLY);
+            Matrix_Scale(gGfxMatrix, 100.0f, 100.0f, 100.0f, MTXF_APPLY);
+
+            Matrix_RotateX(gCalcMatrix, 0.0f, MTXF_APPLY);
+            Matrix_RotateY(gCalcMatrix, 0.0f, MTXF_APPLY);
+            Matrix_RotateZ(gCalcMatrix, 0.0f, MTXF_APPLY);
+
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, aTiSkyboxDL);
+
+            Matrix_Pop(&gGfxMatrix);
+            break;
+
+        case ACTOR_CS_TI_GROUND:
+
+            Matrix_Push(&gGfxMatrix);
+
+            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 0.0f, MTXF_APPLY);
+            Matrix_Scale(gGfxMatrix, 10.0f, 10.0f, 10.0f, MTXF_APPLY);
+
+            Matrix_RotateX(gGfxMatrix, 0.0f, MTXF_APPLY);
+            Matrix_RotateY(gGfxMatrix, 0.0f, MTXF_APPLY);
+            Matrix_RotateZ(gGfxMatrix, 0.0f, MTXF_APPLY);
+
+            Matrix_SetGfxMtx(&gMasterDisp);
+
+            if (gPathProgress > 0.0f && gPathProgress <= 11000.0f) {
+                gSPDisplayList(gMasterDisp++, ti_ground0_DL);
+            }
+
+            Matrix_Push(&gGfxMatrix);
+            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -1300.0f, MTXF_APPLY);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            if (gPathProgress > 5000.0f && gPathProgress <= 21000.0f) {
+                gSPDisplayList(gMasterDisp++, ti_ground1_DL);
+            }
+            Matrix_Pop(&gGfxMatrix);
+
+            Matrix_Push(&gGfxMatrix);
+            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -2200.0f, MTXF_APPLY);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, aDisplayPlaceHolder_DL);
+            if (gPathProgress > 10000.0f && gPathProgress <= 31000.0f) {
+                gSPDisplayList(gMasterDisp++, ti_ground2_DL);
+            }
+            Matrix_Pop(&gGfxMatrix);
+
+            Matrix_Push(&gGfxMatrix);
+            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -3200.0f, MTXF_APPLY);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, aDisplayPlaceHolder_DL);
+            if (gPathProgress > 20000.0f && gPathProgress <= 41000.0f) {
+                gSPDisplayList(gMasterDisp++, ti_ground3_DL);
+            }
+            Matrix_Pop(&gGfxMatrix);
+
+            Matrix_Push(&gGfxMatrix);
+            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -4300.0f, MTXF_APPLY);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, aDisplayPlaceHolder_DL);
+            if (gPathProgress > 25000.0f && gPathProgress <= 52000.0f) {
+                gSPDisplayList(gMasterDisp++, ti_ground4_DL);
+            }
+            Matrix_Pop(&gGfxMatrix);
+
+            Matrix_Push(&gGfxMatrix);
+            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -5400.0f, MTXF_APPLY);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, aDisplayPlaceHolder_DL);
+            if (gPathProgress > 35000.0f && gPathProgress <= 62000.0f) {
+                gSPDisplayList(gMasterDisp++, ti_ground5_DL);
+            }
+            Matrix_Pop(&gGfxMatrix);
+
+            Matrix_Push(&gGfxMatrix);
+            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -6400.0f, MTXF_APPLY);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, aDisplayPlaceHolder_DL);
+            if (gPathProgress > 45000.0f && gPathProgress <= 73000.0f) {
+                gSPDisplayList(gMasterDisp++, ti_ground6_DL);
+            }
+            Matrix_Pop(&gGfxMatrix);
+
+            Matrix_Push(&gGfxMatrix);
+            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -7400.0f, MTXF_APPLY);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, aDisplayPlaceHolder_DL);
+            if (gPathProgress > 55000.0f && gPathProgress <= 83000.0f) {
+                gSPDisplayList(gMasterDisp++, ti_ground7_DL);
+            }
+            Matrix_Pop(&gGfxMatrix);
+
+            Matrix_Push(&gGfxMatrix);
+            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -8500.0f, MTXF_APPLY);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, aDisplayPlaceHolder_DL);
+            if (gPathProgress > 65000.0f && gPathProgress <= 93000.0f) {
+                gSPDisplayList(gMasterDisp++, ti_ground8_DL);
+            }
+            Matrix_Pop(&gGfxMatrix);
+
+            float start = 75000.0f;
+            float interval = 10000.0f;
+            float baseZ = -9500.0f;
+            float zStep = -1034.0f;
+
+            int currentStep = (int) ((gPathProgress - start) / interval);
+
+            int rangeForward = 1;
+
+            static int maxStepReached = 0;
+
+            if (gPathProgress > start) {
+
+                if (currentStep + 6 > maxStepReached) {
+                    maxStepReached = currentStep + 6;
+                }
+
+                for (int i = 0; i <= maxStepReached; i++) {
+
+                    float zOffset = baseZ + (zStep * i);
+
+                    Matrix_Push(&gGfxMatrix);
+                    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, zOffset, MTXF_APPLY);
+                    Matrix_SetGfxMtx(&gMasterDisp);
+                    gSPDisplayList(gMasterDisp++, aDisplayPlaceHolder_DL);
+
+                    if (i <= currentStep + rangeForward) {
+                        gSPDisplayList(gMasterDisp++, ti_ground9_DL);
+                    }
+
+                    Matrix_Pop(&gGfxMatrix);
+                }
+            }
             Matrix_Pop(&gGfxMatrix);
             break;
     }
