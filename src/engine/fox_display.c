@@ -8,7 +8,6 @@
 #include "port/interpolation/FrameInterpolation.h"
 #include "port/hooks/list/EngineEvent.h"
 #include "port/mods/PortEnhancements.h"
-#include "src/engine/camera_interp_skip.c"
 
 // f32 path1 = 0.0f;
 // f32 path2 = 0.0f;

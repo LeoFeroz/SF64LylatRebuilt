@@ -3265,8 +3265,8 @@ void ActorCutscene2_Draw(ActorCutscene2* this) { // Skybox For On Raills Levels
 
             if (gPathProgress > start) {
 
-                if (currentStep + 6 > maxStepReached) {
-                    maxStepReached = currentStep + 6;
+                if (currentStep + 3 > maxStepReached) {
+                    maxStepReached = currentStep + 3;
                 }
 
                 for (int i = 0; i <= maxStepReached; i++) {
