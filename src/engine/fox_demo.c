@@ -3093,6 +3093,7 @@ void ActorCutscene2_Draw(ActorCutscene2* this) { // Skybox For On Raills Levels
     f32 x;
     static float lastFollowZ = 0.0f;
     float useZ;
+    static s32 sTiGroundTexturesPreloaded = 0;
 
     switch (this->animFrame) {
         case ACTOR_CS_ME_SKYBOX:
@@ -3165,6 +3166,33 @@ void ActorCutscene2_Draw(ActorCutscene2* this) { // Skybox For On Raills Levels
             break;
 
         case ACTOR_CS_TI_GROUND:
+
+            // ========================================
+            // TEXTURE PRELOAD
+            // ========================================
+            if (!sTiGroundTexturesPreloaded) {
+
+                sTiGroundTexturesPreloaded = 1;
+
+                Matrix_Push(&gGfxMatrix);
+                Matrix_Translate(gGfxMatrix, 0.0f, -999999.0f, 0.0f, MTXF_APPLY);
+                Matrix_Scale(gGfxMatrix, 0.001f, 0.001f, 0.001f, MTXF_APPLY);
+
+                Matrix_SetGfxMtx(&gMasterDisp);
+                gSPDisplayList(gMasterDisp++, ti_ground0_DL);
+                gSPDisplayList(gMasterDisp++, ti_ground1_DL);
+                gSPDisplayList(gMasterDisp++, ti_ground2_DL);
+                gSPDisplayList(gMasterDisp++, ti_ground3_DL);
+                gSPDisplayList(gMasterDisp++, ti_ground4_DL);
+                gSPDisplayList(gMasterDisp++, ti_ground5_DL);
+                gSPDisplayList(gMasterDisp++, ti_ground6_DL);
+                gSPDisplayList(gMasterDisp++, ti_ground7_DL);
+                gSPDisplayList(gMasterDisp++, ti_ground8_DL);
+                gSPDisplayList(gMasterDisp++, ti_ground9_DL);
+
+                Matrix_Pop(&gGfxMatrix);
+            }
+            // ========================================
 
             Matrix_Push(&gGfxMatrix);
 
@@ -3252,33 +3280,46 @@ void ActorCutscene2_Draw(ActorCutscene2* this) { // Skybox For On Raills Levels
             }
             Matrix_Pop(&gGfxMatrix);
 
+            // ========================================
+            // Ground Array ti_ground9_DL
+            // ========================================
+
             float start = 75000.0f;
-            float interval = 10000.0f;
+            float interval = 13000.0f;
             float baseZ = -9500.0f;
             float zStep = -1034.0f;
 
-            int currentStep = (int) ((gPathProgress - start) / interval);
+            int visibleBack = 2;
+            int visibleForward = 1;
+            int preloadAhead = 10;
 
-            int rangeForward = 1;
-
-            static int maxStepReached = 0;
+            static int lastGeneratedStep = -1;
 
             if (gPathProgress > start) {
 
-                if (currentStep + 3 > maxStepReached) {
-                    maxStepReached = currentStep + 3;
+                int currentStep = (int) ((gPathProgress - start) / interval);
+
+                int targetGenerate = currentStep + preloadAhead;
+
+                if (targetGenerate > lastGeneratedStep) {
+                    lastGeneratedStep = targetGenerate;
                 }
 
-                for (int i = 0; i <= maxStepReached; i++) {
+                for (int i = 0; i <= lastGeneratedStep; i++) {
 
                     float zOffset = baseZ + (zStep * i);
 
                     Matrix_Push(&gGfxMatrix);
+                    //After several minutes, the value becomes so large that the engine can't handle it,
+                    //causing the rendering area to be closer to the player,
+                    //creating buggy ground model that follow the camera.
+                    //fix unknow
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, zOffset, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
                     gSPDisplayList(gMasterDisp++, aDisplayPlaceHolder_DL);
 
-                    if (i <= currentStep + rangeForward) {
+                    if (i >= currentStep - visibleBack && i <= currentStep + visibleForward) {
+
                         gSPDisplayList(gMasterDisp++, ti_ground9_DL);
                     }
 
