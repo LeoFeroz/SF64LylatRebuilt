@@ -135,6 +135,132 @@ void Lib_Texture_Scroll(u16* texture, s32 width, s32 height, u8 mode) {
     }
 }
 
+void Lib_Texture_ScrollMod(u16* texture, s32 width, s32 height, u8 mode, u8 multiply) {   //Add a multiplye to fix slow scroll HD textures
+
+    if (multiply == 0) {
+        return; // não move
+    }
+
+    s32 newWidth;
+    s32 newHeight;
+    float scale;
+    bool custom;
+
+    GameEngine_GetTextureInfo(texture, &newWidth, &newHeight, &scale, &custom);
+
+    if (custom) {
+
+        u32* pixel = SEGMENTED_TO_VIRTUAL(texture);
+        u32 tempPxl;
+        s32 u, v;
+
+        width = newWidth;
+        height = newHeight;
+
+        for (u8 m = 0; m < multiply; m++) { // <<< multiplicador aqui
+
+            switch (mode) {
+
+                case 0: // vertical up
+                    for (u = 0; u < width; u++) {
+                        tempPxl = pixel[u];
+                        for (v = 1; v < height; v++) {
+                            pixel[(v - 1) * width + u] = pixel[v * width + u];
+                        }
+                        pixel[(height - 1) * width + u] = tempPxl;
+                    }
+                    break;
+
+                case 1: // vertical down
+                    for (u = 0; u < width; u++) {
+                        tempPxl = pixel[(height - 1) * width + u];
+                        for (v = height - 2; v >= 0; v--) {
+                            pixel[(v + 1) * width + u] = pixel[v * width + u];
+                        }
+                        pixel[u] = tempPxl;
+                    }
+                    break;
+
+                case 2: // horizontal right
+                    for (v = 0; v < height; v++) {
+                        tempPxl = pixel[v * width + width - 1];
+                        for (u = width - 2; u >= 0; u--) {
+                            pixel[v * width + u + 1] = pixel[v * width + u];
+                        }
+                        pixel[v * width] = tempPxl;
+                    }
+                    break;
+
+                case 3: // horizontal left
+                    for (v = 0; v < height; v++) {
+                        tempPxl = pixel[v * width];
+                        for (u = 1; u < width; u++) {
+                            pixel[v * width + u - 1] = pixel[v * width + u];
+                        }
+                        pixel[v * width + width - 1] = tempPxl;
+                    }
+                    break;
+            }
+        }
+
+        gSPInvalidateTexCache(gMasterDisp++, pixel);
+
+    } else {
+
+        u16* pixel = SEGMENTED_TO_VIRTUAL(texture);
+        u16 tempPxl;
+        s32 u, v;
+
+        for (u8 m = 0; m < multiply; m++) { // <<< multiplicador aqui
+
+            switch (mode) {
+
+                case 0:
+                    for (u = 0; u < width; u++) {
+                        tempPxl = pixel[u];
+                        for (v = 1; v < height; v++) {
+                            pixel[(v - 1) * width + u] = pixel[v * width + u];
+                        }
+                        pixel[(height - 1) * width + u] = tempPxl;
+                    }
+                    break;
+
+                case 1:
+                    for (u = 0; u < width; u++) {
+                        tempPxl = pixel[(height - 1) * width + u];
+                        for (v = height - 2; v >= 0; v--) {
+                            pixel[(v + 1) * width + u] = pixel[v * width + u];
+                        }
+                        pixel[u] = tempPxl;
+                    }
+                    break;
+
+                case 2:
+                    for (v = 0; v < height; v++) {
+                        tempPxl = pixel[v * width + width - 1];
+                        for (u = width - 2; u >= 0; u--) {
+                            pixel[v * width + u + 1] = pixel[v * width + u];
+                        }
+                        pixel[v * width] = tempPxl;
+                    }
+                    break;
+
+                case 3:
+                    for (v = 0; v < height; v++) {
+                        tempPxl = pixel[v * width];
+                        for (u = 1; u < width; u++) {
+                            pixel[v * width + u - 1] = pixel[v * width + u];
+                        }
+                        pixel[v * width + width - 1] = tempPxl;
+                    }
+                    break;
+            }
+        }
+
+        gSPInvalidateTexCache(gMasterDisp++, pixel);
+    }
+}
+
 void Lib_Texture_Mottle(u16* dst, u16* src, u8 mode) {
     // LTodo: [HD-Textures] This is broken
     s32 u;

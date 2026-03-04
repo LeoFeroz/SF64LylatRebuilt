@@ -107,3 +107,5 @@ static const ALIGN_ASSET(2) char ast_landmaster_seg3_vtx_8158[] = "__OTR__ast_la
 
 static const ALIGN_ASSET(2) char D_landmaster_3008188[] = "__OTR__ast_landmaster/D_landmaster_3008188";
 
+static const ALIGN_ASSET(2) char D_LandW_30184D0[] = "__OTR__ast_landmaster/D_LandW_30184D0";
+

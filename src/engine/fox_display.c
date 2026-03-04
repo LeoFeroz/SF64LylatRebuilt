@@ -328,7 +328,11 @@ void Display_Landmaster(Player* player) {
     Matrix_Push(&gGfxMatrix);
 
     if (!gVersusMode) {
+        Matrix_Push(&gGfxMatrix);
+        Matrix_Scale(gGfxMatrix, 0.2f, 0.2f, 0.2f, MTXF_APPLY);
+        Matrix_SetGfxMtx(&gMasterDisp);
         gSPDisplayList(gMasterDisp++, aLandmasterModelDL);
+        Matrix_Pop(&gGfxMatrix);
     } else {
         gSPDisplayList(gMasterDisp++, aVsLandmasterModelDL);
     }
@@ -357,7 +361,11 @@ void Display_Landmaster(Player* player) {
             RCP_SetupDL_64();
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 64, 255, 64, 255);
         }
+        Matrix_Push(&gGfxMatrix);
+        Matrix_Scale(gGfxMatrix, 0.2f, 0.2f, 0.2f, MTXF_APPLY);
+        Matrix_SetGfxMtx(&gMasterDisp);
         gSPDisplayList(gMasterDisp++, aLandmasterCanonDL);
+        Matrix_Pop(&gGfxMatrix);
     } else {
         gSPDisplayList(gMasterDisp++, aVsLandmasterCanonDL);
     }

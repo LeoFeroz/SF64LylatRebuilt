@@ -488,7 +488,7 @@ void func_tank_80044868(Player* player) {
         }
     }
     if (player->baseSpeed > 0.0f) {
-        Lib_Texture_Scroll(D_landmaster_3002E80, 32, 32, 0);
+        Lib_Texture_ScrollMod(D_LandW_30184D0, 32, 32, 2, 10);
         if ((gCurrentLevel == LEVEL_TITANIA) && !gBossActive) {
             func_tank_80043280(D_landmaster_3005EA8, D_TI_6009BB8, gGameFrameCount * -55.0f);
         }
@@ -498,7 +498,7 @@ void func_tank_80044868(Player* player) {
         }
     }
     if (player->baseSpeed > 10.0f) {
-        Lib_Texture_Scroll(D_landmaster_3002E80, 32, 32, 0);
+        Lib_Texture_ScrollMod(D_LandW_30184D0, 32, 32, 2, 10);
         if ((gCurrentLevel == LEVEL_TITANIA) && !gBossActive) {
             func_tank_80043280(D_landmaster_3005EA8, D_TI_6009BB8, gGameFrameCount * -55.0f);
         }

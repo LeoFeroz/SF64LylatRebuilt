@@ -136,6 +136,7 @@ void Lights_SetTwoLights(Gfx** dList, s32 dir1x, s32 dir1y, s32 dir1z, s32 dir2x
 char* Graphics_ClearPrintBuffer(char *buf, s32 fill, s32 len);
 s32 Graphics_Printf(const char *fmt, ...);
 void Lib_Texture_Scroll(u16 *texture, s32 width, s32 height, u8 mode);
+void Lib_Texture_ScrollMod(u16* texture, s32 width, s32 height, u8 mode, u8 multiply);
 void Lib_Texture_Mottle(u16 *dst, u16 *src, u8 mode);    
 s32 Animation_GetLimbIndex(Limb* limb, Limb** skeleton);
 void Animation_DrawLimb(s32 mode, Limb* limb, Limb* *skeleton, Vec3f* jointTable, OverrideLimbDraw overrideLimbDraw, PostLimbDraw postLimbDraw, void* data);
