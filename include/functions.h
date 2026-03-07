@@ -415,10 +415,6 @@ bool ActorTeamBoss_SetTarget(Actor*);
 void FoBase_Update(Boss*);
 bool ActorTeamBoss_ObstacleCheck(Actor*);
 bool ActorTeamBoss_SomerSault(Actor*);
-void FoSky_Draw(Boss*);
-void FoSky_Update(Boss*);
-void FoGround_Draw(Boss*);
-void FoGround_Update(Boss*);
 
 void ActorTeamBoss_Init(Actor*);
 void ActorTeamBoss_Update(Actor* this);

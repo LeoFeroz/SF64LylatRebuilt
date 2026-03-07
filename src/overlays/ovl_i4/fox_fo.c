@@ -109,7 +109,6 @@ void Fortuna_UpdateEvents(ActorEvent* this) {
     ActorAllRange* wolf = &gActors[AI360_WOLF];
     ActorAllRange* greatFox = &gActors[19];
     s32 pad2[3];
-    gProjectFar = 30000000.0f;
     gFogRed = 73;
     gFogGreen = 112;
     gFogBlue = 144;
@@ -612,7 +611,6 @@ void Fortuna_FoRadar_Draw(FoRadar* this) {
 // Explosion seen from space if the mission fails.
 void Fortuna_CsExplosion(void) {
     ActorCutscene* actor = &gActors[50];
-    gProjectFar = 30000000.0f;
 
     Actor_Initialize(actor);
     actor->obj.status = OBJ_INIT;
@@ -641,7 +639,6 @@ void Fortuna_LevelComplete_CsSpawnTeam(ActorCutscene* this, s32 actorIdx) {
     this->vel.z = gPlayer[0].baseSpeed;
 
     Object_SetInfo(&this->info, this->obj.id);
-    gProjectFar = 30000000.0f;
 
     if (actorIdx < 3) {
         this->iwork[11] = 1;
@@ -668,7 +665,6 @@ void Fortuna_LevelComplete(Player* player) {
     ActorCutscene* peppy = &gActors[2];
     ActorCutscene* falco = &gActors[3];
     s32 pad[3];
-    gProjectFar = 30000000.0f;
 
     if ((player->csState < 10) && (player->csState >= 0)) {
         Math_SmoothStepToF(&player->zRotBarrelRoll, 0.0f, 0.1f, 15.0f, 0.0f);
@@ -1472,9 +1468,8 @@ void Fortuna_LoadLevelObjects(void) {
     Sprite* sprite;
     Scenery360* scenery360;
     FoBase* base = &gBosses[0];       // Why does the game use the base as the boss entity?
-    FoSky* sky = &gBosses[1];         // Skybox
-    FoGround* ground = &gBosses[2];   // Ground
-    gProjectFar = 30000000.0f;
+    ActorCutscene2* FoSky = &gBosses[1];
+    ActorCutscene2* FoGround = &gBosses[2];
 
     gLevelObjects = SEGMENTED_TO_VIRTUAL(gLevelObjectInits[gCurrentLevel]);
 
@@ -1535,19 +1530,25 @@ void Fortuna_LoadLevelObjects(void) {
     base->obj.id = OBJ_BOSS_FO_BASE;
     Object_SetInfo(&base->info, base->obj.id);
 
-    Boss_Initialize(sky);
-    sky->obj.status = OBJ_INIT;
-    sky->obj.pos.x = 0.0f;
-    sky->obj.pos.y = 0.0f;
-    sky->obj.pos.z = 0.0f;
-    sky->obj.id = OBJ_BOSS_FO_SKY;
-    Object_SetInfo(&sky->info, sky->obj.id);
+    Actor_Initialize(FoSky);
+    FoSky->obj.status = OBJ_INIT;
+    FoSky->obj.id = OBJ_ACTOR_CUTSCENE2;
 
-    Boss_Initialize(ground);
-    ground->obj.status = OBJ_INIT;
-    ground->obj.pos.x = 0.0f;
-    ground->obj.pos.y = 0.0f;
-    ground->obj.pos.z = 0.0f;
-    ground->obj.id = OBJ_BOSS_FO_GROUND;
-    Object_SetInfo(&ground->info, ground->obj.id);
+    FoSky->obj.pos.x = 0.0f;
+    FoSky->obj.pos.y = 0.0f;
+    FoSky->obj.pos.z = 0.0f;
+
+    FoSky->animFrame = ACTOR_CS_FO_SKYBOX;
+    Object_SetInfo(&FoSky->info, FoSky->obj.id);
+
+    Actor_Initialize(FoGround);
+    FoGround->obj.status = OBJ_INIT;
+    FoGround->obj.id = OBJ_ACTOR_CUTSCENE2;
+
+    FoGround->obj.pos.x = 0.0f;
+    FoGround->obj.pos.y = 0.0f;
+    FoGround->obj.pos.z = 0.0f;
+
+    FoGround->animFrame = ACTOR_CS_FO_GROUND;
+    Object_SetInfo(&FoGround->info, FoGround->obj.id);
 }

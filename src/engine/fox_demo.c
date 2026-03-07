@@ -22,6 +22,7 @@
 #include "fox_co.h"
 #include "fox_record.h"
 #include "assets/ast_ti_replace.h"
+#include "assets/ast_fortuna.h"
 
 int gWarpzoneCsFrameCount = 0;
 
@@ -3179,8 +3180,6 @@ void ActorCutscene2_Draw(ActorCutscene2* this) { // Skybox For On Raills Levels
                 Matrix_Scale(gGfxMatrix, 0.001f, 0.001f, 0.001f, MTXF_APPLY);
 
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, ti_ground0_DL);
-                gSPDisplayList(gMasterDisp++, ti_ground1_DL);
                 gSPDisplayList(gMasterDisp++, ti_ground2_DL);
                 gSPDisplayList(gMasterDisp++, ti_ground3_DL);
                 gSPDisplayList(gMasterDisp++, ti_ground4_DL);
@@ -3212,7 +3211,7 @@ void ActorCutscene2_Draw(ActorCutscene2* this) { // Skybox For On Raills Levels
             Matrix_Push(&gGfxMatrix);
             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -1300.0f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            if (gPathProgress > 5000.0f && gPathProgress <= 21000.0f) {
+            if (gPathProgress > 0.0f && gPathProgress <= 21000.0f) {
                 gSPDisplayList(gMasterDisp++, ti_ground1_DL);
             }
             Matrix_Pop(&gGfxMatrix);
@@ -3326,6 +3325,25 @@ void ActorCutscene2_Draw(ActorCutscene2* this) { // Skybox For On Raills Levels
                     Matrix_Pop(&gGfxMatrix);
                 }
             }
+            Matrix_Pop(&gGfxMatrix);
+            break;
+
+        case ACTOR_CS_FO_SKYBOX:
+            Matrix_Push(&gGfxMatrix);
+            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 0.0f, MTXF_APPLY);
+            Matrix_Scale(gGfxMatrix, 100.0f, 100.0f, 100.0f, MTXF_APPLY);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, aFoSkyboxDL);
+            Matrix_Pop(&gGfxMatrix);
+            break;
+
+        case ACTOR_CS_FO_GROUND:
+            RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
+            Matrix_Push(&gGfxMatrix);
+            Matrix_Scale(gGfxMatrix, 100.0f, 100.0f, 100.0f, MTXF_APPLY);
+            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 0.0f, MTXF_APPLY);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, aFoGroundDL);
             Matrix_Pop(&gGfxMatrix);
             break;
     }

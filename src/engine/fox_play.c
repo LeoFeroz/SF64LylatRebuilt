@@ -2970,6 +2970,16 @@ void Play_Init(void) {
         gPlayerScores[i] = 0;
     }
 
+    if (gLevelMode == LEVELMODE_ALL_RANGE) {
+
+        switch (gCurrentLevel) {
+            case LEVEL_FORTUNA:
+                gProjectFar = 9999999999999999.0f;
+                SectorX_Skybox_Init();
+                break;
+        }
+    }
+
     if (gLevelMode == LEVELMODE_ON_RAILS) {
 
         switch (gCurrentLevel) {

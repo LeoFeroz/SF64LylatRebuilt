@@ -111,7 +111,8 @@ bool func_enmy_80060FE4(Vec3f* arg0, f32 arg1) {
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
 
-    if ((dest.z < 1000.0f) && (arg1 < dest.z) && (fabsf(dest.x) < (fabsf(dest.z * 0.5f) + 2000.0f))) {
+    // @port: Extend draw distance up to 32/9
+    if ((dest.z < 1000.0f) && (arg1 < dest.z) && (fabsf(dest.x) < (fabsf(dest.z * /* 0.5f */ 1.5f) + 2000.0f))) {
         return true;
     }
     return false;
@@ -522,14 +523,6 @@ void Object_Load(ObjectInit* objInit, f32 xMax, f32 xMin, f32 yMax, f32 yMin) {
             for (i = 0; i < ARRAY_COUNT(gActors); i++) {
                 if (gActors[i].obj.status == OBJ_FREE) {
                     ActorEvent_Load(&gActors[i], objInit, i);
-                    break;
-                }
-            }
-        }
-        if ((objInit->id >= OBJ_BOSS2_START) && (objInit->id < OBJ_BOSS2_MAX)) {
-            for (i = 0; i < ARRAY_COUNT(gBosses); i++) {
-                if (gBosses[i].obj.status == OBJ_FREE) {
-                    Boss_Load(&gBosses[i], objInit);
                     break;
                 }
             }
