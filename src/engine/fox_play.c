@@ -2974,8 +2974,6 @@ void Play_Init(void) {
 
         switch (gCurrentLevel) {
             case LEVEL_FORTUNA:
-                gProjectFar = 9999999999999999.0f;
-                SectorX_Skybox_Init();
                 break;
         }
     }
