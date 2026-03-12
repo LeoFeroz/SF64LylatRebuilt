@@ -271,10 +271,10 @@ void Display_OnFootFalco_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* data) {
 }
 
 void Display_OnFootMuzzleFlash(Player* player) {
-    Matrix_Push(&gGfxMatrix);
-
     // @port: Tag the transform.
     FrameInterpolation_RecordOpenChild("Display_OnFootMuzzleFlash", player->num);
+
+    Matrix_Push(&gGfxMatrix);
 
     Matrix_Copy(gGfxMatrix, &gIdentityMatrix);
     if ((player->state == PLAYERSTATE_ACTIVE) && (player->csTimer != 0)) {
@@ -325,6 +325,8 @@ void Display_Landmaster(Player* player) {
     Vec3f sp4C = { 0.0f, 0.0f, 90.0f };
     Vec3f sp40 = { 0.0f, 40.0f, -70.0f };
 
+    FrameInterpolation_RecordOpenChild("Landmaster", player->num);
+
     Matrix_Push(&gGfxMatrix);
 
     if (!gVersusMode) {
@@ -372,6 +374,8 @@ void Display_Landmaster(Player* player) {
 
     Matrix_MultVec3f(gGfxMatrix, &sp4C, &D_display_80161548[player->num]);
     Matrix_Pop(&gGfxMatrix);
+    
+    FrameInterpolation_RecordCloseChild();
 }
 
 Gfx* sFaceDL[] = { aAwFoxHeadDL, aAwFalcoHeadDL, aAwSlippyHeadDL, aAwPeppyHeadDL };
@@ -383,10 +387,10 @@ f32 sReticleScales[] = { 0.0f, 0.0f, 0.0f, 0.0f };
 f32 sPlayerShadowing = 0.0f;
 
 void Display_LandmasterMuzzleFlash(Player* player) {
-    Matrix_Push(&gGfxMatrix);
-
     // @port: Tag the transform.
     FrameInterpolation_RecordOpenChild("Display_LandmasterMuzzleFlash", player->num);
+
+    Matrix_Push(&gGfxMatrix);
 
     if ((player->state == PLAYERSTATE_ACTIVE) && (player->unk_1A0 != 0)) {
         Matrix_Translate(gGfxMatrix, D_display_80161548[player->num].x, D_display_80161548[player->num].y,
@@ -439,10 +443,10 @@ void Display_LandmasterThrusters(Player* player) {
             sp2C *= 1.1f;
         }
 
-        Matrix_Push(&gGfxMatrix);
-
         // @port: Tag the transform.
         FrameInterpolation_RecordOpenChild("Display_LandmasterThrusters_1", player->num);
+
+        Matrix_Push(&gGfxMatrix);
 
         Matrix_Translate(gGfxMatrix, 20.0f, 30.0f, -10.0f, MTXF_APPLY);
 
@@ -476,10 +480,10 @@ void Display_LandmasterThrusters(Player* player) {
             sp2C *= 1.1f;
         }
 
-        Matrix_Push(&gGfxMatrix);
-
         // @port: Tag the transform.
         FrameInterpolation_RecordOpenChild("Display_LandmasterThrusters_2", player->num);
+
+        Matrix_Push(&gGfxMatrix);
 
         Matrix_Translate(gGfxMatrix, -20.0f, 30.0f, -10.0f, MTXF_APPLY);
 
@@ -705,10 +709,11 @@ void Display_ArwingWings(ArwingInfo* arwing) {
     }
 
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
-    Matrix_Pop(&gGfxMatrix);
 
     // @port Pop the transform id.
     FrameInterpolation_RecordCloseChild();
+
+    Matrix_Pop(&gGfxMatrix);
 }
 
 void Display_Unused(f32 arg0, f32 arg1, UNK_TYPE arg2, UNK_TYPE arg3) {
@@ -716,10 +721,10 @@ void Display_Unused(f32 arg0, f32 arg1, UNK_TYPE arg2, UNK_TYPE arg3) {
 }
 
 void Display_CockpitGlass(void) {
-    Matrix_Push(&gGfxMatrix);
-
     // @port: Tag the transform.
     FrameInterpolation_RecordOpenChild("Display_CockpitGlass", 0);
+
+    Matrix_Push(&gGfxMatrix);
 
     Matrix_Copy(gGfxMatrix, &D_display_80161418[0]);
     Matrix_Translate(gGfxMatrix, 0.0f, D_display_800CA290, D_display_800CA294, MTXF_APPLY);
@@ -801,10 +806,10 @@ void Display_Reticle(Player* player) {
         (((gGameState == GSTATE_PLAY) && (player->state == PLAYERSTATE_ACTIVE)) || (gGameState == GSTATE_MENU))) {
         for (i = 0; i < 2; i++) {
             FrameInterpolation_RecordOpenChild("Reticle", (player->num << 16) + i);
-            FrameInterpolation_RecordMarker(__FILE__, __LINE__);
             translate = &D_display_801613E0[i];
             Matrix_Push(&gGfxMatrix);
             Matrix_Translate(gGfxMatrix, translate->x, translate->y, translate->z, MTXF_APPLY);
+
             if (gChargeTimers[player->num] >= 20) {
                 RCP_SetupDL(&gMasterDisp, SETUPDL_63_OPTIONAL);
                 if (i == 1) {
@@ -823,6 +828,7 @@ void Display_Reticle(Player* player) {
                 Matrix_Scale(gGfxMatrix, sReticleScales[player->num], sReticleScales[player->num], 1.0f, MTXF_APPLY);
                 Math_SmoothStepToF(&sReticleScales[player->num], 1.0f, 1.0f, 0.2f, 0.0f);
             }
+
             Matrix_Scale(gGfxMatrix, 4.0f, 4.0f, 4.0f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_1024F60);
@@ -864,6 +870,8 @@ void Display_PlayerShadow_Draw(Player* player) {
         player->shadowing = 180;
     }
 
+    FrameInterpolation_RecordOpenChild("PlayerShadow", player->num);
+
     switch (player->form) {
         case FORM_ARWING:
         fake_label:
@@ -903,6 +911,8 @@ void Display_PlayerShadow_Draw(Player* player) {
             Matrix_Pop(&gGfxMatrix);
             break;
     }
+
+    FrameInterpolation_RecordCloseChild();
 }
 
 void Display_DrawEngineGlow(EngineGlowColor color) {
@@ -929,6 +939,9 @@ void Display_DrawEngineGlow(EngineGlowColor color) {
 void Display_LandmasterEngineGlow_Draw(Player* player) {
     RCP_SetupDL_64();
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 100);
+
+    FrameInterpolation_RecordOpenChild("LandmasterEngineGlow", player->num);
+
     Matrix_Push(&gGfxMatrix);
     Matrix_RotateZ(gGfxMatrix, player->bankAngle * M_DTOR, MTXF_APPLY);
     if (player->form == FORM_LANDMASTER) {
@@ -949,6 +962,8 @@ void Display_LandmasterEngineGlow_Draw(Player* player) {
     Matrix_SetGfxMtx(&gMasterDisp);
     Display_DrawEngineGlow(gLevelType);
     Matrix_Pop(&gGfxMatrix);
+
+    FrameInterpolation_RecordCloseChild();
 }
 
 void Display_BarrelRollShield(Player* player) {
@@ -978,10 +993,10 @@ void Display_BarrelRollShield(Player* player) {
             zRotDirection = -1.0f;
         }
 
-        Matrix_Push(&gGfxMatrix);
-
         // @port: Tag the transform.
-        FrameInterpolation_RecordOpenChild("BarrelRollShield", 0);
+        FrameInterpolation_RecordOpenChild("BarrelRollShield", player->num);
+
+        Matrix_Push(&gGfxMatrix);
 
         Matrix_Translate(gGfxMatrix, player->pos.x + dest.x, player->pos.y + dest.y,
                          player->trueZpos + player->zPath + dest.z, MTXF_APPLY);
@@ -1013,10 +1028,10 @@ void Display_BarrelRollShield(Player* player) {
 
 void Display_UnusedShield(Player* player) {
     if (gShieldAlpha[player->num] > 1.0f) {
-        Matrix_Push(&gGfxMatrix);
-
         // @port: Tag the transform.
-        FrameInterpolation_RecordOpenChild("Display_UnusedShield", 0);
+        FrameInterpolation_RecordOpenChild("Display_UnusedShield", player->num);
+
+        Matrix_Push(&gGfxMatrix);
 
         Matrix_Copy(gGfxMatrix, &D_display_80161418[player->num]);
         Matrix_Translate(gGfxMatrix, 0.0f, -5.0f, 10.0f, MTXF_APPLY);
@@ -1054,12 +1069,16 @@ void Display_ArwingLaserCharge(Player* player) {
             Matrix_MultVec3f(gCalcMatrix, &spC4, &sp94);
         }
 
+        
         Matrix_Push(&gGfxMatrix);
-
+        
         sp80 = gChargeTimers[player->num] / 20.0f;
-
+        
         Matrix_Translate(gGfxMatrix, sp94.x, sp94.y, sp94.z, MTXF_NEW);
         Matrix_Scale(gGfxMatrix, sp80, sp80, 1.0f, MTXF_APPLY);
+        
+        FrameInterpolation_RecordOpenChild("ArwingLaserCharge", player->num);
+        
         Matrix_Push(&gGfxMatrix);
 
         if (player->alternateView && (gLevelMode == LEVELMODE_ON_RAILS)) {
@@ -1097,6 +1116,10 @@ void Display_ArwingLaserCharge(Player* player) {
         gSPDisplayList(gMasterDisp++, aStarDL);
         Matrix_Pop(&gGfxMatrix);
 
+        FrameInterpolation_RecordCloseChild();
+
+        FrameInterpolation_RecordOpenChild("ArwingLaserCharge2", player->num);
+
         if (player->alternateView && (gLevelMode == LEVELMODE_ON_RAILS)) {
             Matrix_Scale(gGfxMatrix, 0.3f, 0.3f, 0.3f, MTXF_APPLY);
         }
@@ -1111,6 +1134,8 @@ void Display_ArwingLaserCharge(Player* player) {
         Matrix_SetGfxMtx(&gMasterDisp);
         gSPDisplayList(gMasterDisp++, aOrbDL);
         Matrix_Pop(&gGfxMatrix);
+
+        FrameInterpolation_RecordCloseChild();
     }
     if (gMuzzleFlashScale[player->num] > 0.1f) {
         Matrix_Push(&gGfxMatrix);
@@ -1132,10 +1157,10 @@ void Display_ArwingLaserCharge(Player* player) {
                     Matrix_MultVec3f(gCalcMatrix, &spC4, &sp94);
                 }
 
-                Matrix_Push(&gGfxMatrix);
-
                 // @port: Tag the transform.
-                FrameInterpolation_RecordOpenChild("ArwingMuzzleFlash", 0);
+                FrameInterpolation_RecordOpenChild("ArwingMuzzleFlash1", player->num);
+
+                Matrix_Push(&gGfxMatrix);
 
                 Matrix_Translate(gGfxMatrix, sp94.x, sp94.y, sp94.z, MTXF_NEW);
                 Matrix_Scale(gGfxMatrix, gMuzzleFlashScale[player->num], gMuzzleFlashScale[player->num], 1.0f,
@@ -1160,10 +1185,11 @@ void Display_ArwingLaserCharge(Player* player) {
                 }
                 Matrix_MultVec3f(gCalcMatrix, &spAC, &sp94);
                 Matrix_MultVec3f(gCalcMatrix, &spA0, &sp88);
-                Matrix_Push(&gGfxMatrix);
 
                 // @port: Tag the transform.
-                FrameInterpolation_RecordOpenChild("ArwingMuzzleFlash", 0);
+                FrameInterpolation_RecordOpenChild("ArwingMuzzleFlash2", player->num);
+
+                Matrix_Push(&gGfxMatrix);
 
                 Matrix_Translate(gGfxMatrix, sp94.x, sp94.y, sp94.z, MTXF_NEW);
                 Matrix_Scale(gGfxMatrix, gMuzzleFlashScale[player->num], gMuzzleFlashScale[player->num], 1.0f,
@@ -1178,7 +1204,7 @@ void Display_ArwingLaserCharge(Player* player) {
                 Matrix_Push(&gGfxMatrix);
 
                 // @port: Tag the transform.
-                FrameInterpolation_RecordOpenChild("ArwingMuzzleFlash", 1);
+                FrameInterpolation_RecordOpenChild("ArwingMuzzleFlash3", player->num);
 
                 Matrix_Translate(gGfxMatrix, sp88.x, sp88.y, sp88.z, MTXF_NEW);
                 Matrix_Scale(gGfxMatrix, gMuzzleFlashScale[player->num], gMuzzleFlashScale[player->num], 1.0f,
@@ -1351,7 +1377,7 @@ void Display_ArwingWingTrail_Draw(Player* player) {
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 100);
 
         // @port: Tag the transform.
-        FrameInterpolation_RecordOpenChild("WingTrail", 0);
+        FrameInterpolation_RecordOpenChild("WingTrail", player->num);
 
         if (player->arwing.leftWingState == WINGSTATE_INTACT) {
             Matrix_Push(&gGfxMatrix);
@@ -1371,7 +1397,7 @@ void Display_ArwingWingTrail_Draw(Player* player) {
         FrameInterpolation_RecordCloseChild();
 
         // @port: Tag the transform.
-        FrameInterpolation_RecordOpenChild("WingTrail", 1);
+        FrameInterpolation_RecordOpenChild("WingTrail2", player->num);
 
         if (player->arwing.rightWingState == WINGSTATE_INTACT) {
             Matrix_Push(&gGfxMatrix);
@@ -1645,8 +1671,8 @@ void Display_ActorMarks(void) {
 
         for (i = 0; i < ARRAY_COUNT(gTeamArrowsViewPos); i++) {
             if (gTeamArrowsViewPos[i].z < 0.0f) {
-                FrameInterpolation_RecordOpenChild(&gTeamArrowsViewPos[i], i);
-                FrameInterpolation_RecordMarker(__FILE__, __LINE__);
+                FrameInterpolation_RecordOpenChild("ActorMarks", i);
+                
                 var_fs0 = (VEC3F_MAG(&gTeamArrowsViewPos[i])) * 0.0015f;
                 if (var_fs0 > 100.0f) {
                     var_fs0 = 100.0f;
@@ -1691,8 +1717,7 @@ void Display_LockOnIndicator(void) {
         if (gLockOnTargetViewPos[i].z < 0.0f) {
             var_fs0 = VEC3F_MAG(&gLockOnTargetViewPos[i]);
             if (var_fs0 < 20000.0f) {
-                FrameInterpolation_RecordOpenChild("LcckOnIndicator", 0);
-                FrameInterpolation_RecordMarker(__FILE__, __LINE__);
+                FrameInterpolation_RecordOpenChild("LockOnIndicator", i);
                 var_fs0 *= 0.0015f;
                 if (var_fs0 > 100.0f) {
                     var_fs0 = 100.0f;
@@ -1805,9 +1830,7 @@ void Display_CsLevelCompleteHandleCamera(Player* player) {
             break;
     }
 }
-#if 1
-f32 gTestVarF = 0.0f;
-#endif
+
 void Display_Update(void) {
     s32 i;
     Vec3f tempVec;
@@ -1903,8 +1926,7 @@ void Display_Update(void) {
         printf("CAMERA 1 SKIPED: %d\n", camSkipTimes++);
         gCamera1Skipped = true;
     } else {
-        FrameInterpolation_RecordOpenChild("GamePlayCam", 0);
-        FrameInterpolation_RecordMarker(__FILE__, __LINE__);
+        FrameInterpolation_RecordOpenChild("GamePlayCam", camPlayer->num);
         gCamera1Skipped = false;
     }
 
@@ -1927,10 +1949,8 @@ void Display_Update(void) {
     }
 
     Background_DrawBackdrop();
-    FrameInterpolation_RecordOpenChild("Sun", 0);
-    FrameInterpolation_RecordMarker(__FILE__, __LINE__);
     Background_DrawSun();
-    FrameInterpolation_RecordCloseChild();
+    
     Matrix_Push(&gGfxMatrix);
     Matrix_LookAt(gGfxMatrix, gPlayCamEye.x, gPlayCamEye.y, gPlayCamEye.z, gPlayCamAt.x, gPlayCamAt.y, gPlayCamAt.z,
                   playerCamUp.x, playerCamUp.y, playerCamUp.z, MTXF_APPLY);
@@ -1946,11 +1966,8 @@ void Display_Update(void) {
             Matrix_Pop(&gGfxMatrix);
         } else if (gGroundSurface != SURFACE_WATER) {
             D_bg_8015F964 = false;
-            FrameInterpolation_RecordOpenChild("Ground", 0);
-            FrameInterpolation_RecordMarker(__FILE__, __LINE__);
             Background_DrawSkyboxAndGround();
             Background_DrawGround();
-            FrameInterpolation_RecordCloseChild();
         }
     }
 
@@ -2023,7 +2040,6 @@ void Display_Update(void) {
         FrameInterpolation_RecordMarker(__FILE__, __LINE__);
         Background_DrawSkyboxAndGround();
         Background_DrawGround();
-        FrameInterpolation_RecordCloseChild();
     }
 
     if ((gCurrentLevel != LEVEL_AQUAS) &&
@@ -2036,12 +2052,9 @@ void Display_Update(void) {
 
     for (i = 0, player = &gPlayer[0]; i < gCamCount; i++, player++) {
         if (sPlayersVisible[i]) {
-            FrameInterpolation_RecordOpenChild(player, i);
-            FrameInterpolation_RecordMarker(__FILE__, __LINE__);
             Display_PlayerShadow_Update(player);
             Display_PlayerFeatures(player);
             Display_ArwingWingTrail_Update(player);
-            FrameInterpolation_RecordCloseChild();
         }
     }
 
