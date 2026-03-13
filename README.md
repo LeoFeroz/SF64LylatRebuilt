@@ -48,6 +48,14 @@ If you're interested in creating and/or packing your own custom asset `.o2r`/`.o
 
 If you want to manually compile Starship, please consult the [building instructions](https://github.com/HarbourMasters/Starship/blob/main/docs/BUILDING.md).
 
+### Playtesting
+If you want to playtest a continuous integration build, you can find them at the links below. Keep in mind that these are for playtesting only, and you will likely encounter bugs and possibly crashes. 
+
+* [Windows](https://nightly.link/HarbourMasters/Starship/workflows/main/main/starship-windows.zip)
+* [macOS (Apple Silicon)](https://nightly.link/HarbourMasters/Starship/workflows/main/main/Starship-mac-arm64.zip)
+* [macOS (Intel)](https://nightly.link/HarbourMasters/Starship/workflows/main/main/Starship-mac-x64.zip)
+* [Linux](https://nightly.link/HarbourMasters/Starship/workflows/main/main/Starship-linux.zip)
+* [Switch](https://nightly.link/HarbourMasters/Starship/workflows/main/main/Starship-switch.zip)
 
 <a href="https://github.com/Kenix3/libultraship/">
   <picture>
