@@ -1015,7 +1015,8 @@ void Bolse_BoBase_Draw(BoBase* this) {
             continue;
         }
         Matrix_Push(&gGfxMatrix);
-        RCP_SetupDL(&gMasterDisp, SETUPDL_49);
+        RCP_SetupDL(&gMasterDisp, SETUPDL_41);
+        gDPSetRenderMode(gMasterDisp++, G_RM_AA_ZB_XLU_SURF, G_RM_AA_ZB_XLU_SURF2);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, alpha);
         gDPSetEnvColor(gMasterDisp++, 255, 56, 56, alpha);
         Matrix_Translate(gGfxMatrix, D_i4_801A0488[i].unk_0C, D_i4_801A0488[i].unk_10, D_i4_801A0488[i].unk_14,
@@ -2070,8 +2071,8 @@ void Bolse_BoBaseShield_Update(BoBaseShield* this) {
 
     Math_SmoothStepToF(&this->fwork[0], D_BO_801A03DC * 9.0f + 10.0f, 1.0f, 10.0f, 0.0f);
 
-    Lib_Texture_Scroll(aBoBaseShieldTex, 16, 16, 0);
-    Lib_Texture_Scroll(aBoBaseShieldTex, 16, 16, 0);
+    Lib_Texture_ScrollMod(bo_shiled1_D, 64, 64, 0, 4);
+    Lib_Texture_ScrollMod(bo_shiled1_D, 64, 64, 2, 8);
 
     switch (this->state) {
         case 2:
@@ -2126,6 +2127,8 @@ void Bolse_BoBaseShield_Draw(BoBaseShield* this) {
         Matrix_Scale(gGfxMatrix, 1.2f, 0.55f, 1.2f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
         gSPDisplayList(gMasterDisp++, aBoBaseShieldDL);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 80);
+        gSPDisplayList(gMasterDisp++, aBoBaseShield1DL);
     }
 }
 
@@ -2303,7 +2306,6 @@ void Bolse_DrawDynamicGround(void) {
                     gDPLoadTileTexture(gMasterDisp++, D_BO_600AD80, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32);
                 }
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, D_BO_600BEC0);
             }
             Matrix_Pop(&gGfxMatrix);
         }
@@ -2312,4 +2314,61 @@ void Bolse_DrawDynamicGround(void) {
 
     // @port Pop the transform id.
     FrameInterpolation_RecordCloseChild();
+}
+
+
+//============== BO_SKYBOX + ARENA2 ==============//
+
+
+
+float BoSkyZPos = 0.0f;
+float BoSkyScale = 1000.0f;
+
+void Bolse_Skybox_Update(void) {
+
+    if (Bolse_LevelComplete) {
+        BoSkyZPos = -9000.0f;
+        BoSkyScale = 100.0f;
+    } else if (Bolse_LevelStart) {
+        BoSkyZPos = 0.0f;
+        BoSkyScale = 1000.0f;
+    }
+}
+
+void Bolse_Skybox_Draw(void) {
+    Matrix_Push(&gGfxMatrix);
+    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, BoSkyZPos, MTXF_APPLY);
+    Matrix_Scale(gGfxMatrix, BoSkyScale, BoSkyScale, BoSkyScale, MTXF_APPLY);
+    Matrix_SetGfxMtx(&gMasterDisp);
+    gSPDisplayList(gMasterDisp++, aBoSkyboxDL);
+    Matrix_Pop(&gGfxMatrix);
+}
+
+void Bolse_Arena2_Draw(void) {
+    gDPSetFogColor(gMasterDisp++, gFogRed, gFogGreen, gFogBlue, gFogAlpha);
+    gSPFogPosition(gMasterDisp++, gFogNear, gFogFar);
+
+    if (gBosses[1].obj.status == OBJ_ACTIVE) {
+        RCP_SetupDL(&gMasterDisp, SETUPDL_34);
+        if ((gGameFrameCount % 2) != 0) {
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 128, 160, 255);
+        } else {
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 192, 224, 255);
+        }
+    } else {
+        RCP_SetupDL(&gMasterDisp, SETUPDL_33);
+    }
+
+    Matrix_Push(&gGfxMatrix);
+    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 0.0f, MTXF_APPLY);
+    Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 1.0f, MTXF_APPLY);
+
+    Matrix_RotateX(gCalcMatrix, 0.0f, MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, 0.0f, MTXF_APPLY);
+    Matrix_RotateZ(gCalcMatrix, 0.0f, MTXF_APPLY);
+
+    Matrix_SetGfxMtx(&gMasterDisp);
+    gSPDisplayList(gMasterDisp++, bo_arena2DL);
+
+    Matrix_Pop(&gGfxMatrix);
 }

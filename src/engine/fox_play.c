@@ -29,6 +29,10 @@ extern Vtx D_SO_6001C50_copy[];
 extern Vtx D_SO_6004500_copy[];
 extern Vtx D_ZO_6009ED0_copy[];
 extern Vtx D_ZO_600C780_copy[];
+extern Vtx D_SO_6004500[];
+extern Vtx D_SO_6001C50[];
+extern Gfx D_SO_60005B0[];
+extern Gfx D_SO_6002E60[];
 
 UNK_TYPE D_800D2F50 = 0; // unused
 s32 sOverheadCam = 0;
@@ -2719,6 +2723,9 @@ void Play_InitLevel(void) {
             gZoDodoraWaypointCount = 0;
             /* fallthrough */
         case LEVEL_SOLAR:
+            gFogRed = 120;
+            gFogGreen = 30;
+            gFogBlue = 0;
             /*
                 memcpy(dynaFloor1, LOAD_ASSET(D_SO_6002E60), 724 * sizeof(Gfx));
                 memcpy(dynaFloor2, LOAD_ASSET(D_SO_60005B0), 724 * sizeof(Gfx));
@@ -2975,24 +2982,28 @@ void Play_Init(void) {
         switch (gCurrentLevel) {
             case LEVEL_FORTUNA:
                 break;
+            
+            case LEVEL_BOLSE: 
+                break;
         }
     }
 
     if (gLevelMode == LEVELMODE_ON_RAILS) {
+        gProjectFar = 9999999999999999.0f;
 
         switch (gCurrentLevel) {
             case LEVEL_METEO:
-                gProjectFar = 30000000.0f;
                 Meteo_Skybox_Init();
                 break;
             case LEVEL_SECTOR_X:
-                gProjectFar = 9999999999999999.0f;
                 SectorX_Skybox_Init();
                 break;
             case LEVEL_TITANIA:
-                gProjectFar = 9999999999999999.0f;
                 Titania_Skybox_Init();
                 Titania_Ground_Init();
+                break;
+            case LEVEL_SOLAR:
+                Solar_Skybox_Init();
                 break;
         }
     }
@@ -6958,12 +6969,11 @@ void Play_UpdateLevel(void) {
             Play_UpdateDynaFloor();
 
             for (gPathTexScroll; gPathTexScroll >= 10.0f; gPathTexScroll -= 10.0f) {
-                Lib_Texture_Scroll(D_SO_6005710, 32, 32, 1);
+                Lib_Texture_ScrollMod(D_SO_6005710, 32, 32, 1, 10);
             }
             if (gPlayer[0].state == PLAYERSTATE_NEXT) {
-                Lib_Texture_Scroll(D_SO_6005710, 32, 32, 1);
+                Lib_Texture_ScrollMod(D_SO_6005710, 32, 32, 1, 10);
             }
-            Lib_Texture_Mottle(D_SO_601E1E8, D_SO_6020F60, 3);
 
             if (gPlayer[0].pos.y > 600.0f) {
                 cycleMask = 8 - 1;

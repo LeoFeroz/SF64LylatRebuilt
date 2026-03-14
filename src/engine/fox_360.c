@@ -727,6 +727,7 @@ void ActorAllRange_UpdateEvents(Actor* this) {
             break;
         case LEVEL_BOLSE:
             Bolse_UpdateEventHandler(this);
+            Bolse_Skybox_Update();
             break;
         case LEVEL_SECTOR_Z:
             SectorZ_UpdateEvents(this);

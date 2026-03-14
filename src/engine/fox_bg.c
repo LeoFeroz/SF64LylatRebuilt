@@ -188,8 +188,32 @@ static Gfx starSetupDL[] = {
 f32 gStarPrevX[3000];
 f32 gStarPrevY[3000];
 
-// @port: Starfield drawn with triangles, re-engineered by @Tharo & @TheBoy181
+s32 StarfieldDisabledLevels[] = {
+    LEVEL_BOLSE,
+};
+
+bool Starfield_IsDisabled(void) {
+
+    // No menu, ignora a lista
+    if (gGameState == GSTATE_MENU) {
+        return false;
+    } else if (gGameState == GSTATE_PLAY) {
+        for (int i = 0; i < ARRAY_COUNT(StarfieldDisabledLevels); i++) {
+            if (gCurrentLevel == StarfieldDisabledLevels[i]) {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+// @port: Starfield drawn with triangles
 void Background_DrawStarfield(void) {
+
+    if (Starfield_IsDisabled()) {
+        return;
+    }
     f32 by;
     f32 bx;
     s32 i;
@@ -847,7 +871,6 @@ void Background_DrawBackdrop(void) {
                         } else if (gCurrentLevel == LEVEL_ZONESS) {
                             gSPDisplayList(gMasterDisp++, D_ZO_6013480);
                         } else if (gCurrentLevel == LEVEL_SOLAR) {
-                            gSPDisplayList(gMasterDisp++, D_SO_601E150);
                         }
 
                         // Move the matrix to the right by 7280.0f each time to draw the next texture
@@ -1292,7 +1315,6 @@ void AllRangeGround_Draw(void) {
                 gSPDisplayList(gMasterDisp++, D_KA_6009250);
                 break;
             case LEVEL_BOLSE:
-                gSPDisplayList(gMasterDisp++, D_BO_600A810);
                 break;
             case LEVEL_VENOM_2:
                 gSPDisplayList(gMasterDisp++, D_VE2_6010700);
@@ -1315,6 +1337,34 @@ void AllRangeGround_Draw(void) {
 
         // @port: Pop the transform.
         FrameInterpolation_RecordCloseChild();
+    }
+}
+void Background_DrawSkybox(void) {  // Special Cases (FIX FOR Z-BUFFER ISSUES)
+    f32 sp1D4;
+    s32 i;
+    u32 temp_fv0;
+    u32 temp_s0;
+    u16* sp1C4;
+    Gfx* sp1C0;
+    f32 temp_fv1;
+    f32 temp_fa0;
+
+    if (gLevelMode == LEVELMODE_ALL_RANGE) {
+        gProjectFar = 9999999999999999.0f;
+
+        switch (gCurrentLevel) {
+            case LEVEL_FORTUNA:
+                break;
+
+            case LEVEL_BOLSE:
+                Bolse_Skybox_Draw();
+
+                if (gBosses[0].obj.status == OBJ_ACTIVE) {
+                    Bolse_Arena2_Draw();
+                    return;
+                }
+                break;
+        }
     }
 }
 
@@ -1950,15 +2000,15 @@ void Background_DrawGround(void) {
             AllRangeGround_Draw();
             break;
 
-        case LEVEL_SOLAR: // WIP
+       case LEVEL_SOLAR: // WIP
             RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
-
-            // Render the object at the center (No mirroring)
             Matrix_Push(&gGfxMatrix);
             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -2000.0f, MTXF_APPLY);
             Matrix_Scale(gGfxMatrix, 3.0f, 2.0f, 3.0f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
+
             gSPDisplayList(gMasterDisp++, (gGameFrameCount % 2) ? D_SO_60005B0 : D_SO_6002E60);
+
             Matrix_Pop(&gGfxMatrix);
 
 // Render mirrored objects on both sides (Left: -1, Right: 1)

@@ -1948,6 +1948,7 @@ void Display_Update(void) {
             D_bg_8015F964 = false;
             FrameInterpolation_RecordOpenChild("Ground", 0);
             FrameInterpolation_RecordMarker(__FILE__, __LINE__);
+            Background_DrawSkybox();
             Background_DrawGround();
             FrameInterpolation_RecordCloseChild();
         }
@@ -2020,6 +2021,7 @@ void Display_Update(void) {
         Effect_Draw(1);
         FrameInterpolation_RecordOpenChild("Ground", 0);
         FrameInterpolation_RecordMarker(__FILE__, __LINE__);
+        Background_DrawSkybox();
         Background_DrawGround();
         FrameInterpolation_RecordCloseChild();
     }

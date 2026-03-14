@@ -85,6 +85,7 @@ void Solar_SoVulkain_Update(SoVulkain*);
 void Solar_SoVulkain_Draw(SoVulkain*);
 void Solar_801A8BE8(ActorCutscene*);
 void Solar_LevelComplete(Player* player);
+void Solar_Skybox_Init(void);
 
 void Aquas_InitLevel(void);
 void Aquas_801AA20C(void);

@@ -23,6 +23,7 @@
 #include "fox_record.h"
 #include "assets/ast_ti_replace.h"
 #include "assets/ast_fortuna.h"
+#include "assets/ast_solar.h"
 
 int gWarpzoneCsFrameCount = 0;
 
@@ -2778,9 +2779,9 @@ void ActorCutscene_Draw(ActorCutscene* this) {
             gDPSetPrimColor(gMasterDisp++, 0, 0, (s32) D_800CA210, (s32) D_800CA214, (s32) D_800CA218, 128);
 
             if (gPlayer[0].state == PLAYERSTATE_LEVEL_INTRO) {
-                Matrix_Scale(gGfxMatrix, 1.02f, 1.02f, 1.02f, MTXF_APPLY);
+                Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 1.0f, MTXF_APPLY);
             } else {
-                Matrix_Scale(gGfxMatrix, 0.97f, 0.97f, 0.97f, MTXF_APPLY);
+                Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 1.0f, MTXF_APPLY);
             }
 
             Matrix_SetGfxMtx(&gMasterDisp);
@@ -3344,6 +3345,54 @@ void ActorCutscene2_Draw(ActorCutscene2* this) { // Skybox For On Raills Levels
             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 0.0f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, aFoGroundDL);
+            Matrix_Pop(&gGfxMatrix);
+            break;
+
+        case ACTOR_CS_SO_SKYBOX:
+
+            if (gPathProgress > 0.0f) { // Skybox Follow Player
+                useZ = gPlayer->pos.z;
+            } else if (Solar_LevelStart || Solar_LevelComplete) {
+                useZ = lastFollowZ; // Skybox Stop Follow Player
+            }
+
+            Matrix_Push(&gGfxMatrix);
+
+            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, useZ, MTXF_APPLY);
+            Matrix_Scale(gGfxMatrix, 10.0f, 10.0f, 10.0f, MTXF_APPLY);
+
+            Matrix_RotateX(gCalcMatrix, 0.0f, MTXF_APPLY);
+            Matrix_RotateY(gCalcMatrix, 0.0f, MTXF_APPLY);
+            Matrix_RotateZ(gCalcMatrix, 0.0f, MTXF_APPLY);
+
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, aSoSkyboxDL);
+
+            Matrix_Pop(&gGfxMatrix);
+            break;
+
+        case ACTOR_CS_BO_ARENA:
+            Matrix_Push(&gGfxMatrix);
+            RCP_SetupDL(&gMasterDisp, SETUPDL_33);
+            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 0.0f, MTXF_APPLY);
+            Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 1.0f, MTXF_APPLY);
+
+            Matrix_RotateX(gCalcMatrix, 0.0f, MTXF_APPLY);
+            Matrix_RotateY(gCalcMatrix, 0.0f, MTXF_APPLY);
+            Matrix_RotateZ(gCalcMatrix, 0.0f, MTXF_APPLY);
+
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, bo_arena2DL);
+
+            Matrix_Pop(&gGfxMatrix);
+            break;
+
+        case ACTOR_CS_BO_SKYBOX:
+            Matrix_Push(&gGfxMatrix);
+            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 0.0f, MTXF_APPLY);
+            Matrix_Scale(gGfxMatrix, 1000.0f, 1000.0f, 1000.0f, MTXF_APPLY);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, aBoSkyboxDL);
             Matrix_Pop(&gGfxMatrix);
             break;
     }

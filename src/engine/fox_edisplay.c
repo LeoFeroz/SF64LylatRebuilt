@@ -1330,9 +1330,20 @@ void Boss_Draw(Boss* this, s32 arg1) {
     //     goto render;
     // }
 
-    if (this->obj.id == OBJ_ACTOR_CUTSCENE2) {
-        goto render;
+
+    //Important for all new objects. //Note: Do not remove.
+    ///////////////////////////////////////////////////////
+    s32 AlwaysRenderList[] = {                
+
+        OBJ_ACTOR_CUTSCENE2, OBJ_BOSS_BO_BASE,
+    };
+
+    for (int i = 0; i < 2; i++) {
+        if (this->obj.id == AlwaysRenderList[i]) {
+            goto render;
+        }
     }
+    //////////////////////////////////////////////////////
 
     if ((D_edisplay_801615D0.z < var_fv0) && (var_fv1 < D_edisplay_801615D0.z)) {
         if (fabsf(D_edisplay_801615D0.x) < (fabsf(D_edisplay_801615D0.z * var_ft5) + var_fa1) * 1.77f) {

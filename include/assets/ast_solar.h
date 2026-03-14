@@ -10,14 +10,6 @@
 
 static const ALIGN_ASSET(2) char aSoTitleCardTex[] = "__OTR__ast_solar/aSoTitleCardTex";
 
-static const ALIGN_ASSET(2) char D_SO_60005B0[] = "__OTR__ast_solar/D_SO_60005B0";
-
-static const ALIGN_ASSET(2) char D_SO_6001C50[] = "__OTR__ast_solar/D_SO_6001C50";
-
-static const ALIGN_ASSET(2) char D_SO_6002E60[] = "__OTR__ast_solar/D_SO_6002E60";
-
-static const ALIGN_ASSET(2) char D_SO_6004500[] = "__OTR__ast_solar/D_SO_6004500";
-
 static const ALIGN_ASSET(2) char D_SO_6005710[] = "__OTR__ast_solar/D_SO_6005710";
 
 static const ALIGN_ASSET(2) char aSoGoreAnim[] = "__OTR__ast_solar/aSoGoreAnim";
@@ -283,4 +275,6 @@ static const ALIGN_ASSET(2) char D_SO_6022760[] = "__OTR__ast_solar/D_SO_6022760
 static const ALIGN_ASSET(2) char D_SO_60229A4[] = "__OTR__ast_solar/D_SO_60229A4";
 
 static const ALIGN_ASSET(2) char D_SO_60231A4[] = "__OTR__ast_solar/D_SO_60231A4";
+
+static const ALIGN_ASSET(2) char aSoSkyboxDL[] = "__OTR__ast_skybox/aSoSkyboxDL";
 

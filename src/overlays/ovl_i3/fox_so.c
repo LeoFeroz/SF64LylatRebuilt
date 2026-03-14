@@ -2820,9 +2820,9 @@ bool Solar_SoVulkain_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Ve
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, D_i3_801C2740[1], D_i3_801C2740[0], D_i3_801C2740[0], 255);
 
     if (this->fwork[SO_FWK_3] < 4800.0f) {
-        RCP_SetupDL_30(64, 32, 32, gFogAlpha, gFogNear, gFogFar);
+        RCP_SetupDL_30(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     } else {
-        RCP_SetupDL_30(16, 16, 16, gFogAlpha, gFogNear, gFogFar);
+        RCP_SetupDL_30(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     }
 
     switch (limbIndex) {
@@ -3588,4 +3588,19 @@ void Solar_801A8DB8(Vec3f* pos, u32 sfxId, f32 zVel) {
             break;
         }
     }
+}
+
+void Solar_Skybox_Init(void) {
+    ActorCutscene2* SoSky = &gBosses[2];
+
+    Actor_Initialize(SoSky);
+    SoSky->obj.status = OBJ_INIT;
+    SoSky->obj.id = OBJ_ACTOR_CUTSCENE2;
+
+    SoSky->obj.pos.x = 0.0f;
+    SoSky->obj.pos.y = 0.0f;
+    SoSky->obj.pos.z = 0.0f;
+
+    SoSky->animFrame = ACTOR_CS_SO_SKYBOX;
+    Object_SetInfo(&SoSky->info, SoSky->obj.id);
 }

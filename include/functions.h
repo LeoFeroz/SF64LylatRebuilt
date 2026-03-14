@@ -48,6 +48,7 @@ void Background_DrawBackdrop(void);
 void Background_DrawSun(void);
 void Background_DrawLensFlare(void);
 void Background_dummy_80040CDC(void);
+void Background_DrawSkybox(void);
 void Background_DrawGround(void);
 
 // fox_boss

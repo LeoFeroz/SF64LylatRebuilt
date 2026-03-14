@@ -135,10 +135,9 @@ void Lib_Texture_Scroll(u16* texture, s32 width, s32 height, u8 mode) {
     }
 }
 
-void Lib_Texture_ScrollMod(u16* texture, s32 width, s32 height, u8 mode, u8 multiply) {   //Add a multiplye to fix slow scroll HD textures
-
-    if (multiply == 0) {
-        return; // não move
+void Lib_Texture_ScrollMod(u16* texture, s32 width, s32 height, u8 mode, u8 multiply) {
+    if (multiply == 0 || multiply > 255) {
+        return;
     }
 
     s32 newWidth;
@@ -149,116 +148,217 @@ void Lib_Texture_ScrollMod(u16* texture, s32 width, s32 height, u8 mode, u8 mult
     GameEngine_GetTextureInfo(texture, &newWidth, &newHeight, &scale, &custom);
 
     if (custom) {
-
         u32* pixel = SEGMENTED_TO_VIRTUAL(texture);
-        u32 tempPxl;
         s32 u, v;
+        s32 shift = multiply % height; // Previne rotação excessiva
 
         width = newWidth;
         height = newHeight;
 
-        for (u8 m = 0; m < multiply; m++) { // <<< multiplicador aqui
+        if (shift == 0)
+            return;
 
-            switch (mode) {
+        switch (mode) {
+            case 0: // vertical up
+                for (u = 0; u < width; u++) {
+                    u32* coluna = &pixel[u];
+                    u32 buffer[256]; // Buffer temporário na stack
 
-                case 0: // vertical up
-                    for (u = 0; u < width; u++) {
-                        tempPxl = pixel[u];
-                        for (v = 1; v < height; v++) {
-                            pixel[(v - 1) * width + u] = pixel[v * width + u];
-                        }
-                        pixel[(height - 1) * width + u] = tempPxl;
+                    // Salva as primeiras 'shift' linhas
+                    for (v = 0; v < shift; v++) {
+                        buffer[v] = coluna[v * width];
                     }
-                    break;
 
-                case 1: // vertical down
-                    for (u = 0; u < width; u++) {
-                        tempPxl = pixel[(height - 1) * width + u];
-                        for (v = height - 2; v >= 0; v--) {
-                            pixel[(v + 1) * width + u] = pixel[v * width + u];
-                        }
-                        pixel[u] = tempPxl;
+                    // Move o resto para cima
+                    for (v = shift; v < height; v++) {
+                        coluna[(v - shift) * width] = coluna[v * width];
                     }
-                    break;
 
-                case 2: // horizontal right
-                    for (v = 0; v < height; v++) {
-                        tempPxl = pixel[v * width + width - 1];
-                        for (u = width - 2; u >= 0; u--) {
-                            pixel[v * width + u + 1] = pixel[v * width + u];
-                        }
-                        pixel[v * width] = tempPxl;
+                    // Coloca as linhas salvas no final
+                    for (v = 0; v < shift; v++) {
+                        coluna[(height - shift + v) * width] = buffer[v];
                     }
-                    break;
+                }
+                break;
 
-                case 3: // horizontal left
-                    for (v = 0; v < height; v++) {
-                        tempPxl = pixel[v * width];
-                        for (u = 1; u < width; u++) {
-                            pixel[v * width + u - 1] = pixel[v * width + u];
-                        }
-                        pixel[v * width + width - 1] = tempPxl;
+            case 1: // vertical down
+                shift = multiply % height;
+                if (shift == 0)
+                    return;
+
+                for (u = 0; u < width; u++) {
+                    u32* coluna = &pixel[u];
+                    u32 buffer[256];
+
+                    // Salva as últimas 'shift' linhas
+                    for (v = 0; v < shift; v++) {
+                        buffer[v] = coluna[(height - shift + v) * width];
                     }
-                    break;
-            }
+
+                    // Move o resto para baixo
+                    for (v = height - shift - 1; v >= 0; v--) {
+                        coluna[(v + shift) * width] = coluna[v * width];
+                    }
+
+                    // Coloca as linhas salvas no início
+                    for (v = 0; v < shift; v++) {
+                        coluna[v * width] = buffer[v];
+                    }
+                }
+                break;
+
+            case 2: // horizontal right
+                shift = width - (multiply % width);
+                if (shift == 0)
+                    return;
+
+                for (v = 0; v < height; v++) {
+                    u32* linha = &pixel[v * width];
+                    u32 buffer[256];
+
+                    // Salva as últimas 'shift' colunas
+                    for (u = 0; u < shift; u++) {
+                        buffer[u] = linha[width - shift + u];
+                    }
+
+                    // Move o resto para a direita
+                    for (u = width - shift - 1; u >= 0; u--) {
+                        linha[u + shift] = linha[u];
+                    }
+
+                    // Coloca as colunas salvas no início
+                    for (u = 0; u < shift; u++) {
+                        linha[u] = buffer[u];
+                    }
+                }
+                break;
+
+            case 3: // horizontal left
+                shift = multiply % width;
+                if (shift == 0)
+                    return;
+
+                for (v = 0; v < height; v++) {
+                    u32* linha = &pixel[v * width];
+                    u32 buffer[256];
+
+                    // Salva as primeiras 'shift' colunas
+                    for (u = 0; u < shift; u++) {
+                        buffer[u] = linha[u];
+                    }
+
+                    // Move o resto para a esquerda
+                    for (u = shift; u < width; u++) {
+                        linha[u - shift] = linha[u];
+                    }
+
+                    // Coloca as colunas salvas no final
+                    for (u = 0; u < shift; u++) {
+                        linha[width - shift + u] = buffer[u];
+                    }
+                }
+                break;
         }
-
-        gSPInvalidateTexCache(gMasterDisp++, pixel);
-
     } else {
-
         u16* pixel = SEGMENTED_TO_VIRTUAL(texture);
-        u16 tempPxl;
         s32 u, v;
+        s32 shift = multiply % height;
 
-        for (u8 m = 0; m < multiply; m++) { // <<< multiplicador aqui
+        if (shift == 0)
+            return;
 
-            switch (mode) {
+        switch (mode) {
+            case 0: // vertical up
+                for (u = 0; u < width; u++) {
+                    u16* coluna = &pixel[u];
+                    u16 buffer[256];
 
-                case 0:
-                    for (u = 0; u < width; u++) {
-                        tempPxl = pixel[u];
-                        for (v = 1; v < height; v++) {
-                            pixel[(v - 1) * width + u] = pixel[v * width + u];
-                        }
-                        pixel[(height - 1) * width + u] = tempPxl;
+                    for (v = 0; v < shift; v++) {
+                        buffer[v] = coluna[v * width];
                     }
-                    break;
 
-                case 1:
-                    for (u = 0; u < width; u++) {
-                        tempPxl = pixel[(height - 1) * width + u];
-                        for (v = height - 2; v >= 0; v--) {
-                            pixel[(v + 1) * width + u] = pixel[v * width + u];
-                        }
-                        pixel[u] = tempPxl;
+                    for (v = shift; v < height; v++) {
+                        coluna[(v - shift) * width] = coluna[v * width];
                     }
-                    break;
 
-                case 2:
-                    for (v = 0; v < height; v++) {
-                        tempPxl = pixel[v * width + width - 1];
-                        for (u = width - 2; u >= 0; u--) {
-                            pixel[v * width + u + 1] = pixel[v * width + u];
-                        }
-                        pixel[v * width] = tempPxl;
+                    for (v = 0; v < shift; v++) {
+                        coluna[(height - shift + v) * width] = buffer[v];
                     }
-                    break;
+                }
+                break;
 
-                case 3:
-                    for (v = 0; v < height; v++) {
-                        tempPxl = pixel[v * width];
-                        for (u = 1; u < width; u++) {
-                            pixel[v * width + u - 1] = pixel[v * width + u];
-                        }
-                        pixel[v * width + width - 1] = tempPxl;
+            case 1: // vertical down
+                shift = multiply % height;
+                if (shift == 0)
+                    return;
+
+                for (u = 0; u < width; u++) {
+                    u16* coluna = &pixel[u];
+                    u16 buffer[256];
+
+                    for (v = 0; v < shift; v++) {
+                        buffer[v] = coluna[(height - shift + v) * width];
                     }
-                    break;
-            }
+
+                    for (v = height - shift - 1; v >= 0; v--) {
+                        coluna[(v + shift) * width] = coluna[v * width];
+                    }
+
+                    for (v = 0; v < shift; v++) {
+                        coluna[v * width] = buffer[v];
+                    }
+                }
+                break;
+
+            case 2: // horizontal right
+                shift = width - (multiply % width);
+                if (shift == 0)
+                    return;
+
+                for (v = 0; v < height; v++) {
+                    u16* linha = &pixel[v * width];
+                    u16 buffer[256];
+
+                    for (u = 0; u < shift; u++) {
+                        buffer[u] = linha[width - shift + u];
+                    }
+
+                    for (u = width - shift - 1; u >= 0; u--) {
+                        linha[u + shift] = linha[u];
+                    }
+
+                    for (u = 0; u < shift; u++) {
+                        linha[u] = buffer[u];
+                    }
+                }
+                break;
+
+            case 3: // horizontal left
+                shift = multiply % width;
+                if (shift == 0)
+                    return;
+
+                for (v = 0; v < height; v++) {
+                    u16* linha = &pixel[v * width];
+                    u16 buffer[256];
+
+                    for (u = 0; u < shift; u++) {
+                        buffer[u] = linha[u];
+                    }
+
+                    for (u = shift; u < width; u++) {
+                        linha[u - shift] = linha[u];
+                    }
+
+                    for (u = 0; u < shift; u++) {
+                        linha[width - shift + u] = buffer[u];
+                    }
+                }
+                break;
         }
-
-        gSPInvalidateTexCache(gMasterDisp++, pixel);
     }
+
+    gSPInvalidateTexCache(gMasterDisp++, SEGMENTED_TO_VIRTUAL(texture));
 }
 
 void Lib_Texture_Mottle(u16* dst, u16* src, u8 mode) {

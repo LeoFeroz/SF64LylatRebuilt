@@ -23,6 +23,12 @@
     "textureWidth": 64,
     "textureHeight": 64
   },
+  "ast_skybox/bosky1_D": {
+    "hash": "4053a996d186c98881b9abff9090113582b87d32409a41090ea39981b82ec484",
+    "textureType": 2,
+    "textureWidth": 64,
+    "textureHeight": 64
+  },
   "ast_stage/ti_s8_D": {
     "hash": "80229211281269d1e5cd555aa75ea23e953d11feabe085e509f2dfb8f2022766",
     "textureType": 2,
@@ -71,17 +77,23 @@
     "textureWidth": 64,
     "textureHeight": 64
   },
+  "ast_skybox/mebg0_D": {
+    "hash": "4bd6d950a8db5c0aa889bef5ec4faa25e041bac207636aadd44dba1f21b90827",
+    "textureType": 2,
+    "textureWidth": 64,
+    "textureHeight": 32
+  },
   "ast_stage/ti_grass_D": {
     "hash": "4e3915c92c14ac88410baa5664ec55cb594f0bd83f7053f5525a3542a0971a81",
     "textureType": 2,
     "textureWidth": 64,
     "textureHeight": 64
   },
-  "ast_skybox/mebg0_D": {
-    "hash": "4bd6d950a8db5c0aa889bef5ec4faa25e041bac207636aadd44dba1f21b90827",
+  "ast_skybox/so_bg0_D": {
+    "hash": "9c299a190fcd83443c3dd295ed0aa0ab8dfd7d36fe4a058f5a50188d52d04fbd",
     "textureType": 2,
     "textureWidth": 64,
-    "textureHeight": 32
+    "textureHeight": 64
   },
   "ast_skybox/skyspace0_D": {
     "hash": "6d2d122b5ba1e0935fd711b52b4e244e18e6159edbf4a701844442aec4032128",
@@ -101,12 +113,6 @@
     "textureWidth": 64,
     "textureHeight": 64
   },
-  "ast_skybox/ti_skybox_D": {
-    "hash": "5242479983d1c17f4cebada4ce7c8e4031cf74e1937650c9624e5ad81ce9dbc8",
-    "textureType": 2,
-    "textureWidth": 64,
-    "textureHeight": 64
-  },
   "ast_stage/ti_s3_D": {
     "hash": "56e8c310e96cdb66f7509df3a76f217e3bf0cfd852acd5c77844bc0aa6304afe",
     "textureType": 2,
@@ -119,8 +125,8 @@
     "textureWidth": 64,
     "textureHeight": 64
   },
-  "ast_skybox/sxbg0_D": {
-    "hash": "f78c0ecab659d475abea79f66c2a1b043d45db361f4f66b785347f96ddd12065",
+  "ast_skybox/bosky0_D": {
+    "hash": "c60fde8f4bcb4387798542586f4385efbf695804a6c1ea77f8b9bbbedb10a6c6",
     "textureType": 2,
     "textureWidth": 64,
     "textureHeight": 64

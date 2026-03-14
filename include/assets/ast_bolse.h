@@ -284,3 +284,11 @@ static const ALIGN_ASSET(2) char aBoBaseCoreHitbox[] = "__OTR__ast_bolse/aBoBase
 
 static const ALIGN_ASSET(2) char D_BO_6011E28[] = "__OTR__ast_bolse/D_BO_6011E28";
 
+static const ALIGN_ASSET(2) char bo_arena2DL[] = "__OTR__ast_bolse/bo_arena2DL";
+
+static const ALIGN_ASSET(2) char aBoSkyboxDL[] = "__OTR__ast_skybox/aBoSkyboxDL";
+
+static const ALIGN_ASSET(2) char bo_shiled1_D[] = "__OTR__ast_bolse/bo_shiled1_D";
+
+static const ALIGN_ASSET(2) char aBoBaseShield1DL[] = "__OTR__ast_bolse/aBoBaseShield1DL";
+
