@@ -1339,7 +1339,7 @@ void AllRangeGround_Draw(void) {
         FrameInterpolation_RecordCloseChild();
     }
 }
-void Background_DrawSkybox(void) {  // Special Cases (FIX FOR Z-BUFFER ISSUES)
+void Background_DrawSkyboxAndGround(void) {  // Special Cases (FIX FOR Z-BUFFER ISSUES)
     f32 sp1D4;
     s32 i;
     u32 temp_fv0;
@@ -1349,8 +1349,9 @@ void Background_DrawSkybox(void) {  // Special Cases (FIX FOR Z-BUFFER ISSUES)
     f32 temp_fv1;
     f32 temp_fa0;
 
+    gProjectFar = 9999999999999999.0f;
+
     if (gLevelMode == LEVELMODE_ALL_RANGE) {
-        gProjectFar = 9999999999999999.0f;
 
         switch (gCurrentLevel) {
             case LEVEL_FORTUNA:
@@ -1363,6 +1364,14 @@ void Background_DrawSkybox(void) {  // Special Cases (FIX FOR Z-BUFFER ISSUES)
                     Bolse_Arena2_Draw();
                     return;
                 }
+                break;
+        }
+    }
+
+    if (gLevelMode == LEVELMODE_ON_RAILS) {
+
+        switch (gCurrentLevel) {
+            case LEVEL_VENOM_1:
                 break;
         }
     }

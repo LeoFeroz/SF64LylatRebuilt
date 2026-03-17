@@ -6,6 +6,7 @@
 
 #include "global.h"
 #include "assets/ast_ve1_boss.h"
+#include "assets/ast_vn_replace.h"
 
 typedef struct {
     /* 0x00 */ s16 unk_00;
@@ -2591,4 +2592,20 @@ void Venom1_8019864C(PlayerShot* shot) {
 
 void Venom1_LevelStart(Player* player) {
     Venom1_LevelStart2(player);
+}
+
+void Venom1_Ground_Init(void) {
+    ActorCutscene2* TiGround0 = &gBosses[3];
+
+    Actor_Initialize(TiGround0);
+    TiGround0->obj.status = OBJ_INIT;
+    TiGround0->obj.id = OBJ_ACTOR_CUTSCENE2;
+
+    TiGround0->obj.pos.x = 0.0f;
+    TiGround0->obj.pos.y = 0.0f;
+    TiGround0->obj.pos.z = -3000.0f;
+
+    TiGround0->animFrame = ACTOR_CS_TI_GROUND;
+    Object_SetInfo(&TiGround0->info, TiGround0->obj.id);
+  
 }

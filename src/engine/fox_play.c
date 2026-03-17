@@ -2723,9 +2723,7 @@ void Play_InitLevel(void) {
             gZoDodoraWaypointCount = 0;
             /* fallthrough */
         case LEVEL_SOLAR:
-            gFogRed = 120;
-            gFogGreen = 30;
-            gFogBlue = 0;
+
             /*
                 memcpy(dynaFloor1, LOAD_ASSET(D_SO_6002E60), 724 * sizeof(Gfx));
                 memcpy(dynaFloor2, LOAD_ASSET(D_SO_60005B0), 724 * sizeof(Gfx));
@@ -3003,7 +3001,13 @@ void Play_Init(void) {
                 Titania_Ground_Init();
                 break;
             case LEVEL_SOLAR:
+                gFogRed = 120;
+                gFogGreen = 30;
+                gFogBlue = 0;
                 Solar_Skybox_Init();
+                break;
+            case LEVEL_VENOM_1:
+                Venom1_Ground_Init();
                 break;
         }
     }

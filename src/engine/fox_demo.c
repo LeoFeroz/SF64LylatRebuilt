@@ -24,6 +24,7 @@
 #include "assets/ast_ti_replace.h"
 #include "assets/ast_fortuna.h"
 #include "assets/ast_solar.h"
+#include "assets/ast_vn_replace.h"
 
 int gWarpzoneCsFrameCount = 0;
 
@@ -3359,7 +3360,7 @@ void ActorCutscene2_Draw(ActorCutscene2* this) { // Skybox For On Raills Levels
             Matrix_Push(&gGfxMatrix);
 
             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, useZ, MTXF_APPLY);
-            Matrix_Scale(gGfxMatrix, 10.0f, 10.0f, 10.0f, MTXF_APPLY);
+            Matrix_Scale(gGfxMatrix, 100.0f, 100.0f, 100.0f, MTXF_APPLY);
 
             Matrix_RotateX(gCalcMatrix, 0.0f, MTXF_APPLY);
             Matrix_RotateY(gCalcMatrix, 0.0f, MTXF_APPLY);
@@ -3371,29 +3372,8 @@ void ActorCutscene2_Draw(ActorCutscene2* this) { // Skybox For On Raills Levels
             Matrix_Pop(&gGfxMatrix);
             break;
 
-        case ACTOR_CS_BO_ARENA:
-            Matrix_Push(&gGfxMatrix);
-            RCP_SetupDL(&gMasterDisp, SETUPDL_33);
-            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 0.0f, MTXF_APPLY);
-            Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 1.0f, MTXF_APPLY);
+        case ACTOR_CS_VN_GROUND:
 
-            Matrix_RotateX(gCalcMatrix, 0.0f, MTXF_APPLY);
-            Matrix_RotateY(gCalcMatrix, 0.0f, MTXF_APPLY);
-            Matrix_RotateZ(gCalcMatrix, 0.0f, MTXF_APPLY);
-
-            Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, bo_arena2DL);
-
-            Matrix_Pop(&gGfxMatrix);
-            break;
-
-        case ACTOR_CS_BO_SKYBOX:
-            Matrix_Push(&gGfxMatrix);
-            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 0.0f, MTXF_APPLY);
-            Matrix_Scale(gGfxMatrix, 1000.0f, 1000.0f, 1000.0f, MTXF_APPLY);
-            Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, aBoSkyboxDL);
-            Matrix_Pop(&gGfxMatrix);
             break;
     }
 }

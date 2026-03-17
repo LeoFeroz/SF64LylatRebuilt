@@ -830,8 +830,7 @@ typedef enum ActorCutsceneModels {
     /* 1005 */ ACTOR_CS_FO_SKYBOX = 1005,
     /* 1006 */ ACTOR_CS_FO_GROUND = 1006,
     /* 1007 */ ACTOR_CS_SO_SKYBOX = 1007,
-    /* 1008 */ ACTOR_CS_BO_ARENA = 1008,
-    /* 1009 */ ACTOR_CS_BO_SKYBOX = 1009
+    /* 1008 */ ACTOR_CS_VN_GROUND = 1008,
 
 } ActorCutsceneModels;
 

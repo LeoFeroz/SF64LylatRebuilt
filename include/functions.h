@@ -48,7 +48,7 @@ void Background_DrawBackdrop(void);
 void Background_DrawSun(void);
 void Background_DrawLensFlare(void);
 void Background_dummy_80040CDC(void);
-void Background_DrawSkybox(void);
+void Background_DrawSkyboxAndGround(void);
 void Background_DrawGround(void);
 
 // fox_boss
@@ -429,6 +429,7 @@ void Aquas_Effect363_Update(Effect*);
 void Aquas_Effect363_Draw(Effect*);
 void HUD_Score_Draw(f32, f32);
 void Venom1_LevelStart2(Player* player);
+void Venom1_Ground_Init(void);
 
 // fox_col1
 void func_col1_80098860(PlaneF* plane, Vec3f* point, Vec3f* normal);
