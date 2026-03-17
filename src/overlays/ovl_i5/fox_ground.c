@@ -262,7 +262,7 @@ void Ground_801B4AA8(s32* arg0, s32* arg1) {
     }
 }
 
-void Ground_801B5110(f32 x, f32 y, f32 z) {
+void Ground_Init(f32 x, f32 y, f32 z) {
     UnkStruct_801C62E8* ptr;
     s32 i;
     s32 k;
