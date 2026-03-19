@@ -38,3 +38,5 @@ static const ALIGN_ASSET(2) char vn_ground16_DL[] = "__OTR__ast_stage/vn_ground1
 static const ALIGN_ASSET(2) char vn_ground17_DL[] = "__OTR__ast_stage/vn_ground17_DL";
 
 static const ALIGN_ASSET(2) char vn_ground18_DL[] = "__OTR__ast_stage/vn_ground18_DL";
+
+static const ALIGN_ASSET(2) char aVe1SkyboxDL[] = "__OTR__ast_skybox/aVe1SkyboxDL";

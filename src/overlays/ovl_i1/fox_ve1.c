@@ -6,7 +6,6 @@
 
 #include "global.h"
 #include "assets/ast_ve1_boss.h"
-#include "assets/ast_vn_replace.h"
 
 typedef struct {
     /* 0x00 */ s16 unk_00;
@@ -2595,17 +2594,32 @@ void Venom1_LevelStart(Player* player) {
 }
 
 void Venom1_Ground_Init(void) {
-    ActorCutscene2* TiGround0 = &gBosses[3];
+    ActorCutscene2* VnGround0 = &gBosses[3];
 
-    Actor_Initialize(TiGround0);
-    TiGround0->obj.status = OBJ_INIT;
-    TiGround0->obj.id = OBJ_ACTOR_CUTSCENE2;
+    Actor_Initialize(VnGround0);
+    VnGround0->obj.status = OBJ_INIT;
+    VnGround0->obj.id = OBJ_ACTOR_CUTSCENE2;
 
-    TiGround0->obj.pos.x = 0.0f;
-    TiGround0->obj.pos.y = 0.0f;
-    TiGround0->obj.pos.z = -3000.0f;
+    VnGround0->obj.pos.x = 0.0f;
+    VnGround0->obj.pos.y = 0.0f;
+    VnGround0->obj.pos.z = -2850.0f;
 
-    TiGround0->animFrame = ACTOR_CS_TI_GROUND;
-    Object_SetInfo(&TiGround0->info, TiGround0->obj.id);
+    VnGround0->animFrame = ACTOR_CS_VN_GROUND;
+    Object_SetInfo(&VnGround0->info, VnGround0->obj.id);
   
+}
+
+void Venom1_Skybox_Init(void) {
+    ActorCutscene2* Vn1Sky = &gBosses[4];
+
+    Actor_Initialize(Vn1Sky);
+    Vn1Sky->obj.status = OBJ_INIT;
+    Vn1Sky->obj.id = OBJ_ACTOR_CUTSCENE2;
+
+    Vn1Sky->obj.pos.x = 0.0f;
+    Vn1Sky->obj.pos.y = 0.0f;
+    Vn1Sky->obj.pos.z = -2850.0f;
+
+    Vn1Sky->animFrame = ACTOR_CS_VN1_SKYBOX;
+    Object_SetInfo(&Vn1Sky->info, Vn1Sky->obj.id);
 }

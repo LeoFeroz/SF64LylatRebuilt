@@ -3313,7 +3313,7 @@ void ActorCutscene2_Draw(ActorCutscene2* this) { // Skybox For On Raills Levels
             Matrix_Push(&gGfxMatrix);
 
             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, useZ, MTXF_APPLY);
-            Matrix_Scale(gGfxMatrix, 100.0f, 100.0f, 100.0f, MTXF_APPLY);
+            Matrix_Scale(gGfxMatrix, 10.0f, 10.0f, 10.0f, MTXF_APPLY);
 
             Matrix_RotateX(gCalcMatrix, 0.0f, MTXF_APPLY);
             Matrix_RotateY(gCalcMatrix, 0.0f, MTXF_APPLY);
@@ -3326,7 +3326,215 @@ void ActorCutscene2_Draw(ActorCutscene2* this) { // Skybox For On Raills Levels
             break;
 
         case ACTOR_CS_VN_GROUND:
+            Matrix_Push(&gGfxMatrix);
 
+            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 0.0f, MTXF_APPLY);
+            Matrix_Scale(gGfxMatrix, 10.0f, 10.0f, 10.0f, MTXF_APPLY);
+
+            Matrix_RotateX(gGfxMatrix, 0.0f, MTXF_APPLY);
+            Matrix_RotateY(gGfxMatrix, 0.0f, MTXF_APPLY);
+            Matrix_RotateZ(gGfxMatrix, 0.0f, MTXF_APPLY);
+
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, aDisplayPlaceHolder_DL);
+
+            if (gPathProgress <= 12000.0f) {
+                gSPDisplayList(gMasterDisp++, vn_ground1_DL);
+            }
+
+            Matrix_Push(&gGfxMatrix);
+            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -1000.0f, MTXF_APPLY);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, aDisplayPlaceHolder_DL);
+
+            if (gPathProgress <= 22000.0f) {
+                gSPDisplayList(gMasterDisp++, vn_ground2_DL);
+            }
+            Matrix_Pop(&gGfxMatrix);
+
+            Matrix_Push(&gGfxMatrix);
+            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -2000.0f, MTXF_APPLY);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, aDisplayPlaceHolder_DL);
+
+            if (gPathProgress > 2500.0f && gPathProgress <= 32000.0f) {
+                gSPDisplayList(gMasterDisp++, vn_ground3_DL);
+            }
+            Matrix_Pop(&gGfxMatrix);
+
+            Matrix_Push(&gGfxMatrix);
+            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -3000.0f, MTXF_APPLY);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, aDisplayPlaceHolder_DL);
+
+            if (gPathProgress > 10000.0f && gPathProgress <= 42000.0f) {
+                gSPDisplayList(gMasterDisp++, vn_ground4_DL);
+            }
+            Matrix_Pop(&gGfxMatrix);
+
+            Matrix_Push(&gGfxMatrix);
+            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -4000.0f, MTXF_APPLY);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, aDisplayPlaceHolder_DL);
+
+            if (gPathProgress > 15000.0f && gPathProgress <= 52000.0f) {
+                gSPDisplayList(gMasterDisp++, vn_ground5_DL);
+            }
+            Matrix_Pop(&gGfxMatrix);
+
+            Matrix_Push(&gGfxMatrix);
+            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -5100.0f, MTXF_APPLY);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, aDisplayPlaceHolder_DL);
+
+            if (gPathProgress > 25000.0f && gPathProgress <= 62000.0f) {
+                gSPDisplayList(gMasterDisp++, vn_ground6_DL);
+            }
+            Matrix_Pop(&gGfxMatrix);
+
+            Matrix_Push(&gGfxMatrix);
+            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -6100.0f, MTXF_APPLY);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, aDisplayPlaceHolder_DL);
+
+            if (gPathProgress > 35000.0f && gPathProgress <= 72000.0f) {
+                gSPDisplayList(gMasterDisp++, vn_ground7_DL);
+            }
+            Matrix_Pop(&gGfxMatrix);
+
+            Matrix_Push(&gGfxMatrix);
+            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -7100.0f, MTXF_APPLY);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, aDisplayPlaceHolder_DL);
+
+            if (gPathProgress > 45000.0f && gPathProgress <= 82000.0f) {
+                gSPDisplayList(gMasterDisp++, vn_ground8_DL);
+            }
+            Matrix_Pop(&gGfxMatrix);
+
+            Matrix_Push(&gGfxMatrix);
+            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -8100.0f, MTXF_APPLY);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, aDisplayPlaceHolder_DL);
+
+            if (gPathProgress > 55000.0f && gPathProgress <= 92000.0f) {
+                gSPDisplayList(gMasterDisp++, vn_ground9_DL);
+            }
+            Matrix_Pop(&gGfxMatrix);
+
+            Matrix_Push(&gGfxMatrix);
+            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -9200.0f, MTXF_APPLY);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, aDisplayPlaceHolder_DL);
+
+            if (gPathProgress > 65000.0f && gPathProgress <= 102000.0f) {
+                gSPDisplayList(gMasterDisp++, vn_ground10_DL);
+            }
+            Matrix_Pop(&gGfxMatrix);
+
+            Matrix_Push(&gGfxMatrix);
+            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -10200.0f, MTXF_APPLY);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, aDisplayPlaceHolder_DL);
+
+            if (gPathProgress > 75000.0f && gPathProgress <= 112000.0f) {
+                gSPDisplayList(gMasterDisp++, vn_ground11_DL);
+            }
+            Matrix_Pop(&gGfxMatrix);
+
+            Matrix_Push(&gGfxMatrix);
+            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -11200.0f, MTXF_APPLY);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, aDisplayPlaceHolder_DL);
+
+            if (gPathProgress > 85000.0f && gPathProgress <= 122000.0f) {
+                gSPDisplayList(gMasterDisp++, vn_ground12_DL);
+            }
+            Matrix_Pop(&gGfxMatrix);
+
+            Matrix_Push(&gGfxMatrix);
+            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -12200.0f, MTXF_APPLY);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, aDisplayPlaceHolder_DL);
+
+            if (gPathProgress > 95000.0f && gPathProgress <= 132000.0f) {
+                gSPDisplayList(gMasterDisp++, vn_ground13_DL);
+            }
+            Matrix_Pop(&gGfxMatrix);
+
+            Matrix_Push(&gGfxMatrix);
+            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -13300.0f, MTXF_APPLY);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, aDisplayPlaceHolder_DL);
+
+            if (gPathProgress > 105000.0f && gPathProgress <= 142000.0f) {
+                gSPDisplayList(gMasterDisp++, vn_ground14_DL);
+            }
+            Matrix_Pop(&gGfxMatrix);
+
+            Matrix_Push(&gGfxMatrix);
+            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -14300.0f, MTXF_APPLY);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, aDisplayPlaceHolder_DL);
+
+            if (gPathProgress > 125000.0f && gPathProgress <= 152000.0f) {
+                gSPDisplayList(gMasterDisp++, vn_ground15_DL);
+            }
+            Matrix_Pop(&gGfxMatrix);
+
+            Matrix_Push(&gGfxMatrix);
+            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -15300.0f, MTXF_APPLY);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, aDisplayPlaceHolder_DL);
+
+            if (gPathProgress > 135000.0f && gPathProgress <= 162000.0f) {
+                gSPDisplayList(gMasterDisp++, vn_ground16_DL);
+            }
+            Matrix_Pop(&gGfxMatrix);
+
+            Matrix_Push(&gGfxMatrix);
+            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -16300.0f, MTXF_APPLY);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, aDisplayPlaceHolder_DL);
+
+            if (gPathProgress > 145000.0f && gPathProgress <= 172000.0f) {
+                gSPDisplayList(gMasterDisp++, vn_ground17_DL);
+            }
+            Matrix_Pop(&gGfxMatrix);
+
+            Matrix_Push(&gGfxMatrix);
+            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -17300.0f, MTXF_APPLY);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, aDisplayPlaceHolder_DL);
+
+            if (gPathProgress > 148000.0f && gPathProgress <= 182000.0f) {
+                gSPDisplayList(gMasterDisp++, vn_ground18_DL);
+            }
+            Matrix_Pop(&gGfxMatrix);
+
+            Matrix_Pop(&gGfxMatrix);
+            break;
+
+        case ACTOR_CS_VN1_SKYBOX:
+
+            if (gPathProgress > 0.0f) { // Skybox Follow Player
+                useZ = gPlayer->pos.z;
+            }
+
+            if (gPathProgress < 181000.0f) {
+                Matrix_Push(&gGfxMatrix);
+
+                Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, useZ, MTXF_APPLY);
+                Matrix_Scale(gGfxMatrix, 100.0f, 100.0f, 100.0f, MTXF_APPLY);
+
+                Matrix_RotateX(gCalcMatrix, 0.0f, MTXF_APPLY);
+                Matrix_RotateY(gCalcMatrix, 0.0f, MTXF_APPLY);
+                Matrix_RotateZ(gCalcMatrix, 0.0f, MTXF_APPLY);
+
+                Matrix_SetGfxMtx(&gMasterDisp);
+                gSPDisplayList(gMasterDisp++, aVe1SkyboxDL);
+                Matrix_Pop(&gGfxMatrix);
+            }
             break;
     }
 }

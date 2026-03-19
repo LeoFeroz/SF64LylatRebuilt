@@ -653,9 +653,6 @@ void Background_DrawBackdrop(void) {
                             case LEVEL_CORNERIA:
                                 gSPDisplayList(gMasterDisp++, D_CO_60059F0);
                                 break;
-                            case LEVEL_VENOM_1:
-                                gSPDisplayList(gMasterDisp++, D_VE1_60046F0);
-                                break;
                         }
 
                         // Translate to the next position (move right by 7280.0f each time)
@@ -1566,17 +1563,9 @@ void Background_DrawGround(void) {
             }
             break;
 
-        case LEVEL_VENOM_1:
         case LEVEL_MACBETH:
             RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
             switch (gCurrentLevel) {
-                case LEVEL_VENOM_1:
-                    sp1C4 = D_VE1_6006750;
-                    sp1C0 = D_VE1_60066D0;
-                    gDPLoadTextureBlock(gMasterDisp++, sp1C4, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32, 0,
-                                        G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, 5, 5, G_TX_NOLOD,
-                                        G_TX_NOLOD);
-                    break;
                 case LEVEL_MACBETH:
                     sp1C4 = D_MA_602DCB8;
                     sp1C0 = D_MA_60306D0;

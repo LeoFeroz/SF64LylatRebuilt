@@ -3008,6 +3008,7 @@ void Play_Init(void) {
                 break;
             case LEVEL_VENOM_1:
                 Venom1_Ground_Init();
+                Venom1_Skybox_Init();
                 break;
         }
     }

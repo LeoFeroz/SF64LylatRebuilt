@@ -65,6 +65,8 @@ void Venom1_Ve1MonkeyStatue_Init(Actor *);
 void Venom1_Ve1Golemech_Init(Boss *);
 void Venom1_Ve1Golemech_SetShadow(Boss *);
 void Venom1_Ve1Golemech_Dying(Boss *);
+void Venom1_Ground_Init(void);
+void Venom1_Skybox_Init(void);
 void Training_RingPassCount_Draw(void);
 void Training_Setup360(void);
 void Training_SpawnEnemies(void);
