@@ -232,7 +232,7 @@ extern UNK_TYPE F_80161AC0[16];
 extern Scenery gScenery[50];
 extern Sprite gSprites[40];
 extern Actor gActors[80];
-extern Boss gBosses[4];
+extern Boss gBosses[20];
 extern Effect gEffects[100];
 extern Item gItems[20];
 extern PlayerShot gPlayerShots[16];
