@@ -280,7 +280,7 @@ UNK_TYPE P_800D31A4 = 0;
 Scenery gScenery[50];
 Sprite gSprites[40];
 Actor gActors[80];
-Boss gBosses[20];
+Boss gBosses[4];
 Effect gEffects[100];
 Item gItems[20];
 PlayerShot gPlayerShots[16];
