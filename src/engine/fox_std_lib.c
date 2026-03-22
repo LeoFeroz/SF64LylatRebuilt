@@ -150,7 +150,7 @@ void Lib_Texture_ScrollMod(u16* texture, s32 width, s32 height, u8 mode, u8 mult
     if (custom) {
         u32* pixel = SEGMENTED_TO_VIRTUAL(texture);
         s32 u, v;
-        s32 shift = multiply % height; // Previne rotação excessiva
+        s32 shift = multiply % height;
 
         width = newWidth;
         height = newHeight;
@@ -159,29 +159,26 @@ void Lib_Texture_ScrollMod(u16* texture, s32 width, s32 height, u8 mode, u8 mult
             return;
 
         switch (mode) {
-            case 0: // vertical up
+            case 0:
                 for (u = 0; u < width; u++) {
                     u32* coluna = &pixel[u];
-                    u32 buffer[256]; // Buffer temporário na stack
+                    u32 buffer[256];
 
-                    // Salva as primeiras 'shift' linhas
                     for (v = 0; v < shift; v++) {
                         buffer[v] = coluna[v * width];
                     }
 
-                    // Move o resto para cima
                     for (v = shift; v < height; v++) {
                         coluna[(v - shift) * width] = coluna[v * width];
                     }
 
-                    // Coloca as linhas salvas no final
                     for (v = 0; v < shift; v++) {
                         coluna[(height - shift + v) * width] = buffer[v];
                     }
                 }
                 break;
 
-            case 1: // vertical down
+            case 1:
                 shift = multiply % height;
                 if (shift == 0)
                     return;
@@ -190,24 +187,21 @@ void Lib_Texture_ScrollMod(u16* texture, s32 width, s32 height, u8 mode, u8 mult
                     u32* coluna = &pixel[u];
                     u32 buffer[256];
 
-                    // Salva as últimas 'shift' linhas
                     for (v = 0; v < shift; v++) {
                         buffer[v] = coluna[(height - shift + v) * width];
                     }
 
-                    // Move o resto para baixo
                     for (v = height - shift - 1; v >= 0; v--) {
                         coluna[(v + shift) * width] = coluna[v * width];
                     }
 
-                    // Coloca as linhas salvas no início
                     for (v = 0; v < shift; v++) {
                         coluna[v * width] = buffer[v];
                     }
                 }
                 break;
 
-            case 2: // horizontal right
+            case 2:
                 shift = width - (multiply % width);
                 if (shift == 0)
                     return;
@@ -216,24 +210,22 @@ void Lib_Texture_ScrollMod(u16* texture, s32 width, s32 height, u8 mode, u8 mult
                     u32* linha = &pixel[v * width];
                     u32 buffer[256];
 
-                    // Salva as últimas 'shift' colunas
+
                     for (u = 0; u < shift; u++) {
                         buffer[u] = linha[width - shift + u];
                     }
 
-                    // Move o resto para a direita
                     for (u = width - shift - 1; u >= 0; u--) {
                         linha[u + shift] = linha[u];
                     }
 
-                    // Coloca as colunas salvas no início
                     for (u = 0; u < shift; u++) {
                         linha[u] = buffer[u];
                     }
                 }
                 break;
 
-            case 3: // horizontal left
+            case 3:
                 shift = multiply % width;
                 if (shift == 0)
                     return;
@@ -242,17 +234,14 @@ void Lib_Texture_ScrollMod(u16* texture, s32 width, s32 height, u8 mode, u8 mult
                     u32* linha = &pixel[v * width];
                     u32 buffer[256];
 
-                    // Salva as primeiras 'shift' colunas
                     for (u = 0; u < shift; u++) {
                         buffer[u] = linha[u];
                     }
 
-                    // Move o resto para a esquerda
                     for (u = shift; u < width; u++) {
                         linha[u - shift] = linha[u];
                     }
 
-                    // Coloca as colunas salvas no final
                     for (u = 0; u < shift; u++) {
                         linha[width - shift + u] = buffer[u];
                     }
@@ -268,7 +257,7 @@ void Lib_Texture_ScrollMod(u16* texture, s32 width, s32 height, u8 mode, u8 mult
             return;
 
         switch (mode) {
-            case 0: // vertical up
+            case 0:
                 for (u = 0; u < width; u++) {
                     u16* coluna = &pixel[u];
                     u16 buffer[256];
@@ -287,7 +276,7 @@ void Lib_Texture_ScrollMod(u16* texture, s32 width, s32 height, u8 mode, u8 mult
                 }
                 break;
 
-            case 1: // vertical down
+            case 1:
                 shift = multiply % height;
                 if (shift == 0)
                     return;
@@ -310,7 +299,7 @@ void Lib_Texture_ScrollMod(u16* texture, s32 width, s32 height, u8 mode, u8 mult
                 }
                 break;
 
-            case 2: // horizontal right
+            case 2:
                 shift = width - (multiply % width);
                 if (shift == 0)
                     return;
@@ -333,7 +322,7 @@ void Lib_Texture_ScrollMod(u16* texture, s32 width, s32 height, u8 mode, u8 mult
                 }
                 break;
 
-            case 3: // horizontal left
+            case 3:
                 shift = multiply % width;
                 if (shift == 0)
                     return;
