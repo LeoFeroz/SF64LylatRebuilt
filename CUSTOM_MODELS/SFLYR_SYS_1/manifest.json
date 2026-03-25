@@ -11,14 +11,26 @@
     "textureWidth": 64,
     "textureHeight": 64
   },
+  "ast_stage/ti_s6_D": {
+    "hash": "e2686a08f806186084524318dff96f44386980deba4d2d1ce5697116e9f03010",
+    "textureType": 2,
+    "textureWidth": 64,
+    "textureHeight": 64
+  },
   "ast_skybox/bosky1_D": {
     "hash": "4053a996d186c98881b9abff9090113582b87d32409a41090ea39981b82ec484",
     "textureType": 2,
     "textureWidth": 64,
     "textureHeight": 64
   },
-  "ast_stage/ti_s6_D": {
-    "hash": "e2686a08f806186084524318dff96f44386980deba4d2d1ce5697116e9f03010",
+  "ast_skybox/wp2bg1_D": {
+    "hash": "4116bd37c141748d9dfc49e106fc343701bf0bff93a48f7a300000d20f98dac2",
+    "textureType": 2,
+    "textureWidth": 64,
+    "textureHeight": 64
+  },
+  "ast_skybox/wp2bg0_D": {
+    "hash": "bdbd7a96a6513eb4c698bdab81aaa6a468762b5c29c6e213b333ec43c7e984e1",
     "textureType": 2,
     "textureWidth": 64,
     "textureHeight": 64
@@ -107,6 +119,12 @@
     "textureWidth": 64,
     "textureHeight": 64
   },
+  "ast_skybox/wp1bg0_D": {
+    "hash": "b34731d48cb47be7502c2d84d3c81dad79ac210a8491cbaf7b68c39faf1159fb",
+    "textureType": 2,
+    "textureWidth": 64,
+    "textureHeight": 64
+  },
   "ast_skybox/ve1skyt0_D": {
     "hash": "5bd4601f8cb2b5ee103ea5b45781e213b20189f702ab8b7cf4e5ddc446469278",
     "textureType": 2,
@@ -131,6 +149,12 @@
     "textureWidth": 64,
     "textureHeight": 64
   },
+  "ast_skybox/wp2bg2_D": {
+    "hash": "7ef857babe0c039caa2374dd20df2115d3f21af9ec0eefff6892e52d9d5295fb",
+    "textureType": 2,
+    "textureWidth": 64,
+    "textureHeight": 64
+  },
   "ast_stage/ti_s0_D": {
     "hash": "065edf496eac5502df156ef5ab7e65d58a03044d0b3fa3a2eabb781f636a365f",
     "textureType": 2,
@@ -139,6 +163,12 @@
   },
   "ast_skybox/sxbg0_1": {
     "hash": "9d9fb3d71344a5ef8a0e486d49104d4f8486b85e863040a17570eb84f58fd049",
+    "textureType": 2,
+    "textureWidth": 64,
+    "textureHeight": 64
+  },
+  "ast_skybox/wp1bg1_D": {
+    "hash": "bafdd9650c56b74ed2b4552bf5dbb3cdb3a13c6770894fee5187a389805588fb",
     "textureType": 2,
     "textureWidth": 64,
     "textureHeight": 64
@@ -203,14 +233,26 @@
     "textureWidth": 64,
     "textureHeight": 64
   },
+  "ast_stage/vn_ground7_D": {
+    "hash": "3c3c2eed5709dc33f0e28c93ba54e668b1c0c43af7bf63b61e3cf0bd2348e9ee",
+    "textureType": 2,
+    "textureWidth": 64,
+    "textureHeight": 64
+  },
   "ast_stage/ti_s5_D": {
     "hash": "354d687a10b90a3a34c8a66bded8907fbb0aca0f9f80832dc65b7d6f3867b35f",
     "textureType": 2,
     "textureWidth": 64,
     "textureHeight": 64
   },
-  "ast_stage/vn_ground7_D": {
-    "hash": "3c3c2eed5709dc33f0e28c93ba54e668b1c0c43af7bf63b61e3cf0bd2348e9ee",
+  "ast_skybox/mebg1_D": {
+    "hash": "fdb26f39e27143a00d47444328c120e0da09f85723d360ab170a49d0d8b09bac",
+    "textureType": 2,
+    "textureWidth": 64,
+    "textureHeight": 32
+  },
+  "ast_skybox/sxbg0_D": {
+    "hash": "f78c0ecab659d475abea79f66c2a1b043d45db361f4f66b785347f96ddd12065",
     "textureType": 2,
     "textureWidth": 64,
     "textureHeight": 64

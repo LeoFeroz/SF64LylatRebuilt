@@ -5,10 +5,6 @@
 	<CullDisplayList Start="0" End="7"/>
 	<CallDisplayList Path="ast_skybox/mat_aSxSkyboxDL_SXSky"/>
 	<CallDisplayList Path="ast_skybox/aSxSkyboxDL_tri_0"/>
-	<CallDisplayList Path="ast_skybox/mat_aSxSkyboxDL_SXSky1"/>
-	<CallDisplayList Path="ast_skybox/aSxSkyboxDL_tri_1"/>
-	<CallDisplayList Path="ast_skybox/mat_aSxSkyboxDL_SXSkyL"/>
-	<CallDisplayList Path="ast_skybox/aSxSkyboxDL_tri_2"/>
 	<EndDisplayList/>
 </DisplayList>
 

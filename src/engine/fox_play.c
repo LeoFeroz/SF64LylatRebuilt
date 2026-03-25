@@ -22,6 +22,7 @@
 #include "assets/ast_area_6.h"
 #include "assets/ast_zoness.h"
 #include "port/hooks/Events.h"
+#include "assets/ast_warp_zone.h"
 
 extern float gCurrentScreenWidth;
 extern float gCurrentScreenHeight;
@@ -2636,6 +2637,43 @@ void Play_InitLevel(void) {
     f32* fptr;
 
     switch (gCurrentLevel) {
+        case LEVEL_METEO:
+            if ((gLevelPhase == 0)) {
+                Meteo_Skybox_Init();
+
+            } else if ((gLevelPhase == 1)) {
+                WarpZone_Skybox_Init();
+                Meteo_Skybox_Init();
+            }
+            break;
+        case LEVEL_SECTOR_X:
+
+            if ((gLevelPhase == 0)) {
+                SectorX_Skybox_Init();
+
+            } else if ((gLevelPhase == 1)) {
+                WarpZone_Skybox_Init();
+                SectorX_Skybox_Init();
+             
+            }
+            break;
+        case LEVEL_TITANIA:
+            Titania_Skybox_Init();
+            Titania_Ground_Init();
+            break;
+        case LEVEL_SOLAR:
+            gFogRed = 120;
+            gFogGreen = 30;
+            gFogBlue = 0;
+            Solar_Skybox_Init();
+            break;
+        case LEVEL_VENOM_1:
+            Venom1_Ground_Init();
+            Venom1_Skybox_Init();
+            break;
+    }
+
+    switch (gCurrentLevel) {
         case LEVEL_TRAINING:
             AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_28);
             gTeamLowHealthMsgTimer = -1;
@@ -2662,6 +2700,29 @@ void Play_InitLevel(void) {
 
         case LEVEL_FORTUNA:
         case LEVEL_METEO:
+            if (gLevelPhase == 0) {
+                gLight1R = 100;
+                gLight1G = 201;
+                gLight1B = 139;
+                gAmbientR = 0;
+                gAmbientG = 102;
+                gAmbientB = 85;
+
+            }
+
+            if (gLevelPhase == 1) {
+                gFogRed = 178;
+                gFogGreen = 190;
+                gFogBlue = 90;
+                gLight1R = 200;
+                gLight1G = 200;
+                gLight1B = 120;
+                gAmbientR = 217;
+                gAmbientG = 164;
+                gAmbientB = 104;
+            }
+            break;
+
         case LEVEL_SECTOR_X:
             
             if (gLevelPhase == 0) {
@@ -2679,15 +2740,15 @@ void Play_InitLevel(void) {
             }
 
             if (gLevelPhase == 1) {
-                gFogRed = 178;
-                gFogGreen = 190;
-                gFogBlue = 90;
-                gLight1R = 200;
-                gLight1G = 200;
-                gLight1B = 120;
-                gAmbientR = 0;
-                gAmbientG = 50;
-                gAmbientB = 100;
+                gFogRed = 107;
+                gFogGreen = 91;
+                gFogBlue = 190;
+                gLight1R = 194;
+                gLight1G = 100;
+                gLight1B = 201;
+                gAmbientR = 85;
+                gAmbientG = 0;
+                gAmbientB = 102;
             }
             break;
 
@@ -2807,6 +2868,7 @@ void Play_InitLevel(void) {
                 }
             }
             break;
+
     }
 }
 
@@ -2843,6 +2905,9 @@ void Player_InitVersus(void) {
 
 void Play_Init(void) {
     s32 i;
+    s32 levelId;
+
+    levelId = gCurrentLevel;
 
     gArwingSpeed = 40.0f;
     for (i = 0; i < ARRAY_COUNT(gControllerRumbleEnabled); i++) {
@@ -2973,44 +3038,6 @@ void Play_Init(void) {
         gPlayerGlareAlphas[i] = D_ctx_801783C0[i] = 0;
         gControllerRumbleTimers[i] = 0;
         gPlayerScores[i] = 0;
-    }
-
-    if (gLevelMode == LEVELMODE_ALL_RANGE) {
-
-        switch (gCurrentLevel) {
-            case LEVEL_FORTUNA:
-                break;
-            
-            case LEVEL_BOLSE: 
-                break;
-        }
-    }
-
-    if (gLevelMode == LEVELMODE_ON_RAILS) {
-        gProjectFar = 9999999999999999.0f;
-
-        switch (gCurrentLevel) {
-            case LEVEL_METEO:
-                Meteo_Skybox_Init();
-                break;
-            case LEVEL_SECTOR_X:
-                SectorX_Skybox_Init();
-                break;
-            case LEVEL_TITANIA:
-                Titania_Skybox_Init();
-                Titania_Ground_Init();
-                break;
-            case LEVEL_SOLAR:
-                gFogRed = 120;
-                gFogGreen = 30;
-                gFogBlue = 0;
-                Solar_Skybox_Init();
-                break;
-            case LEVEL_VENOM_1:
-                Venom1_Ground_Init();
-                Venom1_Skybox_Init();
-                break;
-        }
     }
 
     if (gLevelMode == LEVELMODE_ALL_RANGE) {
@@ -6937,8 +6964,21 @@ void Play_UpdateLevel(void) {
 
         case LEVEL_METEO:
             Lib_Texture_Scroll(D_102FF08, 8, 8, 1);
-            /* fallthrough */
+            if ((gLevelPhase == 1) && (gPlayer[0].state == PLAYERSTATE_LEVEL_COMPLETE)) {
+                gFogRed = 0;
+                gFogGreen = 0;
+                gFogBlue = 0;
+                gLight1R = 100;
+                gLight1G = 201;
+                gLight1B = 139;
+                gAmbientR = 0;
+                gAmbientG = 102;
+                gAmbientB = 85;
+            }
+            break;
+
         case LEVEL_SECTOR_X:
+            Lib_Texture_Scroll(D_102FF08, 8, 8, 1);
             if (gLevelPhase == 1) {
                 gBlurAlpha = 128;
                 if (gPlayer[0].state == PLAYERSTATE_LEVEL_COMPLETE) {
@@ -6956,6 +6996,20 @@ void Play_UpdateLevel(void) {
                 AUDIO_PLAY_SFX(NA_SE_WARP_HOLE, gDefaultSfxSource, 0);
                 gMissionStatus = MISSION_WARP;
                 gLeveLClearStatus[gCurrentLevel] = 1;
+            }
+
+            if ((gLevelPhase == 1) && (gPlayer[0].state == PLAYERSTATE_LEVEL_COMPLETE)) {
+                gFogRed = 0;
+                gFogGreen = 0;
+                gFogBlue = 0;
+                gLight1R = 90;
+                gLight1G = 100;
+                gLight1B = 90;
+                gAmbientR = 5;
+                gAmbientG = 10;
+                gAmbientB = 5;
+                gFogNear = 996;
+                gFogFar = 1000;
             }
             break;
 

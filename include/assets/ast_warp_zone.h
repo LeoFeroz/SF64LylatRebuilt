@@ -53,3 +53,24 @@ static const ALIGN_ASSET(2) char ast_warp_zone_seg7_vtx_1590[] = "__OTR__ast_war
 
 static const ALIGN_ASSET(2) char D_WZ_70015D0[] = "__OTR__ast_warp_zone/D_WZ_70015D0";
 
+static const ALIGN_ASSET(2) char aWrp1SkyboxDL[] = "__OTR__ast_skybox/aWrp1SkyboxDL";
+
+static const ALIGN_ASSET(2) char aWrp1Skybox1DL[] = "__OTR__ast_skybox/aWrp1Skybox1DL";
+
+static const ALIGN_ASSET(2) char aWrp1Skybox2DL[] = "__OTR__ast_skybox/aWrp1Skybox2DL";
+
+static const ALIGN_ASSET(2) char aWrp1Skybox3DL[] = "__OTR__ast_skybox/aWrp1Skybox3DL";
+
+static const ALIGN_ASSET(2) char wp1bg1_D[] = "__OTR__ast_skybox/wp1bg1_D";
+
+static const ALIGN_ASSET(2) char aWrp2SkyboxDL[] = "__OTR__ast_skybox/aWrp2SkyboxDL";
+
+static const ALIGN_ASSET(2) char aWrp2Skybox1DL[] = "__OTR__ast_skybox/aWrp2Skybox1DL";
+
+static const ALIGN_ASSET(2) char aWrp2Skybox2DL[] = "__OTR__ast_skybox/aWrp2Skybox2DL";
+
+static const ALIGN_ASSET(2) char aWrp2Skybox3DL[] = "__OTR__ast_skybox/aWrp2Skybox3DL";
+
+static const ALIGN_ASSET(2) char wp2bg1_D[] = "__OTR__ast_skybox/wp2bg1_D";
+
+static const ALIGN_ASSET(2) char wp2bg2_D[] = "__OTR__ast_skybox/wp2bg2_D";

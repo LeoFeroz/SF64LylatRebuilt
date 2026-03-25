@@ -1995,7 +1995,7 @@ void SectorX_LevelComplete(Player* player) {
 }
 
 void SectorX_Skybox_Init(void) {
-    ActorCutscene2* SxSky = &gBosses[2];
+    ActorCutscene2* SxSky = &gBosses[3];
 
     Actor_Initialize(SxSky);
     SxSky->obj.status = OBJ_INIT;

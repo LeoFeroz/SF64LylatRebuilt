@@ -25,6 +25,7 @@
 #include "assets/ast_fortuna.h"
 #include "assets/ast_solar.h"
 #include "assets/ast_vn_replace.h"
+#include "assets/ast_warp_zone.h"
 
 void func_demo_80048AC0(TeamId teamId) {
     s32 teamShield;
@@ -3026,32 +3027,139 @@ void Cutscene_DrawGreatFox(void) {
     FrameInterpolation_RecordCloseChild();
 }
 
-void ActorCutscene2_Update(ActorCutscene2* this) {
+//Skybox Special Parameters
+int SkyWarpAlpha = 255;
+int SkyWarpEffAlpha = 0;
+float SkyWarpZPos = 0.0f;
+int SkyWarpUIEnabled = 1;
+
+void ActorCutscene2_Update(ActorCutscene2* this) {          //CUSTOM SCENERY  (Skybox,Ground,etc)
     gProjectFar = 9999999999999999.0f;
+
+    float alphaSpeed = 8;
+    float zSpeed = 600.0f;
+
+    
+    SkyWarpUIEnabled = 1;
+
+    
+    switch (gCurrentLevel) {
+        case LEVEL_METEO:
+
+            Lib_Texture_ScrollMod(wp2bg1_D, 64, 64, 0, 1);  //WARP SKYBOX TEXTURE LINES SCROLL 
+            Lib_Texture_ScrollMod(wp2bg2_D, 64, 64, 0, 1);  //////////////////////////
+
+            if (gPlayer[0].state == PLAYERSTATE_ENTER_WARP_ZONE) {
+
+                SkyWarpAlpha -= alphaSpeed;                 //WARP Fade  (SKYBOX --> WARP EFF)
+                if (SkyWarpAlpha < 0) {
+                    SkyWarpAlpha = 0;
+                }
+
+                SkyWarpZPos -= zSpeed;                      //Warp Skybox Z axis Distortion
+                if (SkyWarpZPos < -16000.0f) {
+                    SkyWarpZPos = -16000.0f;
+                }
+
+                if ((gCurrentLevel == LEVEL_METEO) && (gLevelPhase == 1)) {
+
+                    if (gPlayer[0].state != PLAYERSTATE_LEVEL_COMPLETE) {
+                        SkyWarpZPos = 0.0f;                 //Reset Skybox Z axis
+                        SkyWarpEffAlpha += alphaSpeed / 3;  //Warp Fade  (Warp Eff --> Warp Skybox)
+                        if (SkyWarpEffAlpha > 255) {
+                            SkyWarpEffAlpha = 255;
+                        }
+                    }
+                }
+
+            } else if ((gCurrentLevel == LEVEL_METEO) && (gLevelPhase == 1)) {
+
+                if (gPlayer[0].state == PLAYERSTATE_LEVEL_COMPLETE) {
+                    SkyWarpEffAlpha -= alphaSpeed / 6;     //Warp Fade  (Warp Skybox --> Skybox)
+                    if (SkyWarpEffAlpha < 0) {
+                        SkyWarpEffAlpha = 0;
+                    }
+
+                    SkyWarpUIEnabled = 0;
+
+                    SkyWarpAlpha += alphaSpeed / 6;        //Warp Fade  (Warp Skybox --> Skybox)
+                    if (SkyWarpAlpha > 255) {
+                        SkyWarpAlpha = 255;
+                    }
+
+                } else {
+                    SkyWarpAlpha = 0;
+                }
+
+            } else {
+                SkyWarpAlpha = 255;
+                SkyWarpEffAlpha = 0;
+            }
+            break;
+        case LEVEL_SECTOR_X:
+
+            Lib_Texture_ScrollMod(wp1bg1_D, 64, 64, 0, 1);
+
+            if (gPlayer[0].state == PLAYERSTATE_ENTER_WARP_ZONE) {
+
+                SkyWarpAlpha -= alphaSpeed;
+                if (SkyWarpAlpha < 0) {
+                    SkyWarpAlpha = 0;
+                }
+
+                SkyWarpZPos -= zSpeed;
+                if (SkyWarpZPos < -16000.0f) {
+                    SkyWarpZPos = -16000.0f;
+                }
+
+                if ((gCurrentLevel == LEVEL_SECTOR_X) && (gLevelPhase == 1)) {
+
+                    if (gPlayer[0].state != PLAYERSTATE_LEVEL_COMPLETE) {
+                        SkyWarpZPos = 0.0f;
+                        SkyWarpEffAlpha += alphaSpeed / 3;
+                        if (SkyWarpEffAlpha > 255) {
+                            SkyWarpEffAlpha = 255;
+                        }
+                    }
+                }
+
+            } else if ((gCurrentLevel == LEVEL_SECTOR_X) && (gLevelPhase == 1)) {
+
+                if (gPlayer[0].state == PLAYERSTATE_LEVEL_COMPLETE) {
+                    SkyWarpEffAlpha -= alphaSpeed / 6;
+                    if (SkyWarpEffAlpha < 0) {
+                        SkyWarpEffAlpha = 0;
+                    }
+
+                    SkyWarpUIEnabled = 0;
+
+                    SkyWarpAlpha += alphaSpeed / 6;
+                    if (SkyWarpAlpha > 255) {
+                        SkyWarpAlpha = 255;
+                    }
+
+                } else {
+                    SkyWarpAlpha = 0;
+                }
+
+            } else {
+                SkyWarpAlpha = 255;
+                SkyWarpEffAlpha = 0;
+            }
+            break;
+    }
 }
 
-void ActorCutscene2_Draw(ActorCutscene2* this) { // Skybox For On Raills Levels
-    static f32 D_800CA210 = 0.0f;
-    static f32 D_800CA214 = 0.0f;
-    static f32 D_800CA218 = 0.0f;
-    f32 sp2DC;
-    f32 sp2D8;
-    f32 sp2D4;
-    s32 sp2D0;
-    s32 pad2C4[3];
-    Vec3f sp2B8;
-    Vec3f sp2AC;
-    Vec3f sp144[30];
-    s32 pad[3];
-    s32 animFrameData;
-    f32 camX;
-    f32 camY;
-    f32 camZ;
-    f32 y;
-    f32 x;
+void ActorCutscene2_Draw(ActorCutscene2* this) {           //CUSTOM SCENERY  (Skybox,Ground,etc)
     static float lastFollowZ = 0.0f;
     float useZ;
     static s32 sTiGroundTexturesPreloaded = 0;
+    float SkyWarpA = SkyWarpAlpha;
+    float SkyWarpTZ = SkyWarpZPos;
+    float SkyWarpEffA = SkyWarpEffAlpha;
+    f32 SkyWarpRed;
+    f32 SkyWarpGreen;
+    f32 SkyWarpBlue;
 
     switch (this->animFrame) {
         case ACTOR_CS_ME_SKYBOX:
@@ -3064,15 +3172,30 @@ void ActorCutscene2_Draw(ActorCutscene2* this) { // Skybox For On Raills Levels
 
             Matrix_Push(&gGfxMatrix);
 
-            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, useZ, MTXF_APPLY);
-            Matrix_Scale(gGfxMatrix, 200.0f, 200.0f, 200.0f, MTXF_APPLY);
+            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, useZ - SkyWarpTZ, MTXF_APPLY);
+
+            if ((gCurrentLevel == LEVEL_METEO) && (gLevelPhase == 0)) {
+                Matrix_Scale(gGfxMatrix, 200.0f, 200.0f, 200.0f, MTXF_APPLY);
+            } else if ((gCurrentLevel == LEVEL_METEO) && (gLevelPhase == 1)) {
+                Matrix_Scale(gGfxMatrix, 1000.0f, 1000.0f, 1000.0f, MTXF_APPLY);
+            }
 
             Matrix_RotateX(gCalcMatrix, 0.0f, MTXF_APPLY);
             Matrix_RotateY(gCalcMatrix, 0.0f, MTXF_APPLY);
             Matrix_RotateZ(gCalcMatrix, 0.0f, MTXF_APPLY);
 
             Matrix_SetGfxMtx(&gMasterDisp);
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 33, 255, 245, SkyWarpA);
             gSPDisplayList(gMasterDisp++, aMeSkyboxDL);
+
+            float alpha2 =
+                (SkyWarpA > 127.0f) ? (SkyWarpA - 127.0f) : 0.0f; // Base alpha (128) 256 - 128 = "127" (Ajust ForFade)
+
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 26, 133, 255, alpha2);
+            gSPDisplayList(gMasterDisp++, aMeSkybox1DL);
+
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 156, 194, 255, SkyWarpA);
+            gSPDisplayList(gMasterDisp++, aMeSkybox2DL);
 
             Matrix_Pop(&gGfxMatrix);
             break;
@@ -3087,15 +3210,33 @@ void ActorCutscene2_Draw(ActorCutscene2* this) { // Skybox For On Raills Levels
 
             Matrix_Push(&gGfxMatrix);
 
-            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, useZ, MTXF_APPLY);
-            Matrix_Scale(gGfxMatrix, 200.0f, 200.0f, 200.0f, MTXF_APPLY);
+            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, useZ - SkyWarpTZ, MTXF_APPLY);
+
+            if ((gCurrentLevel == LEVEL_SECTOR_X) && (gLevelPhase == 0)) {
+                Matrix_Scale(gGfxMatrix, 200.0f, 200.0f, 200.0f, MTXF_APPLY);
+            } else if ((gCurrentLevel == LEVEL_SECTOR_X) && (gLevelPhase == 1)) {
+                Matrix_Scale(gGfxMatrix, 1000.0f, 1000.0f, 1000.0f, MTXF_APPLY);
+            }
 
             Matrix_RotateX(gCalcMatrix, 0.0f, MTXF_APPLY);
             Matrix_RotateY(gCalcMatrix, 0.0f, MTXF_APPLY);
             Matrix_RotateZ(gCalcMatrix, 0.0f, MTXF_APPLY);
 
             Matrix_SetGfxMtx(&gMasterDisp);
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 57, 221, 215, SkyWarpA);
             gSPDisplayList(gMasterDisp++, aSxSkyboxDL);
+
+            float alpha3 = (SkyWarpA > 127.0f) ? (SkyWarpA - 127.0f) : 0.0f; // Base alpha (128) 256 - 128 = "127" (Ajust ForFade)
+
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, alpha3);
+            gSPDisplayList(gMasterDisp++, aSxSkybox1DL);
+
+            if (!SkyWarpUIEnabled) {
+                gSPDisplayList(gMasterDisp++, aDisplayPlaceHolder_DL);
+            } else {
+                gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, SkyWarpA);
+                gSPDisplayList(gMasterDisp++, aSxSkybox2DL);
+            }
 
             Matrix_Pop(&gGfxMatrix);
             break;
@@ -3538,5 +3679,110 @@ void ActorCutscene2_Draw(ActorCutscene2* this) { // Skybox For On Raills Levels
                 Matrix_Pop(&gGfxMatrix);
             }
             break;
+
+        case ACTOR_CS_WRP_SKYBOX:
+            
+            useZ = gPlayer->pos.z;
+
+            static float t = 0.0f;
+            static int direction = 1;
+
+            float speed = 0.05f;
+
+            // atualiza progresso (0 → 2)
+            t += speed * direction;
+
+            if (t >= 2.0f) {
+                t = 2.0f;
+                direction = -1;
+            } else if (t <= 0.0f) {
+                t = 0.0f;
+                direction = 1;
+            }
+
+            float r0, g0, b0;
+            float r1, g1, b1;
+            float r2, g2, b2;
+
+            if (gCurrentLevel == LEVEL_SECTOR_X) {
+                r0 = 255.0f, g0 = 255.0f, b0 = 255.0f;
+                r1 = 207.0f, g1 = 252.0f, b1 = 255.0f;
+                r2 = 255.0f, g2 = 184.0f, b2 = 248.0f;
+            } else if (gCurrentLevel == LEVEL_METEO) {
+                r0 = 255.0f, g0 = 255.0f, b0 = 255.0f;
+                r1 = 207.0f, g1 = 252.0f, b1 = 255.0f;
+                r2 = 255.0f, g2 = 184.0f, b2 = 248.0f;
+            }
+
+
+            float r, g, b;
+
+            if (t < 1.0f) {
+                float localT = t;
+                r = r0 + (r1 - r0) * localT;
+                g = g0 + (g1 - g0) * localT;
+                b = b0 + (b1 - b0) * localT;
+            } else {
+                float localT = t - 1.0f;
+                r = r1 + (r2 - r1) * localT;
+                g = g1 + (g2 - g1) * localT;
+                b = b1 + (b2 - b1) * localT;
+            }
+
+            SkyWarpRed = r;
+            SkyWarpGreen = g;
+            SkyWarpBlue = b;
+
+            switch (gCurrentLevel) {
+
+                case LEVEL_METEO:
+
+                    if ((gCurrentLevel == LEVEL_METEO) && (gLevelPhase == 1)) {
+
+                        Matrix_Push(&gGfxMatrix);
+
+                        Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, useZ - SkyWarpTZ, MTXF_APPLY);
+                        Matrix_Scale(gGfxMatrix, 200.0f, 200.0f, 200.0f, MTXF_APPLY);
+
+                        Matrix_RotateX(gCalcMatrix, 0.0f, MTXF_APPLY);
+                        Matrix_RotateY(gCalcMatrix, 0.0f, MTXF_APPLY);
+                        Matrix_RotateZ(gGfxMatrix, (gGameFrameCount * 0.5f) * M_DTOR, MTXF_APPLY);
+
+                        Matrix_SetGfxMtx(&gMasterDisp);
+                        gDPSetPrimColor(gMasterDisp++, 0, 0, SkyWarpRed, SkyWarpGreen, SkyWarpBlue, SkyWarpEffA);
+                        gSPDisplayList(gMasterDisp++, aWrp2SkyboxDL);
+                        gDPSetPrimColor(gMasterDisp++, 0, 0, SkyWarpRed, SkyWarpGreen, SkyWarpBlue, SkyWarpEffA);
+                        gSPDisplayList(gMasterDisp++, aWrp2Skybox1DL);
+                        gSPDisplayList(gMasterDisp++, aWrp2Skybox2DL);
+                        gSPDisplayList(gMasterDisp++, aWrp2Skybox3DL);
+
+                        Matrix_Pop(&gGfxMatrix);
+                    }
+                    break;
+                case LEVEL_SECTOR_X:
+
+                    if ((gCurrentLevel == LEVEL_SECTOR_X) && (gLevelPhase == 1)) {
+
+                        Matrix_Push(&gGfxMatrix);
+
+                        Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, useZ - SkyWarpTZ, MTXF_APPLY);
+                        Matrix_Scale(gGfxMatrix, 200.0f, 200.0f, 200.0f, MTXF_APPLY);
+
+                        Matrix_RotateX(gCalcMatrix, 0.0f, MTXF_APPLY);
+                        Matrix_RotateY(gCalcMatrix, 0.0f, MTXF_APPLY);
+                        Matrix_RotateZ(gGfxMatrix, (gGameFrameCount * 0.5f) * M_DTOR, MTXF_APPLY);
+
+                        Matrix_SetGfxMtx(&gMasterDisp);
+                        gDPSetPrimColor(gMasterDisp++, 0, 0, SkyWarpRed, SkyWarpGreen, SkyWarpBlue, SkyWarpEffA);
+                        gSPDisplayList(gMasterDisp++, aWrp1SkyboxDL);
+                        gDPSetPrimColor(gMasterDisp++, 0, 0, SkyWarpRed, SkyWarpGreen, SkyWarpBlue, SkyWarpEffA);
+                        gSPDisplayList(gMasterDisp++, aWrp1Skybox1DL);
+                        gSPDisplayList(gMasterDisp++, aWrp1Skybox2DL);
+                        gSPDisplayList(gMasterDisp++, aWrp1Skybox3DL);
+
+                        Matrix_Pop(&gGfxMatrix);
+                    }
+                    break;
+            }
     }
 }

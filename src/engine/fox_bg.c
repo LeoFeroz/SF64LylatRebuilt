@@ -190,11 +190,12 @@ f32 gStarPrevY[3000];
 
 s32 StarfieldDisabledLevels[] = {
     LEVEL_BOLSE,
+    LEVEL_SECTOR_X,
+    LEVEL_METEO,
 };
 
 bool Starfield_IsDisabled(void) {
 
-    // No menu, ignora a lista
     if (gGameState == GSTATE_MENU) {
         return false;
     } else if (gGameState == GSTATE_PLAY) {
@@ -944,20 +945,7 @@ void Background_DrawBackdrop(void) {
                             break;
 
                         case LEVEL_WARP_ZONE:
-                            if ((s32) gWarpZoneBgAlpha != 0) {
-                                RCP_SetupDL_62();
-                                gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, (s32) gWarpZoneBgAlpha);
-                                Matrix_Translate(gGfxMatrix, bgXpos - 120.0f, -(bgYpos - 120.0f), -290.0f, MTXF_APPLY);
-                                Matrix_Scale(gGfxMatrix, 1.7f, 1.7f, 1.0f, MTXF_APPLY);
-                                Matrix_Push(&gGfxMatrix);
-                                Matrix_RotateZ(gGfxMatrix, -(f32) gGameFrameCount * 10.0f * M_DTOR, MTXF_APPLY);
-                                Matrix_Scale(gGfxMatrix, 1.07f, 0.93f, 1.0f, MTXF_APPLY);
-                                Matrix_RotateZ(gGfxMatrix, gGameFrameCount * 10.0f * M_DTOR, MTXF_APPLY);
-                                Matrix_Scale(gGfxMatrix, 1.07f, 0.93f, 1.0f, MTXF_APPLY);
-                                Matrix_SetGfxMtx(&gMasterDisp);
-                                gSPDisplayList(gMasterDisp++, D_WZ_7001540);
-                                Matrix_Pop(&gGfxMatrix);
-                            }
+                            
                             break;
 
                         case LEVEL_METEO:

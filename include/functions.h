@@ -429,6 +429,7 @@ void Aquas_Effect363_Update(Effect*);
 void Aquas_Effect363_Draw(Effect*);
 void HUD_Score_Draw(f32, f32);
 void Venom1_LevelStart2(Player* player);
+void WarpZone_Skybox_Init(void);
 
 // fox_col1
 void func_col1_80098860(PlaneF* plane, Vec3f* point, Vec3f* normal);

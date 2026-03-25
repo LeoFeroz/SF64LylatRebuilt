@@ -2736,7 +2736,7 @@ void Meteo_8018ED9C(ActorCutscene* this) {
 }
 
 void Meteo_Skybox_Init(void) {
-    ActorCutscene2* MeSky = &gBosses[2]; 
+    ActorCutscene2* MeSky = &gBosses[3]; 
 
     Actor_Initialize(MeSky);
     MeSky->obj.status = OBJ_INIT;

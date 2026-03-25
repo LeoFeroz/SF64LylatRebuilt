@@ -5,8 +5,6 @@
 	<CullDisplayList Start="0" End="7"/>
 	<CallDisplayList Path="ast_skybox/mat_aMeSkyboxDL_mesky_0"/>
 	<CallDisplayList Path="ast_skybox/aMeSkyboxDL_tri_0"/>
-	<CallDisplayList Path="ast_skybox/mat_aMeSkyboxDL_mesky_1"/>
-	<CallDisplayList Path="ast_skybox/aMeSkyboxDL_tri_1"/>
 	<EndDisplayList/>
 </DisplayList>
 

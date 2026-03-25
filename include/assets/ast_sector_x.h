@@ -600,3 +600,7 @@ static const ALIGN_ASSET(2) char aSxBaseDebris1Hitbox[] = "__OTR__ast_sector_x/a
 
 static const ALIGN_ASSET(2) char aSxSkyboxDL[] = "__OTR__ast_skybox/aSxSkyboxDL";
 
+static const ALIGN_ASSET(2) char aSxSkybox1DL[] = "__OTR__ast_skybox/aSxSkybox1DL";
+
+static const ALIGN_ASSET(2) char aSxSkybox2DL[] = "__OTR__ast_skybox/aSxSkybox2DL";
+
